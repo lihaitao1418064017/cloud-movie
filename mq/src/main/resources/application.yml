@@ -1,0 +1,9 @@
+spring:
+  kafka:
+    bootstrap-servers: 47.99.216.57:9092
+    consumer:
+      group-id: test
+kafka:
+  multi:
+    bootstrap-servers: 47.99.216.57:9092
+  topic: order
