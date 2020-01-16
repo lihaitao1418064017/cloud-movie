@@ -1,5 +1,6 @@
 package org.lht.boot.mq.producer;
 
+import org.lht.boot.mq.common.entity.KafkaSuccess;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -10,13 +11,13 @@ import org.springframework.context.ApplicationEvent;
 public class KafkaSendSuccessEvent extends ApplicationEvent {
 
 
-    public KafkaSendSuccessEvent(Object source) {
+    public KafkaSendSuccessEvent(KafkaSuccess source) {
         super(source);
     }
 
     @Override
-    public Object getSource() {
-        return super.getSource();
+    public KafkaSuccess getSource() {
+        return (KafkaSuccess) super.getSource();
     }
 
 }

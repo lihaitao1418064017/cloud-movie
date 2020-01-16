@@ -2,8 +2,10 @@ package org.lht.boot.mq.producer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.KafkaException;
+import org.lht.boot.mq.common.entity.KafkaSuccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -34,7 +36,13 @@ public class KafkaListenableFutureCallback<T> implements ListenableFutureCallbac
     public void onSuccess(@Nullable T t) {
         //do something
         log.info("do something");
+        SendResult sendResult = (SendResult) t;
+        Object value = sendResult.getProducerRecord().value();
+        String topic = sendResult.getProducerRecord().topic();
+        KafkaSuccess kafkaSuccess = new KafkaSuccess();
+        kafkaSuccess.setBody(value);
+        kafkaSuccess.setTopic(topic);
         //发送成功事件
-        applicationEventPublisher.publishEvent(new KafkaSendSuccessEvent(t));
+        applicationEventPublisher.publishEvent(new KafkaSendSuccessEvent(kafkaSuccess));
     }
 }
