@@ -6,4 +6,3 @@ spring:
 kafka:
   multi:
     bootstrap-servers: 47.99.216.57:9092
-  topic: order

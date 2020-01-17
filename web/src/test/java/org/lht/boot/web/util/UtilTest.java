@@ -2,6 +2,7 @@ package org.lht.boot.web.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.web.domain.entity.User;
 
 import java.util.Map;
