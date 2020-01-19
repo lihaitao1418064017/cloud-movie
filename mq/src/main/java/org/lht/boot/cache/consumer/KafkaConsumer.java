@@ -1,4 +1,4 @@
-package org.lht.boot.cache.common.consumer;
+package org.lht.boot.cache.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.cache.common.entity.KafkaMessage;

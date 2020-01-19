@@ -94,16 +94,21 @@ public class GuavaCacheUtil<K, V> {
 
     }
 
-    public GuavaCacheUtil build(TimeUnit refreshTimeUnit, TimeUnit expireTimeUnit) {
-        return new GuavaCacheUtil<K, V>(new GuavaCacheLoader(),
-                new GuavaWeigher()
-                , new GuavaRemovalListener()
+    public GuavaCacheUtil<K, V> build(TimeUnit refreshTimeUnit
+            , TimeUnit expireTimeUnit
+            , GuavaCacheLoader<K, V> guavaCacheLoader
+            , GuavaWeigher<K, V> guavaWeigher
+            , GuavaRemovalListener<K, V> guavaRemovalListener) {
+
+        return new GuavaCacheUtil<K, V>(guavaCacheLoader
+                , guavaWeigher
+                , guavaRemovalListener
                 , cacheProperties.getMaxWeight()
                 , cacheProperties.getMaxSize()
                 , cacheProperties.getRefreshTime()
-                , TimeUnit.SECONDS
+                , refreshTimeUnit
                 , cacheProperties.getExpireTime()
-                , TimeUnit.SECONDS
+                , expireTimeUnit
                 , cacheProperties.getExpireMethod()
                 , cacheProperties.getKeyReferenceMethod()
                 , cacheProperties.getValueReferenceMethod());
@@ -125,17 +130,19 @@ public class GuavaCacheUtil<K, V> {
             , ReferenceMethod keyReferenceMethod
             , ReferenceMethod valueReferenceMethod) {
         CacheBuilder cacheBuilder = CacheBuilder.newBuilder();
-        cacheBuilder = weigher != null ? cacheBuilder.weigher(weigher).maximumWeight(maximumWeight) : cacheBuilder;
+        cacheBuilder = weigher != null ? cacheBuilder.weigher(weigher) : cacheBuilder;
         cacheBuilder = removalListener != null ? cacheBuilder.removalListener(removalListener) : cacheBuilder;
-        cacheBuilder = cacheBuilder.maximumSize(maximumSize).refreshAfterWrite(refreshTime, refreshTimeUnit);
-
-        cacheBuilder = expireMethod == ExpireMethod.NO_EXPIRE ? cacheBuilder
-                : (expireMethod == ExpireMethod.AFTER_WRITE ? cacheBuilder.expireAfterWrite(expireTime, expireTimeUnit)
-                : cacheBuilder.expireAfterAccess(expireTime, expireTimeUnit));
+        cacheBuilder = cacheBuilder
+                .maximumSize(maximumSize)
+                .refreshAfterWrite(refreshTime, refreshTimeUnit)
+                .maximumWeight(maximumWeight);
+        cacheBuilder = expireMethod == ExpireMethod.NO_EXPIRE
+                ? cacheBuilder : (expireMethod == ExpireMethod.AFTER_WRITE
+                ? cacheBuilder.expireAfterWrite(expireTime, expireTimeUnit) : cacheBuilder.expireAfterAccess(expireTime, expireTimeUnit));
         cacheBuilder = keyReferenceMethod == ReferenceMethod.DEFAULT ? cacheBuilder : cacheBuilder.weakKeys();
-        cacheBuilder = valueReferenceMethod == ReferenceMethod.DEFAULT ? cacheBuilder
-                : (valueReferenceMethod == ReferenceMethod.SOFT ? cacheBuilder.softValues()
-                : cacheBuilder.weakValues());
+        cacheBuilder = valueReferenceMethod == ReferenceMethod.DEFAULT
+                ? cacheBuilder : (valueReferenceMethod == ReferenceMethod.SOFT
+                ? cacheBuilder.softValues() : cacheBuilder.weakValues());
         cache = cacheBuilder.build(cacheLoader);
     }
 
