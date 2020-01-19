@@ -130,10 +130,10 @@ public class GuavaCacheUtil<K, V> {
             , ReferenceMethod keyReferenceMethod
             , ReferenceMethod valueReferenceMethod) {
         CacheBuilder cacheBuilder = CacheBuilder.newBuilder();
-        cacheBuilder = weigher != null ? cacheBuilder.weigher(weigher) : cacheBuilder;
+        // TODO: 2020/1/19  /*.maximumSize(maximumSize)*/ 报错
+        cacheBuilder = weigher != null ? cacheBuilder.weigher(weigher)/*.maximumSize(maximumSize)*/ : cacheBuilder;
         cacheBuilder = removalListener != null ? cacheBuilder.removalListener(removalListener) : cacheBuilder;
         cacheBuilder = cacheBuilder
-                .maximumSize(maximumSize)
                 .refreshAfterWrite(refreshTime, refreshTimeUnit)
                 .maximumWeight(maximumWeight);
         cacheBuilder = expireMethod == ExpireMethod.NO_EXPIRE

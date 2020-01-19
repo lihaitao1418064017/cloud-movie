@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class RedisLockProperties {
 
 
-    private String singleServerAddress = "localhost";
+    private String singleServerAddress = "redis://localhost:6379";
 
     private Long entryTtl = 30L;
 
