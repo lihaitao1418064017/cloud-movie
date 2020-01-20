@@ -37,7 +37,6 @@ import java.util.Map;
 public class RedisConfig {
 
 
-    //    @Qualifier("cache.redis.manage-org.lht.boot.cache.redis.config.RedisCacheManageProperties")
     @Autowired
     private RedisCacheManageProperties manageProperties;
 
