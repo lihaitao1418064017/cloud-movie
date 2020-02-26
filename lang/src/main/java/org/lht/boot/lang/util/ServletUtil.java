@@ -62,9 +62,9 @@ public class ServletUtil extends cn.hutool.extra.servlet.ServletUtil {
     public static void setDisableCacheHeader(HttpServletResponse response) {
         //Http 1.0 header
         response.setDateHeader("Expires", 1L);
-        response.addHeader("Pragma", "no-cache");
+        response.addHeader("Pragma", "no-mq");
         //Http 1.1 header
-        response.setHeader("Cache-Control", "no-cache, no-store, max-age=0");
+        response.setHeader("Cache-Control", "no-mq, no-store, max-age=0");
     }
 
     /**
