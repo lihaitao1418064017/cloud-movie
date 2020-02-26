@@ -14,7 +14,7 @@ import java.util.List;
  **/
 @Data
 @Configuration
-@ConfigurationProperties(value = "cache.lock.cluster")
+@ConfigurationProperties(value = "redis.lock.cluster")
 public class RedisClusterLockProperties {
 
     private List<String> addressList = Lists.newArrayList("redis://localhost:6379");
@@ -31,7 +31,7 @@ public class RedisClusterLockProperties {
      * 默认值： 231 用于指定数据分片过程中的分片数量。支持数据分片/框架结构有：集（Set）、映射（Map）
      * 、BitSet、Bloom filter, Spring Cache和Hibernate Cache等.
      */
-    private Integer slots;
+    private Integer slots = 231;
 
     /**
      * 从节点发布和订阅连接的最小空闲连接数
@@ -55,7 +55,7 @@ public class RedisClusterLockProperties {
      * 默认值：32
      * 多节点的环境里，每个 主节点的最小保持连接数（长连接）。长期保持一定数量的连接有利于提高瞬时写入反应速度。
      */
-    private Integer masterConnectionMinimumIdleSize;
+    private Integer masterConnectionMinimumIdleSize = 32;
 
     /**
      * 默认值：64
@@ -148,7 +148,7 @@ public class RedisClusterLockProperties {
      * <p>
      * 开启SSL终端识别能力
      */
-    private Boolean sslEnableEndpointIdentification = false;
+    private Boolean sslEnableEndpointIdentification = true;
 
     /**
      * sslProvider（SSL实现方式）

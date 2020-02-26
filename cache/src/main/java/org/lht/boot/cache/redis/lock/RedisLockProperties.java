@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Data
 @Configuration
-@ConfigurationProperties(value = "cache.lock.single")
+@ConfigurationProperties(value = "redis.lock.single")
 public class RedisLockProperties {
 
 
