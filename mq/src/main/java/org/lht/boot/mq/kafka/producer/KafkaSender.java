@@ -18,15 +18,23 @@ public class KafkaSender<K, V> extends KafkaTemplate<K, V> {
 
     private KafkaProducerListener<K, V> kafkaProducerListener;
 
+    public KafkaSender(ProducerFactory<K, V> producerFactory, KafkaProducerListener<K, V> kvKafkaProducerListener) {
+        super(producerFactory);
+        kafkaProducerListener = kvKafkaProducerListener;
+        setProducerListener(kafkaProducerListener);
+    }
+
     public KafkaSender(ProducerFactory<K, V> producerFactory) {
         super(producerFactory);
-        kafkaProducerListener = new KafkaProducerListener();
+
+        kafkaProducerListener = new KafkaProducerListener<>();
         setProducerListener(kafkaProducerListener);
     }
 
     public KafkaSender(ProducerFactory<K, V> producerFactory, boolean autoFlush) {
         super(producerFactory, autoFlush);
     }
+
 
     /**
      * 将key和value对象转化为json

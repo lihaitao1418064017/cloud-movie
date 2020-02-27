@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2020/1/16 15:42
  **/
 @Configuration
-@ConfigurationProperties(value = "kafka.multi")
+@ConfigurationProperties(value = "kafka.cluster")
 @Data
 public class KafkaMultiProperties {
 

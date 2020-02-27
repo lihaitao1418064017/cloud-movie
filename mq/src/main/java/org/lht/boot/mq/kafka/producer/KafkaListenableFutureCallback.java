@@ -36,7 +36,7 @@ public class KafkaListenableFutureCallback<T> implements ListenableFutureCallbac
 
     @Override
     public void onSuccess(@Nullable T t) {
-        log.info("响应成功，消息体为null:{}", t);
+        log.info("响应成功，消息体为:{}", t);
         KafkaSuccess kafkaSuccess = new KafkaSuccess();
         try {
             if (ObjectUtil.isNull(t)) {
