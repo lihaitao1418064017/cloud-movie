@@ -5,7 +5,6 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,8 +32,7 @@ public class RedisLockConfig {
      *
      * @return
      */
-    @Bean
-    @Qualifier("single")
+    @Bean("single")
     @ConditionalOnProperty(prefix = "redis.single", name = "enable", havingValue = "true", matchIfMissing = true)
     public RLock rLock() {
         Config config = new Config();
@@ -71,8 +69,7 @@ public class RedisLockConfig {
      *
      * @return
      */
-    @Bean
-    @Qualifier("cluster")
+    @Bean("cluster")
     @ConditionalOnProperty(prefix = "redis.cluster", name = "enable", havingValue = "true", matchIfMissing = false)
     public RLock clusterLock() {
         Config config = new Config();
