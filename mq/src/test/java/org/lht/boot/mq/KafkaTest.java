@@ -24,5 +24,6 @@ public class KafkaTest {
         user.setAge(31);
         user.setName("lihaitao");
         kafkaSender.sendByJsonStr("order", user).addCallback(new KafkaListenableFutureCallback<>());
+
     }
 }

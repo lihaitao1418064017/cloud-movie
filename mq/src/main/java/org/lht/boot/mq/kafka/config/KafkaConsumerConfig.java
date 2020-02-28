@@ -29,14 +29,14 @@ import java.util.Map;
  */
 @Configuration
 @EnableKafka
-@EnableConfigurationProperties({KafkaProperties.class, KafkaMultiProperties.class})
+@EnableConfigurationProperties({KafkaProperties.class, KafkaProperties.class})
 public class KafkaConsumerConfig {
 
     @Autowired
-    private KafkaProperties kafkaProperties;
+    private KafkaClusterProperties kafkaClusterProperties;
 
     @Autowired
-    private KafkaMultiProperties kafkaMultiProperties;
+    private KafkaProperties kafkaProperties;
 
 
     @Bean("batchFactory")
@@ -55,13 +55,13 @@ public class KafkaConsumerConfig {
     @Bean(name = "basicKafkaListenerContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, KafkaMessage> basicKafkaListenerContainerFactory() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaMultiProperties.getBootstrapServers());
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaClusterProperties.getBootstrapServers());
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaValueDeserializer.class);
-        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaMultiProperties.getGroupId());
-        configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, kafkaMultiProperties.getAutoOffsetReset());
-        configProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaMultiProperties.getEnableAutoCommit());
-        configProps.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, kafkaMultiProperties.getSessionTimeoutMs());
+        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaClusterProperties.getGroupId());
+        configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, kafkaClusterProperties.getAutoOffsetReset());
+        configProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaClusterProperties.getEnableAutoCommit());
+        configProps.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, kafkaClusterProperties.getSessionTimeoutMs());
         ConcurrentKafkaListenerContainerFactory<String, KafkaMessage> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         ConsumerFactory<String, KafkaMessage> basicConsumerFactory =
@@ -76,12 +76,12 @@ public class KafkaConsumerConfig {
     public KafkaListenerContainerFactory<?> singleFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         Map<String, Object> stringObjectMap = kafkaProperties.buildConsumerProperties();
-        stringObjectMap.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, Lists.newArrayList(kafkaMultiProperties.getBootstrapServers()));
-        stringObjectMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaMultiProperties.getEnableAutoCommit());
-        stringObjectMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, kafkaMultiProperties.getAutoOffsetReset());
-        stringObjectMap.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaMultiProperties.getGroupId());
+        stringObjectMap.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, Lists.newArrayList(kafkaClusterProperties.getBootstrapServers()));
+        stringObjectMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaClusterProperties.getEnableAutoCommit());
+        stringObjectMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, kafkaClusterProperties.getAutoOffsetReset());
+        stringObjectMap.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaClusterProperties.getGroupId());
         //每一批数量
-        stringObjectMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, kafkaMultiProperties.getSessionTimeoutMs());
+        stringObjectMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, kafkaClusterProperties.getSessionTimeoutMs());
         ConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(stringObjectMap);
         factory.setConsumerFactory(consumerFactory);
         factory.setConcurrency(1);
@@ -93,10 +93,10 @@ public class KafkaConsumerConfig {
 
     private Map<String, Object> consumerConfigs() {
         Map<String, Object> stringObjectMap = kafkaProperties.buildConsumerProperties();
-        stringObjectMap.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, Lists.newArrayList(kafkaMultiProperties.getBootstrapServers()));
-        stringObjectMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaMultiProperties.getEnableAutoCommit());
-        stringObjectMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, kafkaMultiProperties.getSessionTimeoutMs());
-        stringObjectMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, kafkaMultiProperties.getMaxPollRecords());
+        stringObjectMap.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, Lists.newArrayList(kafkaClusterProperties.getBootstrapServers()));
+        stringObjectMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaClusterProperties.getEnableAutoCommit());
+        stringObjectMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, kafkaClusterProperties.getSessionTimeoutMs());
+        stringObjectMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, kafkaClusterProperties.getMaxPollRecords());
         return stringObjectMap;
     }
 

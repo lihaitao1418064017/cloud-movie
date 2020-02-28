@@ -1,6 +1,6 @@
 package org.lht.boot.mq;
 
-import org.lht.boot.mq.kafka.config.KafkaMultiProperties;
+import org.lht.boot.mq.kafka.config.KafkaClusterProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/1/19 15:49
  **/
 @Configuration
-@EnableConfigurationProperties(KafkaMultiProperties.class)
+@EnableConfigurationProperties(KafkaClusterProperties.class)
 public class AutoConfig {
 }

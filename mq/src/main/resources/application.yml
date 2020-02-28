@@ -3,6 +3,7 @@ spring:
     bootstrap-servers: 47.99.216.57:9092
     consumer:
       group-id: test
+# 相关详细配置     http://kafka.apachecn.org/documentation.html#producerconfigs
 kafka:
   cluster:
     bootstrap-servers: 47.99.216.57:9092

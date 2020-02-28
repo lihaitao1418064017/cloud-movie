@@ -9,6 +9,8 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.lang.Nullable;
 import org.springframework.util.concurrent.ListenableFuture;
 
+import java.util.UUID;
+
 /**
  * @author LiHaitao
  * @description KafkaSender:Kafka发送者
@@ -16,18 +18,15 @@ import org.springframework.util.concurrent.ListenableFuture;
  **/
 public class KafkaSender<K, V> extends KafkaTemplate<K, V> {
 
-    private KafkaProducerListener<K, V> kafkaProducerListener;
-
     public KafkaSender(ProducerFactory<K, V> producerFactory, KafkaProducerListener<K, V> kvKafkaProducerListener) {
         super(producerFactory);
-        kafkaProducerListener = kvKafkaProducerListener;
+        KafkaProducerListener<K, V> kafkaProducerListener = kvKafkaProducerListener;
         setProducerListener(kafkaProducerListener);
     }
 
     public KafkaSender(ProducerFactory<K, V> producerFactory) {
         super(producerFactory);
-
-        kafkaProducerListener = new KafkaProducerListener<>();
+        KafkaProducerListener<K, V> kafkaProducerListener = new KafkaProducerListener<>();
         setProducerListener(kafkaProducerListener);
     }
 
@@ -46,8 +45,7 @@ public class KafkaSender<K, V> extends KafkaTemplate<K, V> {
      */
     public ListenableFuture<SendResult<K, V>> sendByJsonStr(String topic, K key, @Nullable V data) {
         String keyStr = JSONObject.toJSONString(key);
-        String dataStr = JSONObject.toJSONString(data);
-        ProducerRecord<K, V> producerRecord = new ProducerRecord(topic, keyStr, dataStr);
+        ProducerRecord<K, V> producerRecord = new ProducerRecord(topic, keyStr, covertMessage(data));
         return this.doSend(producerRecord);
     }
 
@@ -59,10 +57,26 @@ public class KafkaSender<K, V> extends KafkaTemplate<K, V> {
      * @return
      */
     public ListenableFuture<SendResult<K, V>> sendByJsonStr(String topic, @Nullable V data) {
-        String dataStr = JSONObject.toJSONString(data);
-        ProducerRecord producerRecord = new ProducerRecord(topic, dataStr);
+        ProducerRecord<K, V> producerRecord = new ProducerRecord(topic, covertMessage(data));
         return this.doSend(producerRecord);
     }
 
+    /**
+     * 转换消息，填充消息
+     *
+     * @param data
+     * @return
+     */
+    private String covertMessage(V data) {
+        try {
+            String dataStr = JSONObject.toJSONString(data);
+            JSONObject jsonObject = JSONObject.parseObject(dataStr);
+            jsonObject.put("messageId", UUID.randomUUID().toString());
+            jsonObject.put("timestamp", System.currentTimeMillis());
+            return jsonObject.toJSONString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }

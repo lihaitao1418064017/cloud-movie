@@ -15,7 +15,7 @@ import java.util.List;
 @Configuration
 @ConfigurationProperties(value = "kafka.cluster")
 @Data
-public class KafkaMultiProperties {
+public class KafkaClusterProperties {
 
     private Integer concurrency;
 
