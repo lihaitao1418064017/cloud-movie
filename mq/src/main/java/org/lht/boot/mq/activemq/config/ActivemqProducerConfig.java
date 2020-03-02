@@ -1,5 +1,6 @@
 package org.lht.boot.mq.activemq.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -10,5 +11,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ActivemqProducerConfig {
 
+    @Autowired
+    private ActivemqProperties activemqProperties;
+
+    //
+    //    @Bean
+    //    public ConnectionFactory connectionFactory() {
+    //        return new ActiveMQConnectionFactory(username, password, brokerUrl);
+    //    }
 
 }

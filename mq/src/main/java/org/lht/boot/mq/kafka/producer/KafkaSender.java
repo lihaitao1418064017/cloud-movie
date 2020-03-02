@@ -9,7 +9,7 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.lang.Nullable;
 import org.springframework.util.concurrent.ListenableFuture;
 
-import java.util.UUID;
+import static org.lht.boot.mq.common.CommonUtil.covertMessage;
 
 /**
  * @author LiHaitao
@@ -61,22 +61,5 @@ public class KafkaSender<K, V> extends KafkaTemplate<K, V> {
         return this.doSend(producerRecord);
     }
 
-    /**
-     * 转换消息，填充消息
-     *
-     * @param data
-     * @return
-     */
-    private String covertMessage(V data) {
-        try {
-            String dataStr = JSONObject.toJSONString(data);
-            JSONObject jsonObject = JSONObject.parseObject(dataStr);
-            jsonObject.put("messageId", UUID.randomUUID().toString());
-            jsonObject.put("timestamp", System.currentTimeMillis());
-            return jsonObject.toJSONString();
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
 }

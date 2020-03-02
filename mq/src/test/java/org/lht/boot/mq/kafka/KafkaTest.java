@@ -1,4 +1,4 @@
-package org.lht.boot.mq;
+package org.lht.boot.mq.kafka;
 
 import org.junit.jupiter.api.Test;
 import org.lht.boot.mq.common.User;
@@ -16,14 +16,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class KafkaTest {
 
     @Autowired
-    private KafkaSender<String, User> kafkaSender;
+    private KafkaSender<String, String> kafkaSender;
 
     @Test
     void sendTest() {
         User user = new User();
         user.setAge(31);
         user.setName("lihaitao");
-        kafkaSender.sendByJsonStr("order", user).addCallback(new KafkaListenableFutureCallback<>());
+        kafkaSender.sendByJsonStr("order", "sdfsdf").addCallback(new KafkaListenableFutureCallback<>());
 
     }
 }

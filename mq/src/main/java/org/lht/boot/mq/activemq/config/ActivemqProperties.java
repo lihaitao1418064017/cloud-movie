@@ -3,6 +3,7 @@ package org.lht.boot.mq.activemq.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * @author LiHaitao
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(value = "activemq.cluster")
 @Data
+@Component
 public class ActivemqProperties {
 
     private String username;
