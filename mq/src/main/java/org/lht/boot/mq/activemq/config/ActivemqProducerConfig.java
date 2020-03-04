@@ -1,7 +1,11 @@
 package org.lht.boot.mq.activemq.config;
 
+import org.lht.boot.mq.activemq.producer.ActivemqSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.jms.ConnectionFactory;
 
 /**
  * @author LiHaitao
@@ -11,13 +15,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ActivemqProducerConfig {
 
+
     @Autowired
-    private ActivemqProperties activemqProperties;
+    private ConnectionFactory connectionFactory;
 
-    //
-    //    @Bean
-    //    public ConnectionFactory connectionFactory() {
-    //        return new ActiveMQConnectionFactory(username, password, brokerUrl);
-    //    }
 
+    @Bean
+    public ActivemqSender activemqSender() {
+        return new ActivemqSender(connectionFactory);
+    }
 }

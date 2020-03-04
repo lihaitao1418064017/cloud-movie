@@ -3,6 +3,7 @@ package org.lht.boot.mq.activemq.producer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsMessagingTemplate;
 
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.Topic;
@@ -18,8 +19,8 @@ import static org.lht.boot.mq.common.CommonUtil.covertMessage;
 public class ActivemqSender<T> extends JmsMessagingTemplate {
 
 
-    public ActivemqSender() {
-
+    public ActivemqSender(ConnectionFactory connectionFactory) {
+        super(connectionFactory);
     }
 
     /**
@@ -32,7 +33,7 @@ public class ActivemqSender<T> extends JmsMessagingTemplate {
         if (covertMessage(message) == null) {
             return;
         }
-        this.convertAndSend(new Topic() {
+        super.convertAndSend(new Topic() {
             @Override
             public String getTopicName() throws JMSException {
                 return topicName;
@@ -47,7 +48,7 @@ public class ActivemqSender<T> extends JmsMessagingTemplate {
      * @param message
      */
     public void sendToQueue(String queueName, T message) {
-        this.convertAndSend(new Queue() {
+        super.convertAndSend(new Queue() {
             @Override
             public String getQueueName() throws JMSException {
                 return queueName;

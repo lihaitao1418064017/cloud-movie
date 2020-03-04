@@ -1,10 +1,10 @@
 package org.lht.boot.mq.activemq;
 
 import org.junit.jupiter.api.Test;
+import org.lht.boot.mq.activemq.producer.ActivemqSender;
 import org.lht.boot.mq.common.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jms.core.JmsMessagingTemplate;
 
 /**
  * @author LiHaitao
@@ -15,15 +15,15 @@ import org.springframework.jms.core.JmsMessagingTemplate;
 public class ActivemqTest {
 
     @Autowired
-    private JmsMessagingTemplate jmsMessagingTemplate;
+    private ActivemqSender<User> activemqSender;
 
     @Test
     public void testSend() {
-
         User user = new User();
         user.setAge(18);
         user.setName("lihaitao");
-        jmsMessagingTemplate.convertAndSend("test", user);
+        activemqSender.sendToTopic("topicUser", user);
+
 
     }
 }

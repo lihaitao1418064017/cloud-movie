@@ -24,6 +24,7 @@ spring:
 
  # jms:
  #   pub-sub-domain: true  #默认情况下activemq提供的是queue模式，若要使用topic模式需要配置下面配置
+#    activemq 相关spring配置
 
 # 是否信任所有包
 #spring.activemq.packages.trust-all=
@@ -55,7 +56,8 @@ spring:
 kafka:
   cluster:
     bootstrap-servers: 47.99.216.57:9092
+
+#    自定义连接的activemq消费配置
 activemq:
-  cluster:
+  consumer:
     url: tcp://47.99.216.57:61616
-#    activemq 相关spring配置

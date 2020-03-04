@@ -24,12 +24,13 @@ public class CommonUtil {
         }
         try {
             String dataStr = JSONObject.toJSONString(data);
-            JSONObject jsonObject = JSONObject.parseObject(dataStr);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("data", JSONObject.parseObject(dataStr));
             jsonObject.put("messageId", UUID.randomUUID().toString());
             jsonObject.put("timestamp", System.currentTimeMillis());
             return jsonObject.toJSONString();
         } catch (Exception e) {
-            return "";// TODO: 2020/3/2  
+            return null;
         }
     }
 }

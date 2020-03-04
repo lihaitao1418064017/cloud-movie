@@ -23,7 +23,7 @@ public class KafkaTest {
         User user = new User();
         user.setAge(31);
         user.setName("lihaitao");
-        kafkaSender.sendByJsonStr("order", "sdfsdf").addCallback(new KafkaListenableFutureCallback<>());
+        kafkaSender.send("order", "sdfsdf").addCallback(new KafkaListenableFutureCallback<>());
 
     }
 }

@@ -16,7 +16,7 @@ public class KafkaConsumer {
 
 
     @KafkaListener(topics = {"order"}, containerFactory = "basicKafkaListenerContainerFactory")
-    public void listener(KafkaMessage message) {
+    public void listener(KafkaMessage<String> message) {
         log.info("message:{}", message);
     }
 }

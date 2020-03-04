@@ -10,9 +10,9 @@ import lombok.Data;
  * @see org.lht.boot.mq.kafka.config.KafkaConsumerConfig  "basicKafkaListenerContainerFactory"
  **/
 @Data
-public class KafkaMessage extends JSONObject {
+public class KafkaMessage<T> extends JSONObject {
 
     private String topic;
 
-    private JSONObject body;
+    private Object body;
 }

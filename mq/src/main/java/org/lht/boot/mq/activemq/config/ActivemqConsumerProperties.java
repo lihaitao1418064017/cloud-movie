@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
  * @date 2020/2/28 10:10
  **/
 @Configuration
-@ConfigurationProperties(value = "activemq.cluster")
+@ConfigurationProperties(value = "activemq.consumer")
 @Data
 @Component
-public class ActivemqProperties {
+public class ActivemqConsumerProperties {
 
     private String username;
 
