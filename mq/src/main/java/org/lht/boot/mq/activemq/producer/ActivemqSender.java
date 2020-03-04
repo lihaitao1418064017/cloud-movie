@@ -30,9 +30,6 @@ public class ActivemqSender<T> extends JmsMessagingTemplate {
      * @param message
      */
     public void sendToTopic(String topicName, T message) {
-        if (covertMessage(message) == null) {
-            return;
-        }
         super.convertAndSend(new Topic() {
             @Override
             public String getTopicName() throws JMSException {
