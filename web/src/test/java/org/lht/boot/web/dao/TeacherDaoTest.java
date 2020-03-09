@@ -107,7 +107,7 @@ class TeacherDaoTest {
 
     @Test
     void selectByParam() {
-        QueryParam<Teacher> queryParam = new QueryParam<>();
+        QueryParam queryParam = new QueryParam();
         queryParam.setPageSize(1000);
         queryParam.and(Term.build("age", 76));
         queryParam.addTerm(Term.build("sex", 1));
@@ -118,7 +118,7 @@ class TeacherDaoTest {
 
     @Test
     void selectPage() {
-        QueryParam<Teacher> queryParam = new QueryParam<>();
+        QueryParam queryParam = new QueryParam();
         queryParam.setPageSize(10);
         queryParam.setPageNo(1);
         //        queryParam.and(Term.build("age", 76));

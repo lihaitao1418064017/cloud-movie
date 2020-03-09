@@ -19,6 +19,7 @@ import org.elasticsearch.script.Script;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.ClassUtil;
+import org.lht.boot.web.api.param.AggregationParam;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.QueryParam;
@@ -378,6 +379,7 @@ public class AbstractElasticSearchCrudDao<E extends CrudEntity<PK>, PK extends S
                 .collect(Collectors.toList());
     }
 
+
     private String getAlias() {
         return this.esEntity.alias();
     }
@@ -398,4 +400,25 @@ public class AbstractElasticSearchCrudDao<E extends CrudEntity<PK>, PK extends S
         this.searchMaxSize = searchMaxSize;
     }
 
+
+    /**
+     * 聚合查询
+     *
+     * @param aggregationParam
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> List<T> select(AggregationParam aggregationParam, Class<T> clazz) {
+        Search.Builder builder = ParamEsUtil
+                .buildSearchBuilder(aggregationParam)
+                .addIndex(getAlias())
+                .addType(getType());
+        SearchResult result = JestUtil.execute(jestClient, gson, builder.build());
+        List<JSONObject> jsonObjects = ParamEsUtil.buildAggregationResult(aggregationParam, result);
+        return jsonObjects
+                .stream()
+                .map(jsonObject -> JSONObject.toJavaObject(jsonObject, clazz))
+                .collect(Collectors.toList());
+    }
 }

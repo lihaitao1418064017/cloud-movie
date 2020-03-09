@@ -12,7 +12,7 @@ import java.util.*;
  * @date 2020/1/8 15:15
  **/
 @Getter
-public class Param<E> implements Serializable, Cloneable {
+public class Param implements Serializable, Cloneable {
 
     /**
      * 条件

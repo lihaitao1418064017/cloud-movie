@@ -1,5 +1,6 @@
 package org.lht.boot.web.service.impl;
 
+import org.lht.boot.web.api.param.AggregationParam;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.dao.AbstractElasticSearchCrudDao;
@@ -107,6 +108,12 @@ public class AbstractEsCrudServiceImpl<E extends CrudEntity<PK>, PK extends Seri
     @Override
     public PK patch(E data) {
         return dao.patch(data);
+    }
+
+
+    @Override
+    public <T> List<T> select(AggregationParam aggregationParam, Class<T> tClass) {
+        return dao.select(aggregationParam, tClass);
     }
 
 

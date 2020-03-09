@@ -3,6 +3,9 @@ package org.lht.boot.web.service;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.lht.boot.web.api.param.Aggregation;
+import org.lht.boot.web.api.param.AggregationEnum;
+import org.lht.boot.web.api.param.AggregationParam;
 import org.lht.boot.web.domain.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,6 +74,16 @@ class TeacherServiceTest {
     void count() {
         long count = teacherService.count();
         log.info("count:{}", count);
+    }
+
+
+    @Test
+    void Agg() {
+        AggregationParam empty = AggregationParam.empty();
+        empty.groupBy("sex");
+        empty.aggregation(Aggregation.builder().field("age").as("maxAge").type(AggregationEnum.MAX).build());
+        List<TeacherAggVO> select = teacherService.select(empty, TeacherAggVO.class);
+        log.info("select:{}", select);
     }
 
 }

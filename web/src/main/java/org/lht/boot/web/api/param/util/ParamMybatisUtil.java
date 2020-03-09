@@ -25,7 +25,7 @@ public class ParamMybatisUtil {
      * @param <E>
      * @return
      */
-    public static <E> QueryWrapper<E> toQueryWrapper(Param<E> queryParam) {
+    public static <E> QueryWrapper<E> toQueryWrapper(Param queryParam) {
         List<Term> terms = queryParam.getTerms();
         QueryWrapper<E> queryWrapper = new QueryWrapper<E>();
         buildFieldsWrapper(queryParam, queryWrapper);
@@ -36,7 +36,7 @@ public class ParamMybatisUtil {
         return queryWrapper;
     }
 
-    private static <E> void buildFieldsWrapper(Param<E> queryParam, QueryWrapper<E> queryWrapper) {
+    private static <E> void buildFieldsWrapper(Param queryParam, QueryWrapper<E> queryWrapper) {
         Set<String> excludes = queryParam.getExcludes();
         Class<E> genericType = (Class<E>) ClassUtil.getGenericType(queryParam.getClass(), 0);
         if (Object.class == genericType || genericType == null) {
@@ -56,7 +56,7 @@ public class ParamMybatisUtil {
      * @param queryWrapper
      * @param <E>
      */
-    public static <E> void buildSort(Param<E> param, QueryWrapper<E> queryWrapper) {
+    public static <E> void buildSort(Param param, QueryWrapper<E> queryWrapper) {
         if (param instanceof QueryParam) {
             QueryParam queryParam = (QueryParam) param;
             List<Sort> sorts = queryParam.getSorts();

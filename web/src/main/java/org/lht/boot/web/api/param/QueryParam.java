@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2019/12/13 16:49
  **/
 @Data
-public class QueryParam<E> extends Param<E> {
+public class QueryParam extends Param {
 
     private static final long serialVersionUID = 7941767360194797891L;
 

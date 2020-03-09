@@ -10,6 +10,10 @@ public class NotSupportedException extends CommonException {
         super(message);
     }
 
+    public NotSupportedException() {
+        super("Error");
+    }
+
     public NotSupportedException(String message, Throwable throwable) {
         super(message, throwable);
     }

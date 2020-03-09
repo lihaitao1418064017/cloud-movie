@@ -67,7 +67,7 @@ public class AbstractMybatisCrudServiceImpl<E extends CrudEntity<PK>, PK extends
     @Override
     public <Q extends Param> PagerResult<E> selectPager(Q param) {
         if (param instanceof QueryParam) {
-            QueryParam<E> queryParam = (QueryParam<E>) param;
+            QueryParam queryParam = (QueryParam) param;
             return dao.selectPage(queryParam);
         }
         PagerResult<E> page = new PagerResult<>();

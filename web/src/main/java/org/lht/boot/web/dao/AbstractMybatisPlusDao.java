@@ -21,7 +21,7 @@ public interface AbstractMybatisPlusDao<E extends CrudEntity> extends BaseMapper
      * @param queryParam
      * @return
      */
-    default PagerResult<E> selectPage(QueryParam<E> queryParam) {
+    default PagerResult<E> selectPage(QueryParam queryParam) {
         PagerResult page = new PagerResult();
         page.setCurrent(queryParam.getPageNo());
         page.setSize(queryParam.getPageSize());
