@@ -24,7 +24,7 @@ import java.nio.charset.Charset;
 public class RestTemplateUtil {
 
     /**
-     * 单例对象实例
+     * 延迟加载，当被调用时才初始化，保证线程安全
      */
     private static class SingletonRestTemplate {
         static final RestTemplate INSTANCE = new RestTemplateBuilder().additionalMessageConverters(new StringHttpMessageConverter(Charset.forName("UTF-8"))).build();
@@ -49,7 +49,7 @@ public class RestTemplateUtil {
      */
     private static <T> HttpEntity createHttpEntity(T body) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);// TODO: 2020/1/13 过时方法 
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         if (null != body) {
             if (body instanceof String) {

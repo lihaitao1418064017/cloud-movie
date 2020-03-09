@@ -12,7 +12,7 @@ import static org.lht.boot.mq.common.CommonUtil.covertMessage;
 
 /**
  * @author LiHaitao
- * @description ActivemqSender:
+ * @description ActivemqSender:activemq消息发送器
  * @date 2020/2/28 10:15
  **/
 @Slf4j

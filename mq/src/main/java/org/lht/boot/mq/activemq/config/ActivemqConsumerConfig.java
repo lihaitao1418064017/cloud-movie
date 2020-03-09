@@ -22,7 +22,7 @@ public class ActivemqConsumerConfig {
     private ActivemqConsumerProperties activemqConsumerProperties;
 
 
-    public ConnectionFactory connectionFactory() {
+    private ConnectionFactory connectionFactory() {
         return new ActiveMQConnectionFactory(activemqConsumerProperties.getUsername()
                 , activemqConsumerProperties.getPassword()
                 , activemqConsumerProperties.getUrl());
