@@ -43,6 +43,6 @@ public class MockTest {
         OutputStream mock = Mockito.mock(OutputStream.class);
         //预设当流关闭时抛出异常
         Mockito.doThrow(new IOException()).when(mock).close();
-        mock.close();
+//        mock.close();
     }
 }
