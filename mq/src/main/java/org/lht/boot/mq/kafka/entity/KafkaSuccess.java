@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author LiHaitao
- * @description KafkaSuccess:
+ * @description KafkaSuccess:发送成功消息体
  * @date 2020/1/16 19:19
  **/
 @Data

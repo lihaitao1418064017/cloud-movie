@@ -68,4 +68,5 @@ public class RandomUtils extends RandomUtil {
     public static String randomSex() {
         return randomString("男女", 1);
     }
+
 }

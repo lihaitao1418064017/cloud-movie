@@ -3,6 +3,7 @@ package org.lht.boot.lang;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.lht.boot.lang.util.RandomUtils;
+import org.mockito.Mockito;
 
 /**
  * @author LiHaitao
@@ -17,5 +18,7 @@ public class RandomTest {
         for (int i = 0; i < 10; i++) {
             log.info("grade:  {}", RandomUtils.randomGrade());
         }
+
+
     }
 }
