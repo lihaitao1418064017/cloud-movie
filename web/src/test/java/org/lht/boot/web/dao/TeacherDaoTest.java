@@ -4,6 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.lht.boot.lang.util.RandomUtils;
 import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.domain.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,23 +36,9 @@ class TeacherDaoTest {
             Teacher teacher = new Teacher();
             teacher.setAge(RandomUtil.randomInt(20, 80));
             teacher.setIdentify(RandomUtil.randomString("1234567890X", 15));
-            teacher.setGrade(RandomUtil.randomString("初高研博小", 1)
-                    + RandomUtil.randomString("一二三", 1) + "("
-                    + RandomUtil.randomString("123456789", 1) + ")班");
-            if (i % 2 == 0) {
-                teacher.setSex(0);
-                teacher.setName(RandomUtil
-                        .randomString("朱秦尤许何吕施孔曹严华金魏陶姜鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤李刘赵王周陈许金钱孙郑", 1) + RandomUtil
-                        .randomString("强浩涛鹏雨青红伟旭刚桃倩庆娜珍家寒桃楠杉玲璟玲柏妮楠曼寒美琳雅初家萱华彤冬玲俊花丽瑶琬璇薇春格璟玉月丽鹤阳珠璇馨蕾岚锦美雪紫心彩阳璇珠曼云琬岚颖怡栀云琪雨琪柔雪璐杉欢璇韵歆蔚茹珊蔚冰曼薇薇雯格雅瑶欢枫芝可雅莉芳明雯香馨凌珍欢琳柔婷帛芙春美丽紫梓柔玥玉弦", 1));
-
-            } else {
-                teacher.setSex(1);
-                teacher.setName(RandomUtil
-                        .randomString("李刘赵王周陈许金钱孙郑", 1) + RandomUtil
-                        .randomString("强浩涛鹏雨青红伟旭刚桃倩庆娜雪桃琳曼倩桐鑫芝雨慧薇莉心雨蔚彤菡钰莲玲梅云梅彤雅可栀碧琳云桃楠芸寒婷淑采雪璐杉欢璇韵歆蔚茹珊蔚冰曼薇薇雯格雅瑶欢枫芝可雅莉芳明雯香馨凌珍欢琳柔婷帛芙春美丽紫梓柔玥玉弦", 1) + RandomUtil
-                        .randomString("珍家寒桃楠杉玲璟玲柏妮楠曼寒美琳雅初家萱华彤冬玲俊花丽瑶琬璇薇春格璟玉月丽鹤阳珠璇馨蕾岚锦美雪紫心彩阳璇珠曼云琬岚颖怡栀云琪雨琪柔杉昭芳惠函旭蕾珊茜怡璇", 1));
-            }
-
+            teacher.setGrade(RandomUtils.randomGrade());
+            teacher.setSex(RandomUtils.randomInt(2));
+            teacher.setName(RandomUtils.randomName());
             teachers.add(teacher);
         }
         teacherEsDao.add(teachers);

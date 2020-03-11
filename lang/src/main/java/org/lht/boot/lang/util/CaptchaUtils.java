@@ -25,12 +25,14 @@ public class CaptchaUtils extends cn.hutool.captcha.CaptchaUtil {
      * @param lineCount 干扰线条数
      * @throws IOException
      */
-    public void writeLineCaptcha(HttpServletResponse response, int width, int height, int codeCount, int lineCount) {
+    public String writeLineCaptcha(HttpServletResponse response, int width, int height, int codeCount, int lineCount) {
         //定义图形验证码的长和宽
         LineCaptcha lineCaptcha = CaptchaUtils.createLineCaptcha(width, height, codeCount, lineCount);
+        String code = lineCaptcha.getCode();
         //输出浏览器
         try (OutputStream out = response.getOutputStream()) {
             lineCaptcha.write(out);
+            return code;
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -47,10 +49,13 @@ public class CaptchaUtils extends cn.hutool.captcha.CaptchaUtil {
      * @param circleCount 干扰圆圈数数
      * @throws IOException
      */
-    public void writeCircleCaptcha(HttpServletResponse response, int width, int height, int codeCount, int circleCount) throws IOException {
+    public String writeCircleCaptcha(HttpServletResponse response, int width, int height, int codeCount, int circleCount) throws IOException {
         CircleCaptcha circleCaptcha = CaptchaUtils.createCircleCaptcha(width, height, codeCount, circleCount);
+        String code = circleCaptcha.getCode();
+
         try (OutputStream out = response.getOutputStream()) {
             circleCaptcha.write(out);
+            return code;
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -66,10 +71,12 @@ public class CaptchaUtils extends cn.hutool.captcha.CaptchaUtil {
      * @param thickness 厚度
      * @throws IOException
      */
-    public void writeShearCaptcha(HttpServletResponse response, int width, int height, int codeCount, int thickness) throws IOException {
-        ShearCaptcha circleCaptcha = CaptchaUtils.createShearCaptcha(width, height, codeCount, thickness);
+    public String writeShearCaptcha(HttpServletResponse response, int width, int height, int codeCount, int thickness) throws IOException {
+        ShearCaptcha shearCaptcha = CaptchaUtils.createShearCaptcha(width, height, codeCount, thickness);
+        String code = shearCaptcha.getCode();
         try (OutputStream out = response.getOutputStream()) {
-            circleCaptcha.write(out);
+            shearCaptcha.write(out);
+            return code;
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
