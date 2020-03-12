@@ -21,6 +21,12 @@ public interface DeleteController<PK> {
     <S extends DeleteService<PK>> S getService();
 
 
+    /**
+     * 根据id删除
+     *
+     * @param pk
+     * @return
+     */
     @DeleteMapping("/{pk}")
     @ResponseBody
     default R delete(@PathVariable PK pk) {
@@ -29,6 +35,14 @@ public interface DeleteController<PK> {
         return R.ok(result);
     }
 
+    /**
+     * 条件删除
+     *
+     * @param param
+     * @param request
+     * @param <Q>
+     * @return
+     */
     @DeleteMapping("/deleteByParam")
     @ResponseBody
     default <Q extends Param> R delete(@RequestBody Q param, HttpServletRequest request) {
@@ -37,6 +51,12 @@ public interface DeleteController<PK> {
         return R.ok(result);
     }
 
+    /**
+     * 根据id批量删除
+     *
+     * @param ids
+     * @return
+     */
     @DeleteMapping("/deleteByIds")
     @ResponseBody
     default R delete(@RequestParam List<PK> ids) {

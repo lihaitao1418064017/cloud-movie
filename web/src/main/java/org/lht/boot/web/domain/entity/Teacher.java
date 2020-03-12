@@ -10,7 +10,7 @@ import lombok.Data;
  **/
 @Data
 @EsEntity(index = "teacher", type = "teacher", alias = "teacher")
-public class Teacher implements CrudEntity<String> {
+public class Teacher extends CrudEntity<String> {
 
     @JestId
     private String id;

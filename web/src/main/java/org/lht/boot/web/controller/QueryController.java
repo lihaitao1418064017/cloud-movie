@@ -75,5 +75,11 @@ public interface QueryController<E, PK, VO, Q extends Param> {
         return R.ok(pagerResult.convertTo(this::entityToVo));
     }
 
+    /**
+     * entity to VO
+     *
+     * @param e
+     * @return
+     */
     VO entityToVo(E e);
 }

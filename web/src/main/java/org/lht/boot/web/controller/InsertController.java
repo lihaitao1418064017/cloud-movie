@@ -17,10 +17,22 @@ public interface InsertController<E, PK, VO> {
 
     <S extends InsertService<E, PK>> S getService();
 
+    /**
+     * 添加
+     *
+     * @param data
+     * @return
+     */
     @PostMapping
     default R<PK> add(@RequestBody VO data) {
         return ok(getService().insert(voToEntity(data)));
     }
 
+    /**
+     * VO to Entity
+     *
+     * @param model
+     * @return
+     */
     E voToEntity(VO model);
 }
