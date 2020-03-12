@@ -12,7 +12,7 @@ import java.io.Serializable;
  **/
 @Getter
 @Setter
-public abstract class AbstractEntity<PK extends Serializable> implements CrudEntity<PK> {
+public abstract class AbstractEntity<PK extends Serializable> {
 
 
     private Integer status;
