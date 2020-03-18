@@ -26,7 +26,7 @@ import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.util.ParamEsUtil;
 import org.lht.boot.web.common.exception.JestException;
 import org.lht.boot.web.common.util.JestUtil;
-import org.lht.boot.web.domain.entity.CrudEntity;
+import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.domain.entity.EsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,7 +46,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  * @date 2020/1/2 18:23
  **/
 @Slf4j
-public class AbstractElasticSearchCrudDao<E extends CrudEntity<PK>, PK extends Serializable> implements EsCrudDao<E, PK> {
+public class AbstractElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Serializable> implements EsCrudDao<E, PK> {
 
     @Autowired
     private JestClient jestClient;

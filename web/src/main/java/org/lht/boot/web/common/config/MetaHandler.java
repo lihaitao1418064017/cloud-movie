@@ -1,31 +1,28 @@
 package org.lht.boot.web.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author LiHaitao
  * @description MetaHandler: 公共字段填充
  * @date 2020/3/12 16:15
  **/
+@Configuration
 public class MetaHandler implements MetaObjectHandler {
 
+    // TODO: 2020/3/18 此处creatorCode和updaterCode通过权限去添加
 
     @Override
     public void insertFill(org.apache.ibatis.reflection.MetaObject metaObject) {
-        Object updateTime = getFieldValByName("updateTime", metaObject);
-        Object updateCode = getFieldValByName("updateCode", metaObject);
+
         Object createTime = getFieldValByName("createTime", metaObject);
-        Object createCode = getFieldValByName("createCode", metaObject);
+        Object createCode = getFieldValByName("creatorCode", metaObject);
         Object status = getFieldValByName("status", metaObject);
 
-        if (updateTime == null) {
-            setFieldValByName("updateTime", System.currentTimeMillis(), metaObject);
-        }
-        if (updateCode == null) {
-            setFieldValByName("updateId", "ll", metaObject);
-        }
+
         if (createCode == null) {
-            setFieldValByName("createCode", "1111", metaObject);
+            setFieldValByName("creatorCode", "1111", metaObject);
         }
         if (createTime == null) {
             setFieldValByName("createTime", System.currentTimeMillis(), metaObject);
@@ -38,12 +35,12 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void updateFill(org.apache.ibatis.reflection.MetaObject metaObject) {
         Object updateTime = getFieldValByName("updateTime", metaObject);
-        Object updateCode = getFieldValByName("updateCode", metaObject);
+        Object updateCode = getFieldValByName("updaterCode", metaObject);
         if (updateTime == null) {
             setFieldValByName("updateTime", System.currentTimeMillis(), metaObject);
         }
         if (updateCode == null) {
-            setFieldValByName("updateId", "ll", metaObject);
+            setFieldValByName("updaterCode", "ll", metaObject);
         }
     }
 

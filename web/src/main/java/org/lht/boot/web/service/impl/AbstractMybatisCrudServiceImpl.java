@@ -8,7 +8,7 @@ import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.util.ParamMybatisUtil;
 import org.lht.boot.web.dao.AbstractMybatisPlusDao;
-import org.lht.boot.web.domain.entity.CrudEntity;
+import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.service.AbstractCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @date 2020/1/8 16:23
  **/
 
-public class AbstractMybatisCrudServiceImpl<E extends CrudEntity<PK>, PK extends Serializable, Dao extends AbstractMybatisPlusDao<E>> implements AbstractCrudService<E, PK> {
+public class AbstractMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends Serializable, Dao extends AbstractMybatisPlusDao<E>> implements AbstractCrudService<E, PK> {
 
     @Autowired
     protected Dao dao;

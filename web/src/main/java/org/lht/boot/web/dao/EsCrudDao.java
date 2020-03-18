@@ -1,6 +1,6 @@
 package org.lht.boot.web.dao;
 
-import org.lht.boot.web.domain.entity.CrudEntity;
+import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @description CrudDao:
  * @date 2020/1/2 15:32
  **/
-public interface EsCrudDao<E extends CrudEntity<PK>, PK extends Serializable> extends
+public interface EsCrudDao<E extends BaseCrudEntity<PK>, PK extends Serializable> extends
         InsertDao<E, PK>,
         UpdateDao<E, PK>,
         DeleteDao<E, PK>,

@@ -6,14 +6,14 @@ import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.util.ParamMybatisUtil;
-import org.lht.boot.web.domain.entity.CrudEntity;
+import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
 /**
  * @author LiHaitao
  * @description AbstractMapper:
  * @date 2019/12/13 16:42
  **/
-public interface AbstractMybatisPlusDao<E extends CrudEntity> extends BaseMapper<E> {
+public interface AbstractMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper<E> {
 
     /**
      * 分页查询

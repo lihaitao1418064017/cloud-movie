@@ -2,7 +2,7 @@ package org.lht.boot.web.dao;
 
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
-import org.lht.boot.web.domain.entity.CrudEntity;
+import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @description QueryDao:查询操作
  * @date 2020/1/2 15:40
  **/
-public interface QueryDao<E extends CrudEntity, PK> extends Dao {
+public interface QueryDao<E extends BaseCrudEntity, PK> extends Dao {
 
     /**
      * 根据id查询
