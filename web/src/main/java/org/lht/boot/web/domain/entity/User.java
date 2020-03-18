@@ -14,7 +14,7 @@ import lombok.Data;
 @TableName("user")
 public class User extends CrudEntity<String> {
 
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.UUID)
     private String id;
 
     private String name;

@@ -32,64 +32,6 @@ activemq:
     url: tcp://47.99.216.57:61616
 
 
-#*********************dubbo配置******************************
-
-#springboot应用
-spring:
-   application:
-      name: dubbo-provider-demo
-
-#对外暴露服务版本
-demo:
-  service:
-    version: 1.0.0
-
-# 扫描带阿里注解的的类(e.g @Service , @Reference)
-#如果没有在配置中写dubbo.scan.base-package,还需要使用@EnableDubbo注解
-#如果写了dubbo.scan.basePackages就可以不用写@EnableDubbo注解
-dubbo:
-  scan:
-     basePackages: com.gjy.server
-  application:
-     id: dubbo-provider-demo
-     name: dubbo-provider-demo
-##协议配置
-  protocol:
-     id: dubbo
-     name: dubbo
-     port: 20880
-
-  service.*.:
-     timeout: 1000
-##注册配置
-  registry:
-     id: my-registry
-     address: zookeeper://localhost:2181
-     dynamic: false
-     check: false
-#监控中心
-#dubbo.monitor.protocol=registry
-
-#Dubbo Config properties
-##应用配置
-dubbo:
-  application:
-    id: dubbo-consumer-demo
-    name: dubbo-consumer-demo
-
-#dubbo 2.6.2版本需要写注册中心配置
-dubbo.registry.address =zookeeper://localhost:2181
-
-#监控中心
-#dubbo.monitor.protocol=registry
-#关闭所有消费者启动时检查
-#dubbo.consumer.check=false
-
-
-
-
-
-
 
 
 

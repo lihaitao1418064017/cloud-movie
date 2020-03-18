@@ -37,7 +37,7 @@
 		</dependency>
 		<!--fast-json-->
 		<dependency>
-			<groupId>org.lht.boot.lang</groupId>
+			<groupId>org.lht.boot</groupId>
 			<artifactId>lang</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
