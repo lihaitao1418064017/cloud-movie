@@ -1,4 +1,4 @@
-package org.lht.boot.mq.redis.config;
+package org.lht.boot.cache.redis.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package org.lht.boot.mq.entity;
+package org.lht.boot.cache.entity;
 
 import lombok.Data;
 

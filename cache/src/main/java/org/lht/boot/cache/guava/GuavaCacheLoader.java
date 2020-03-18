@@ -1,4 +1,4 @@
-package org.lht.boot.mq.guava;
+package org.lht.boot.cache.guava;
 
 import com.google.common.cache.CacheLoader;
 

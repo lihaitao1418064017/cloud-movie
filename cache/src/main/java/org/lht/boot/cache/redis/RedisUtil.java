@@ -1,4 +1,4 @@
-package org.lht.boot.mq.redis;
+package org.lht.boot.cache.redis;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

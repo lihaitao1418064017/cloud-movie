@@ -1,4 +1,4 @@
-package org.lht.boot.mq.redis;
+package org.lht.boot.cache.redis;
 /*
 *
 * 1，redis缓存服务类

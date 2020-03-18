@@ -1,4 +1,4 @@
-package org.lht.boot.mq.guava;
+package org.lht.boot.cache.guava;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

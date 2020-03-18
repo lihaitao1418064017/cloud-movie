@@ -38,18 +38,19 @@ public class RandomUtils extends RandomUtil {
         final StringBuilder sb = new StringBuilder();
         sb.append(randomString(N, 1));
         if (randomInt(3) % 2 == 0) {
-            return sb.append(randomString(M1, 1))
+            return sb.append(randomString(M2, 1))
+                    .append(randomString(M21, 1))
                     .toString();
         }
-        return sb.append(randomString(M2, 1))
-                .append(randomString(M21, 1))
+        return sb.append(randomString(M1, 1))
                 .toString();
     }
 
     /**
      * 随机生成一个初高研博小的班级
+     * 格式：eg. 高三(8)班
      *
-     * @return
+     * @return grade
      */
     public static String randomGrade() {
         final StringBuilder sb = new StringBuilder();
@@ -65,8 +66,11 @@ public class RandomUtils extends RandomUtil {
      *
      * @return
      */
-    public static String randomSex() {
-        return randomString("男女", 1);
+    public static String randomSex(boolean isChinese) {
+        if (isChinese) {
+            return randomString("男女", 1);
+        }
+        return randomInt(1) + "";
     }
 
 }

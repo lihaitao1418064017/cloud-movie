@@ -78,7 +78,7 @@ public class AbstractElasticSearchCrudDao<E extends CrudEntity<PK>, PK extends S
                 .refresh(this.refresh)
                 .build();
         JestResult execute = JestUtil.execute(jestClient, gson, delete);
-        return 1;
+        return execute.getResponseCode();
     }
 
     @Override
@@ -220,7 +220,7 @@ public class AbstractElasticSearchCrudDao<E extends CrudEntity<PK>, PK extends S
     public List<E> findAll() {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder()
                 .query(QueryBuilders.matchAllQuery())
-                .size(searchMaxSize);
+                .size(this.getSearchMaxSize());
         Search.Builder builder = new Search
                 .Builder(searchSourceBuilder.toString());
         builder.addIndex(getAlias()).addType(getType());
@@ -381,7 +381,7 @@ public class AbstractElasticSearchCrudDao<E extends CrudEntity<PK>, PK extends S
 
 
     private String getAlias() {
-        return this.esEntity.alias();
+        return this.esEntity.alias() == null ? esEntity.index() : this.esEntity.alias();
     }
 
     public String getType() {

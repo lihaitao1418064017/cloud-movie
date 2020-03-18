@@ -1,4 +1,4 @@
-package org.lht.boot.mq.guava;
+package org.lht.boot.cache.guava;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

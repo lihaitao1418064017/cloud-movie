@@ -1,4 +1,4 @@
-package org.lht.boot.mq.redis.lock;
+package org.lht.boot.cache.redis.lock;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

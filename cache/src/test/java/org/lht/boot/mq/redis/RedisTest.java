@@ -1,8 +1,9 @@
 package org.lht.boot.mq.redis;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-import org.lht.boot.mq.entity.User;
+import org.junit.Test;
+import org.lht.boot.cache.entity.User;
+import org.lht.boot.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

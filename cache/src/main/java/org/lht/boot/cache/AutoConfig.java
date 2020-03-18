@@ -1,6 +1,6 @@
-package org.lht.boot.mq;
+package org.lht.boot.cache;
 
-import org.lht.boot.mq.redis.lock.RedisLockProperties;
+import org.lht.boot.cache.redis.lock.RedisLockProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

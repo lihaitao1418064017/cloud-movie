@@ -1,4 +1,4 @@
-package org.lht.boot.mq;
+package org.lht.boot.cache;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

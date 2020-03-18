@@ -15,6 +15,11 @@ public interface CrudController<E, PK, VO, Q extends Param> extends
         , UpdateController<E, PK, VO> {
 
 
+    /**
+     * 注入service
+     *
+     * @return
+     */
     @Override
     CrudService<E, PK> getService();
 

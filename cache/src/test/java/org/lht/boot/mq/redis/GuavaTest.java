@@ -1,7 +1,7 @@
 package org.lht.boot.mq.redis;
 
-import org.junit.jupiter.api.Test;
-import org.lht.boot.mq.guava.GuavaCacheUtil;
+import org.junit.Test;
+import org.lht.boot.cache.guava.GuavaCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
