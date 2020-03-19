@@ -7,9 +7,9 @@ import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.util.ParamMybatisUtil;
-import org.lht.boot.web.dao.AbstractMybatisPlusDao;
+import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
-import org.lht.boot.web.service.AbstractCrudService;
+import org.lht.boot.web.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 
 /**
  * @author LiHaitao
- * @description AbstractMybatisCrudServiceImpl: 数据库Service实现类
+ * @description BaseMybatisCrudServiceImpl: 数据库Service实现类
  * @date 2020/1/8 16:23
  **/
 
-public class AbstractMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends Serializable, Dao extends AbstractMybatisPlusDao<E>> implements AbstractCrudService<E, PK> {
+public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends Serializable, Dao extends BaseMybatisPlusDao<E>> implements BaseCrudService<E, PK> {
 
     @Autowired
     protected Dao dao;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
  * Es
  */
 @Repository
-public class TeacherDao extends AbstractElasticSearchCrudDao<Teacher, String> {
+public class TeacherDao extends ElasticSearchCrudDao<Teacher, String> {
 
 
 }

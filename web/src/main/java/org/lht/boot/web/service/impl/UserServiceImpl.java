@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @Date 2020/1/11 3:14 PM
  **/
 @Service
-public class UserServiceImpl extends AbstractMybatisCrudServiceImpl<User, String, UserDao> implements UserService {
+public class UserServiceImpl extends BaseMybatisCrudServiceImpl<User, String, UserDao> implements UserService {
 
 }

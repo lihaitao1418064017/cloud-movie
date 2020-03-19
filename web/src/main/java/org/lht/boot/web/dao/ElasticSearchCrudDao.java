@@ -42,11 +42,11 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
  * @author LiHaitao
- * @description AbstractElasticSearchCrudDao:ElasticSearch实现类
+ * @description ElasticSearchCrudDao:ElasticSearch实现类
  * @date 2020/1/2 18:23
  **/
 @Slf4j
-public class AbstractElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Serializable> implements EsCrudDao<E, PK> {
+public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Serializable> implements EsCrudDao<E, PK> {
 
     @Autowired
     private JestClient jestClient;
@@ -61,7 +61,7 @@ public class AbstractElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK exten
     private Gson gson;
 
 
-    public AbstractElasticSearchCrudDao() {
+    public ElasticSearchCrudDao() {
         //获取当前实体E上的的注解
         entityType = (Class<E>) ClassUtil.getGenericType(this.getClass(), 0);
         this.esEntity = ClassUtil.getAnnotation(this.entityType, EsEntity.class);

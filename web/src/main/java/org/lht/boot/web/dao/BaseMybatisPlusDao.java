@@ -13,7 +13,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
  * @description AbstractMapper:
  * @date 2019/12/13 16:42
  **/
-public interface AbstractMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper<E> {
+public interface BaseMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper<E> {
 
     /**
      * 分页查询

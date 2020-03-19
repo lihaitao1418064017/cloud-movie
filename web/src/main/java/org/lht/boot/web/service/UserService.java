@@ -8,6 +8,6 @@ import org.lht.boot.web.domain.entity.User;
  * @Author lht
  * @Date 2020/1/11 3:06 PM
  **/
-public interface UserService extends AbstractCrudService<User, String> {
+public interface UserService extends BaseCrudService<User, String> {
 
 }

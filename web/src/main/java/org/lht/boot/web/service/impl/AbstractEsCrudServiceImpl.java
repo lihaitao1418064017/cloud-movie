@@ -3,7 +3,7 @@ package org.lht.boot.web.service.impl;
 import org.lht.boot.web.api.param.AggregationParam;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
-import org.lht.boot.web.dao.AbstractElasticSearchCrudDao;
+import org.lht.boot.web.dao.ElasticSearchCrudDao;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.service.AbstractEsCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
  * @Author lht
  * @Date 2020/1/11 4:08 PM
  **/
-public class AbstractEsCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends Serializable, Dao extends AbstractElasticSearchCrudDao<E, PK>> implements AbstractEsCrudService<E, PK, Dao> {
+public class AbstractEsCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends Serializable, Dao extends ElasticSearchCrudDao<E, PK>> implements AbstractEsCrudService<E, PK, Dao> {
 
     @Autowired
     protected Dao dao;
