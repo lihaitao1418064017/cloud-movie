@@ -15,6 +15,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
  **/
 public interface BaseMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper<E> {
 
+
     /**
      * 分页查询
      *

@@ -2,7 +2,6 @@ package org.lht.boot.security.common.config;
 
 import org.lht.boot.security.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,10 +11,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.GenericFilterBean;
 
 /**
  * @author LiHaitao
@@ -30,25 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailService userDetailsService;
 
-    private final JwtAuthenticationEntryPoint unauthorizedHandler;
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private final AccessDeniedHandler accessDeniedHandler;
-
-
-    private final JwtAuthenticationTokenFilter authenticationTokenFilter;
-
-
-    @Autowired
-    public WebSecurityConfig(JwtAuthenticationEntryPoint unauthorizedHandler,
-                             @Qualifier("RestAuthenticationAccessDeniedHandler") AccessDeniedHandler accessDeniedHandler,
-                             UserDetailsService userDetailsService,
-                             JwtAuthenticationTokenFilter authenticationTokenFilter) {
-        this.unauthorizedHandler = unauthorizedHandler;
-        this.accessDeniedHandler = accessDeniedHandler;
-        this.CustomUserDetailsService = CustomUserDetailsService;
-        this.authenticationTokenFilter = authenticationTokenFilter;
-    }
-
+    public static final String AUTHORIZATION_TOKEN = "access_token";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -63,29 +47,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 return s.equals(charSequence.toString());
             }
         });
+
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler).and().authorizeRequests()
+        //配置请求访问策略
+        http
+                //关闭跨域CSRF、CORS
+                .cors().disable()
+                .csrf().disable()
+                //由于使用Token，所以不需要Session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                // 如果有允许匿名的url，填在下面
-                //                .antMatchers().permitAll()
+                //验证Http请求
+                .authorizeRequests()
+                //允许所有用户访问首页 与 登录
+                .antMatchers("/", "/login").permitAll()
+                //用户页面需要用户权限
+                .antMatchers("/user").hasAnyRole("USER")
+                //其它任何请求都要经过认证通过
                 .anyRequest().authenticated()
                 .and()
-                // 设置登陆页
-                .formLogin().loginPage("/login")
-                // 设置登陆成功页
-                .defaultSuccessUrl("/").permitAll()
-                // 自定义登陆用户名和密码参数，默认为username和password
-                //                .usernameParameter("username")
-                //                .passwordParameter("password")
-                .and()
+                //设置登出
                 .logout().permitAll();
-
-        // 关闭CSRF跨域
-        http.csrf().disable();
+        //添加JWT filter 在
+        http
+                .addFilterBefore(genericFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -100,6 +89,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
+    @Bean
+    public GenericFilterBean genericFilterBean() {
+        return new JwtAuthenticationTokenFilter();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
