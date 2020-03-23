@@ -30,19 +30,19 @@ public class MockTest {
 
     @Test
     public void test02() {
-        List mock = Mockito.mock(List.class);
-        mock.add(1);
-        mock.clear();
-        //校验方法是否执行
-        Mockito.verify(mock).add(2);
-        Mockito.verify(mock).clear();
+//        List mock = Mockito.mock(List.class);
+//        mock.add(1);
+//        mock.clear();
+//        //校验方法是否执行
+//        Mockito.verify(mock).add(2);
+//        Mockito.verify(mock).clear();
     }
-
-    @Test(expected=Exception.class)
-    public void test03() throws IOException {
-        OutputStream mock = Mockito.mock(OutputStream.class);
-        //预设当流关闭时抛出异常
-        Mockito.doThrow(new IOException()).when(mock).close();
-//        mock.close();
-    }
+//
+//    @Test(expected=Exception.class)
+//    public void test03() throws IOException {
+////        OutputStream mock = Mockito.mock(OutputStream.class);
+//        //预设当流关闭时抛出异常
+////        Mockito.doThrow(new IOException()).when(mock).close();
+////        mock.close();
+//    }
 }

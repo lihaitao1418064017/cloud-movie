@@ -64,23 +64,23 @@ public class SecConfig {
         return new SecAuthenticationAccessDeniedHandler();
     }
 
-    /**
-     * XssFilter Bean
-     */
-    @Bean
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public FilterRegistrationBean xssFilterRegistrationBean() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-        //        filterRegistrationBean.setFilter(new XssFilter());
-        filterRegistrationBean.setOrder(1);
-        filterRegistrationBean.setEnabled(true);
-        filterRegistrationBean.addUrlPatterns("/*");
-        Map<String, String> initParameters = new HashMap<>();
-        initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
-        initParameters.put("isIncludeRichText", "true");
-        filterRegistrationBean.setInitParameters(initParameters);
-        return filterRegistrationBean;
-    }
+//    /**
+//     * XssFilter Bean
+//     */
+//    @Bean  todo
+//    @SuppressWarnings({"unchecked", "rawtypes"})
+//    public FilterRegistrationBean xssFilterRegistrationBean() {
+//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+//                filterRegistrationBean.setFilter(new XssFilter());
+//        filterRegistrationBean.setOrder(1);
+//        filterRegistrationBean.setEnabled(true);
+//        filterRegistrationBean.addUrlPatterns("/*");
+//        Map<String, String> initParameters = new HashMap<>();
+//        initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
+//        initParameters.put("isIncludeRichText", "true");
+//        filterRegistrationBean.setInitParameters(initParameters);
+//        return filterRegistrationBean;
+//    }
 
 
     @Bean

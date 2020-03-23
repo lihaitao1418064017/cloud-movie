@@ -1,6 +1,6 @@
 package org.lht.boot.security.common.config;
 
-public class WeiXinProperties extends SocialProperties {
+public class WeiXinProperties  {
 
     private String providerId = "weixin";
 

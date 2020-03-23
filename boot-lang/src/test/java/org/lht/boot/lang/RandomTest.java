@@ -75,41 +75,41 @@ public class RandomTest {
 
     @Test
     public void test04() {
-
-        List<DeviceSummaryVO> deviceSummaryVOS = Lists.newArrayList();
-        String path = "";
-        for (int i = 0; i < 10000; i++) {
-            DeviceSummaryVO deviceSummaryVO = new DeviceSummaryVO();
-            deviceSummaryVO.setDeptPath(path + i);
-            deviceSummaryVO.setPeopleNum(RandomUtil.randomLong(1000));
-            deviceSummaryVO.setDeviceTotalNum(RandomUtil.randomLong(1000));
-            deviceSummaryVOS.add(deviceSummaryVO);
-        }
-        Long start = System.currentTimeMillis();
-        List<DeviceSummaryVO> deviceSummaryVOList = Lists.newArrayList();
-        for (DeviceSummaryVO deviceSummaryVO : deviceSummaryVOS) {
-            DeviceSummaryVO deviceSummary = new DeviceSummaryVO();
-            BeanUtils.copyProperties(deviceSummaryVO, deviceSummary);
-            for (DeviceSummaryVO it : deviceSummaryVOS) {
-                if (StrUtil.isNotBlank(it.getDeptPath())
-                        && it.getDeptPath().contains(deviceSummary.getDeptPath())
-                        && !it.getDeptPath().equals(deviceSummary.getDeptPath())) {
-                    Long peopleNum = deviceSummary.getPeopleNum();
-                    peopleNum = peopleNum == null ? 0 : peopleNum;
-                    Long sPeopleNum = it.getPeopleNum();
-                    sPeopleNum = sPeopleNum == null ? 0 : sPeopleNum;
-                    deviceSummary.setPeopleNum(peopleNum + sPeopleNum);
-                    Long deviceTotalNum = deviceSummary.getDeviceTotalNum();
-                    deviceTotalNum = deviceTotalNum == null ? 0 : deviceTotalNum;
-                    Long sDeviceTotalNum = it.getDeviceTotalNum();
-                    sDeviceTotalNum = sDeviceTotalNum == null ? 0 : sDeviceTotalNum;
-                    deviceSummary.setDeviceTotalNum(deviceTotalNum + sDeviceTotalNum);
-                }
-            }
-            deviceSummaryVOList.add(deviceSummary);
-        }
-
-        long end = System.currentTimeMillis();
-        System.out.println(end - start);
+//
+//        List<DeviceSummaryVO> deviceSummaryVOS = Lists.newArrayList();
+//        String path = "";
+//        for (int i = 0; i < 10000; i++) {
+//            DeviceSummaryVO deviceSummaryVO = new DeviceSummaryVO();
+//            deviceSummaryVO.setDeptPath(path + i);
+//            deviceSummaryVO.setPeopleNum(RandomUtil.randomLong(1000));
+//            deviceSummaryVO.setDeviceTotalNum(RandomUtil.randomLong(1000));
+//            deviceSummaryVOS.add(deviceSummaryVO);
+//        }
+//        Long start = System.currentTimeMillis();
+//        List<DeviceSummaryVO> deviceSummaryVOList = Lists.newArrayList();
+//        for (DeviceSummaryVO deviceSummaryVO : deviceSummaryVOS) {
+//            DeviceSummaryVO deviceSummary = new DeviceSummaryVO();
+//            BeanUtils.copyProperties(deviceSummaryVO, deviceSummary);
+//            for (DeviceSummaryVO it : deviceSummaryVOS) {
+//                if (StrUtil.isNotBlank(it.getDeptPath())
+//                        && it.getDeptPath().contains(deviceSummary.getDeptPath())
+//                        && !it.getDeptPath().equals(deviceSummary.getDeptPath())) {
+//                    Long peopleNum = deviceSummary.getPeopleNum();
+//                    peopleNum = peopleNum == null ? 0 : peopleNum;
+//                    Long sPeopleNum = it.getPeopleNum();
+//                    sPeopleNum = sPeopleNum == null ? 0 : sPeopleNum;
+//                    deviceSummary.setPeopleNum(peopleNum + sPeopleNum);
+//                    Long deviceTotalNum = deviceSummary.getDeviceTotalNum();
+//                    deviceTotalNum = deviceTotalNum == null ? 0 : deviceTotalNum;
+//                    Long sDeviceTotalNum = it.getDeviceTotalNum();
+//                    sDeviceTotalNum = sDeviceTotalNum == null ? 0 : sDeviceTotalNum;
+//                    deviceSummary.setDeviceTotalNum(deviceTotalNum + sDeviceTotalNum);
+//                }
+//            }
+//            deviceSummaryVOList.add(deviceSummary);
+//        }
+//
+//        long end = System.currentTimeMillis();
+//        System.out.println(end - start);
     }
 }

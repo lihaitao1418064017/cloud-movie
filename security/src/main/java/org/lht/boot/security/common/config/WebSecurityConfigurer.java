@@ -123,12 +123,12 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers(anonResourcesUrl).permitAll() // 免认证静态资源路径
                 .antMatchers(
                         secProperties.getLoginUrl(), // 登录路径
-                        SecurityConstant.FEBS_REGIST_URL, // 用户注册 url
+                        SecurityConstant.FEBS_REGIST_URL// 用户注册 url
                         //                        secProperties.getCode().getImage().getCreateUrl(), // 创建图片验证码路径
                         //                        secProperties.getCode().getSms().getCreateUrl(), // 创建短信验证码路径
-                        secProperties.getSocial().getSocialRedirectUrl(), // 重定向到社交账号注册（绑定）页面路径
-                        secProperties.getSocial().getSocialBindUrl(), // 社交账号绑定 URL
-                        secProperties.getSocial().getSocialRegistUrl() // 注册并绑定社交账号 URL
+//                        secProperties.getSocial().getSocialRedirectUrl(), // 重定向到社交账号注册（绑定）页面路径
+//                        secProperties.getSocial().getSocialBindUrl(), // 社交账号绑定 URL
+//                        secProperties.getSocial().getSocialRegistUrl() // 注册并绑定社交账号 URL
                 ).permitAll() // 配置免认证路径
                 .anyRequest()  // 所有请求
                 .authenticated() // 都需要认证

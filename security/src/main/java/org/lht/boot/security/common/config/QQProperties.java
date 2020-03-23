@@ -1,7 +1,7 @@
 package org.lht.boot.security.common.config;
 
 
-public class QQProperties extends SocialProperties {
+public class QQProperties {
 
     private String providerId = "qq";
 
