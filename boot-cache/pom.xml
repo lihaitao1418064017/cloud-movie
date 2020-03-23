@@ -11,7 +11,7 @@
 	<groupId>org.lht.boot</groupId>
 	<artifactId>boot-cache</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cache</name>
+	<name>boot-cache</name>
 	<description>boot-cache</description>
 
 	<properties>

@@ -1,11 +1,8 @@
 package org.lht.boot.security.service.impl;
 
 import org.lht.boot.security.dao.PermissionDao;
-import org.lht.boot.security.dao.RoleDao;
 import org.lht.boot.security.entity.Permission;
-import org.lht.boot.security.entity.Role;
 import org.lht.boot.security.service.PermissionService;
-import org.lht.boot.security.service.RoleService;
 import org.lht.boot.web.service.impl.BaseMybatisCrudServiceImpl;
 import org.springframework.stereotype.Service;
 

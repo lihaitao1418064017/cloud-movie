@@ -11,7 +11,7 @@
     <groupId>org.lht.boot.security.config</groupId>
     <artifactId>security-config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>config</name>
+    <name>security-config</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

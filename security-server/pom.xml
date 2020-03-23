@@ -13,7 +13,7 @@
     <groupId>org.lht.boot.security.server</groupId>
     <artifactId>security-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>server</name>
+    <name>security-server</name>
     <description>Demo project for Spring Boot</description>
 
 

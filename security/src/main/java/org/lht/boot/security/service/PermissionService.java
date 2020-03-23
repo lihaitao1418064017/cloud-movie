@@ -1,7 +1,6 @@
 package org.lht.boot.security.service;
 
 import org.lht.boot.security.entity.Permission;
-import org.lht.boot.security.entity.User;
 import org.lht.boot.web.service.BaseCrudService;
 
 /**

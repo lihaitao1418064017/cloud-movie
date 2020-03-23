@@ -1,7 +1,8 @@
 package org.lht.boot.security.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.lang.util.ValidatorUtil;
-import org.lht.boot.security.common.config.WebSecurityConfig;
+import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JWTTokenUtils;
 import org.lht.boot.security.entity.User;
 import org.lht.boot.security.service.UserService;
@@ -16,10 +17,18 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -27,7 +36,9 @@ import java.util.Objects;
  * @description LoginController:
  * @date 2020/3/19 14:57
  **/
+@RestController
 @RequestMapping
+@Slf4j
 public class LoginController {
 
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -35,11 +46,23 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @Autowired
+    @Autowired(required = false)
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private JWTTokenUtils jwtTokenUtils;
+
+    @Autowired
+    private RedirectStrategy redirectStrategy;
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private RequestCache requestCache;
+
+    @Autowired
+    private SecProperties secProperties;
+
 
     @RequestMapping("/")
     public String showHome() {
@@ -49,7 +72,33 @@ public class LoginController {
         return "home.html";
     }
 
-    @RequestMapping("/login")
+    //    8888888888888888888888888888888888888888888888888888888888888888888888888
+
+    @GetMapping("/login")
+    public String login(HttpServletRequest request, HttpServletResponse response) {
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
+        if (savedRequest != null) {
+            String redirectUrl = savedRequest.getRedirectUrl();
+            log.info("引发跳转的请求是：{}", redirectUrl);
+        }
+        return "login";
+    }
+
+    @GetMapping("/")
+    public void success(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        redirectStrategy.sendRedirect(request, response, secProperties.getIndexUrl());
+    }
+
+    @GetMapping("index")
+    public String index(Authentication authentication, Model model) {
+        model.addAttribute("user", authentication.getPrincipal());
+        return "index";
+    }
+
+
+    // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+
+    @RequestMapping("/auth/login")
     @ResponseBody
     public String showLogin(String username, String password, HttpServletResponse httpResponse) throws Exception {
         //通过用户名和密码创建一个 Authentication 认证对象，实现类为 UsernamePasswordAuthenticationToken
@@ -67,7 +116,7 @@ public class LoginController {
             //生成Token
             String token = jwtTokenUtils.createToken(authentication, false);
             //将Token写入到Http头部
-            httpResponse.addHeader(WebSecurityConfig.AUTHORIZATION_HEADER, "Bearer " + token);
+            httpResponse.addHeader("cookies", "Bearer " + token);
             return "/admin";
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");
