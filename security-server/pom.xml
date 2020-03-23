@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>org.lht.boot.security.config</groupId>
-        <artifactId>config</artifactId>
+        <artifactId>security-config</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath> ../security-config</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.lht.boot.security.server</groupId>
-    <artifactId>secserver</artifactId>
+    <artifactId>security-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>server</name>
     <description>Demo project for Spring Boot</description>
@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lht.boot.security.config</groupId>
-            <artifactId>config</artifactId>
+            <artifactId>security-config</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.lht.boot</groupId>
-	<artifactId>cache</artifactId>
+	<artifactId>boot-cache</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cache</name>
 	<description>boot-cache</description>
@@ -25,7 +25,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.lht.boot</groupId>
-			<artifactId>lang</artifactId>
+			<artifactId>boot-lang</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->

@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.lht.boot.security.config</groupId>
-    <artifactId>config</artifactId>
+    <artifactId>security-config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>config</name>
     <description>Demo project for Spring Boot</description>

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.lht.boot</groupId>
-	<artifactId>mq</artifactId>
+	<artifactId>boot-mq</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mq</name>
 	<description>mq-boot</description>
@@ -38,7 +38,7 @@
 		<!--fast-json-->
 		<dependency>
 			<groupId>org.lht.boot</groupId>
-			<artifactId>lang</artifactId>
+			<artifactId>boot-lang</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

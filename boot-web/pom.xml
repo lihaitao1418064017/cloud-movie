@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.lht.boot</groupId>
-    <artifactId>web</artifactId>
+    <artifactId>boot-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>web</name>
     <description>web-boot</description>
@@ -78,7 +78,7 @@
 
         <dependency>
             <groupId>org.lht.boot</groupId>
-            <artifactId>lang</artifactId>
+            <artifactId>boot-lang</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
