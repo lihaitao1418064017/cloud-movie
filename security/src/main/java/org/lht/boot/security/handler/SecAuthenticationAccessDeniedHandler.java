@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * 无权限处理类
+ */
 public class SecAuthenticationAccessDeniedHandler implements AccessDeniedHandler {
 
     private ObjectMapper mapper = new ObjectMapper();
