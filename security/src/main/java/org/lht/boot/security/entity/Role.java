@@ -8,7 +8,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
 /**
  * @author LiHaitao
- * @description Role:
+ * @description Role: 角色
  * @date 2020/3/18 11:25
  **/
 @Data

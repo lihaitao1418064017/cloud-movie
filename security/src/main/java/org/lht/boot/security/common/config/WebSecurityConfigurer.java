@@ -26,12 +26,12 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
 
 import javax.sql.DataSource;
 
-//import org.lht.boot.security.common.xss.XssFilter;
 
 /**
  * 配置Spring Security初始化
  *
- * @create 2017-11-30 19:34
+ * @author lht
+ * @date 2020-2-30 19:34
  **/
 @EnableConfigurationProperties(SecProperties.class)
 @Configuration
@@ -70,13 +70,19 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     private AccessDeniedHandler accessDeniedHandler;
 
 
-    // spring security自带的密码加密工具类
+    /**
+     * security密码加密工具类
+     * @return PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // 处理 rememberMe 自动登录认证
+    /**
+     * 处理 rememberMe 自动登录认证
+     * @return PersistentTokenRepository
+     */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
@@ -85,60 +91,95 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         return jdbcTokenRepository;
     }
 
+    /**
+     * 认证管理器
+     * @return AuthenticationManager
+     * @throws Exception
+     */
     @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager getAuthenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
+    /**
+     * url 配置
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         //静态资源
-        String[] anonResourcesUrl = StringUtils
-                .splitByWholeSeparatorPreserveAllTokens(secProperties.getAnonResourcesUrl(), ",");
-
-
-        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler) // 权限不足处理器
+        String[] anonResourcesUrl = StringUtils.split(secProperties.getAnonResourcesUrl(), ",");
+        http.exceptionHandling()
+                // 权限不足处理器
+                .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 //                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class) // 短信验证码校验
-                //                .addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
-                .formLogin() // 表单方式
-                .loginPage(secProperties.getLoginUrl()) // 未认证跳转 URL
-                .loginProcessingUrl(secProperties.getAuthUrl()) // 处理登录认证 URL
-                .successHandler(secAuthenticationSuccessHandler) // 处理登录成功
-                .failureHandler(secAuthenticationFailureHandler) // 处理登录失败
+                //.addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
+                // 表单方式
+                .formLogin()
+                // 未认证跳转 URL
+                .loginPage(secProperties.getLoginUrl())
+                // 处理登录认证 URL
+                .loginProcessingUrl(secProperties.getAuthUrl())
+                // 处理登录成功
+                .successHandler(secAuthenticationSuccessHandler)
+                // 处理登录失败
+                .failureHandler(secAuthenticationFailureHandler)
                 .and()
-                .rememberMe() // 添加记住我功能
-                .tokenRepository(persistentTokenRepository()) // 配置 token 持久化仓库
-                .tokenValiditySeconds(secProperties.getRememberMeTimeout()) // rememberMe 过期时间，单为秒
-                .userDetailsService(secUserDetailService) // 处理自动登录逻辑
+                // 添加记住我功能
+                .rememberMe()
+                // 配置 token 持久化仓库
+                .tokenRepository(persistentTokenRepository())
+                // rememberMe 过期时间，单为秒
+                .tokenValiditySeconds(secProperties.getRememberMeTimeout())
+                // 处理自动登录逻辑
+                .userDetailsService(secUserDetailService)
                 .and()
-                .sessionManagement() // 配置 session管理器
-                .invalidSessionStrategy(invalidSessionStrategy) // 处理 session失效
-                .maximumSessions(secProperties.getSession().getMaximumSessions()) // 最大并发登录数量
-                .expiredSessionStrategy(new SecExpiredSessionStrategy()) // 处理并发登录被踢出
-                .sessionRegistry(sessionRegistry) // 配置 session注册中心
+                // 配置 session管理器
+                .sessionManagement()
+                // 处理 session失效
+                .invalidSessionStrategy(invalidSessionStrategy)
+                // 最大并发登录数量
+                .maximumSessions(secProperties.getSession().getMaximumSessions())
+                // 处理并发登录被踢出
+                .expiredSessionStrategy(new SecExpiredSessionStrategy())
+                // 配置 session注册中心
+                .sessionRegistry(sessionRegistry)
                 .and()
                 .and()
-                .logout() // 配置登出
-                .addLogoutHandler(secAuthenticationLogoutHandler) // 配置登出处理器
-                .logoutUrl(secProperties.getLogoutUrl()) // 处理登出 url
-                .logoutSuccessUrl("/") // 登出后跳转到 /
-                .deleteCookies("JSESSIONID") // 删除 JSESSIONID
+                // 配置登出
+                .logout()
+                // 配置登出处理器
+                .addLogoutHandler(secAuthenticationLogoutHandler)
+                // 处理登出 url
+                .logoutUrl(secProperties.getLogoutUrl())
+                // 登出后跳转到 /
+                .logoutSuccessUrl("/")
+                // 删除 JSESSIONID
+                .deleteCookies("JSESSIONID")
                 .and()
-                .authorizeRequests() // 授权配置
-                .antMatchers(anonResourcesUrl).permitAll() // 免认证静态资源路径
+                // 授权配置
+                .authorizeRequests()
+                // 免认证静态资源路径
+                .antMatchers(anonResourcesUrl).permitAll()
                 .antMatchers(
-                        secProperties.getLoginUrl(), // 登录路径
-                        SecurityConstant.FEBS_REGIST_URL// 用户注册 url
+                        // 登录路径
+                        secProperties.getLoginUrl(),
+                        // 用户注册 url
+                        SecurityConstant.FEBS_REGIST_URL
                         //                        secProperties.getCode().getImage().getCreateUrl(), // 创建图片验证码路径
                         //                        secProperties.getCode().getSms().getCreateUrl(), // 创建短信验证码路径
                         //                        secProperties.getSocial().getSocialRedirectUrl(), // 重定向到社交账号注册（绑定）页面路径
                         //                        secProperties.getSocial().getSocialBindUrl(), // 社交账号绑定 URL
                         //                        secProperties.getSocial().getSocialRegistUrl() // 注册并绑定社交账号 URL
-                ).permitAll() // 配置免认证路径
-                .anyRequest()  // 所有请求
-                .authenticated() // 都需要认证
+                        // 配置免认证路径
+                ).permitAll()
+                // 所有请求
+                .anyRequest()
+                // 都需要认证
+                .authenticated()
                 .and()
                 .csrf().disable();
 

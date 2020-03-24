@@ -8,7 +8,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
 /**
  * @author LiHaitao
- * @description RolePermission:
+ * @description RolePermission: 角色与权限关联
  * @date 2020/3/18 11:34
  **/
 @Data

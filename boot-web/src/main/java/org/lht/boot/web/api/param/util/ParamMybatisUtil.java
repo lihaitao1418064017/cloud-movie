@@ -6,6 +6,7 @@ import org.lht.boot.lang.util.ClassUtil;
 import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.common.exception.NotSupportedException;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -101,7 +102,7 @@ public class ParamMybatisUtil {
                 queryWrapper.and(obj -> obj.eq(field, value));
                 break;
             case in:
-                queryWrapper.and(obj -> obj.in(field, value));
+                queryWrapper.and(obj -> obj.in(field, (Collection)value));
                 break;
             case like:
                 queryWrapper.and(obj -> obj.like(field, value));

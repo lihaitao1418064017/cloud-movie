@@ -1,5 +1,7 @@
 package org.lht.boot.security.common.config;
 
+import lombok.Data;
+
 /**
  * @Description: Session配置
  * @Author: Lihaitao
@@ -7,17 +9,13 @@ package org.lht.boot.security.common.config;
  * @UpdateUser:
  * @UpdateRemark:
  */
+@Data
 public class SessionProperties {
 
-    // 最大并发登录数量，默认值为-1，表示无限制
+    /**
+     * 最大并发登录数量，默认值为-1，表示无限制
+     */
     private Integer maximumSessions = -1;
 
-    public Integer getMaximumSessions() {
-        return maximumSessions;
-    }
-
-    public void setMaximumSessions(Integer maximumSessions) {
-        this.maximumSessions = maximumSessions;
-    }
 
 }

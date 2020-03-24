@@ -13,11 +13,18 @@ import java.io.IOException;
  * 导致 session 过期的原因有：
  * 1. 并发登录控制
  * 2. 被踢出
+ * @author lht
+ * @date 2020-3-24
  */
 public class SecExpiredSessionStrategy implements SessionInformationExpiredStrategy {
 
     private ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * sessiont过期处理策略
+     * @param event
+     * @throws IOException
+     */
     @Override
     public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
         event.getResponse()

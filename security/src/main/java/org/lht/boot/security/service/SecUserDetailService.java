@@ -70,25 +70,7 @@ public class SecUserDetailService implements UserDetailsService {
         }
     }
 
-    private List<String> findPermission(User user) {
-        List<UserRole> userRoles = this.userRoleService
-                .select(QueryParam.build("user_id", user.getId()));
-        final List<Integer> rolePermissions = this.rolePermissionService
-                .select(QueryParam.build("role_id"
-                        , TermEnum.in
-                        , userRoles
-                                .stream()
-                                .map(UserRole::getRoleId)
-                                .collect(Collectors.toSet())))
-                .stream()
-                .map(RolePermission::getPermissionId)
-                .collect(Collectors.toList());
-        return this.permissionService
-                .select(QueryParam.build("id", TermEnum.in, rolePermissions))
-                .stream()
-                .map(Permission::getName)
-                .collect(Collectors.toList());
-    }
+
 
     private List<String> findRole(User user) {
         List<UserRole> userRoles = this.userRoleService

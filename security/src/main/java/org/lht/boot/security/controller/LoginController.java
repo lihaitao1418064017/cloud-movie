@@ -32,19 +32,18 @@ import java.util.Objects;
 
 /**
  * @author LiHaitao
- * @description LoginController:
+ * @description LoginController: 登陆控制器
  * @date 2020/3/19 14:57
  **/
 @RestController
 @RequestMapping
 public class LoginController {
 
-    private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private UserService userService;
 
-    @Autowired(required = false)
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -79,11 +78,6 @@ public class LoginController {
         redirectStrategy.sendRedirect(request, response, secProperties.getIndexUrl());
     }
 
-    @GetMapping("index")
-    public String index(Authentication authentication, Model model) {
-        model.addAttribute("user", authentication.getPrincipal());
-        return "index";
-    }
 
 
     // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
@@ -123,7 +117,7 @@ public class LoginController {
 
     @RequestMapping("/user")
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasPermission('/user','user')")
     public String printUser() {
         return "如果你看见这句话，说明你有ROLE_USER角色";
     }

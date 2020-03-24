@@ -18,7 +18,7 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
 
 /**
  * @author LiHaitao
- * @description SecConfig:
+ * @description SecConfig: security通用配置
  * @date 2020/3/23 18:26
  **/
 @Configuration

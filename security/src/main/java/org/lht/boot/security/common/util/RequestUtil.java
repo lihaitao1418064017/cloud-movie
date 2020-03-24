@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author LiHaitao
- * @description RequestUtil:
+ * @description RequestUtil: request请求工具类
  * @date 2020/3/23 16:55
  **/
 public class RequestUtil {
