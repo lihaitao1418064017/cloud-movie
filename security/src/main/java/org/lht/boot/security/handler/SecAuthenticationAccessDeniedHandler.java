@@ -22,11 +22,12 @@ public class SecAuthenticationAccessDeniedHandler implements AccessDeniedHandler
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
-
+        //返回无权限结果
         if (RequestUtil.isAjaxRequest(request)) {
             response.setContentType(SecurityConstant.JSON_UTF8);
             response.getWriter().write(this.mapper.writeValueAsString(R.error("没有该权限！")));
         } else {
+            //无权限重定向页面
             redirectStrategy.sendRedirect(request, response, SecurityConstant.FEBS_ACCESS_DENY_URL);
         }
     }

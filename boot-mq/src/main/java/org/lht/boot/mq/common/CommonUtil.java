@@ -1,8 +1,7 @@
 package org.lht.boot.mq.common;
 
+import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
-
-import java.util.UUID;
 
 /**
  * @author LiHaitao
@@ -26,7 +25,7 @@ public class CommonUtil {
             String dataStr = JSONObject.toJSONString(data);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("data", JSONObject.parseObject(dataStr));
-            jsonObject.put("messageId", UUID.randomUUID().toString());
+            jsonObject.put("messageId", RandomUtil.simpleUUID());
             jsonObject.put("timestamp", System.currentTimeMillis());
             return jsonObject.toJSONString();
         } catch (Exception e) {

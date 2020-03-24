@@ -6,6 +6,7 @@
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="application/javascript">
         var header = "";
+
         function login() {
             $.post("http://localhost:8080/auth/login", {
                 username: $("#username").val(),
@@ -15,6 +16,7 @@
                 header = data;
             })
         }
+
         function toUserPageBtn() {
             $.ajax({
                 type: "get",

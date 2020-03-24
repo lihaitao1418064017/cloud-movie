@@ -14,5 +14,5 @@ public class KafkaMessage<T> extends JSONObject {
 
     private String topic;
 
-    private Object body;
+    private Object data;
 }

@@ -35,3 +35,21 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+# security 配置
+security:
+  url:
+#  登录 URL
+    loginUrl: /login.html
+#    免认证静态资源路径
+    anonResourcesUrl: /css
+#    记住我超时时间
+    rememberMeTimeout: 30000
+#    登出 URL
+    logoutUrl: /logout
+#    主页 URL
+    indexUrl: /index
+    authUrl: /auth/login
+server:
+  port: 8080
+

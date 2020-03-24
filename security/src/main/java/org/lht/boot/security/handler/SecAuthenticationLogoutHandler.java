@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 配置登出处理器，解决登出后 principals 中还存在相应的 sessionInformation 的问题
  */
-public class SecLogoutHandler implements LogoutHandler {
+public class SecAuthenticationLogoutHandler implements LogoutHandler {
 
     private SessionRegistry sessionRegistry;
 

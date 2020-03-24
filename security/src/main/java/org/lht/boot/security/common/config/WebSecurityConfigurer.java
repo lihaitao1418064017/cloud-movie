@@ -4,13 +4,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.lht.boot.security.common.constant.SecurityConstant;
 import org.lht.boot.security.common.session.SecExpiredSessionStrategy;
 import org.lht.boot.security.handler.SecAuthenticationFailureHandler;
+import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
 import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
-import org.lht.boot.security.handler.SecLogoutHandler;
 import org.lht.boot.security.service.SecUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -34,6 +36,7 @@ import javax.sql.DataSource;
 @EnableConfigurationProperties(SecProperties.class)
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
@@ -55,7 +58,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private SecLogoutHandler secLogoutHandler;
+    private SecAuthenticationLogoutHandler secAuthenticationLogoutHandler;
 
     @Autowired
     private InvalidSessionStrategy invalidSessionStrategy;
@@ -76,11 +79,15 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     // 处理 rememberMe 自动登录认证
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
-
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
         jdbcTokenRepository.setCreateTableOnStartup(false);
         return jdbcTokenRepository;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
     @Override
@@ -97,7 +104,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 //                .addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
                 .formLogin() // 表单方式
                 .loginPage(secProperties.getLoginUrl()) // 未认证跳转 URL
-                .loginProcessingUrl(secProperties.getCode().getImage().getLoginProcessingUrl()) // 处理登录认证 URL
+                .loginProcessingUrl(secProperties.getAuthUrl()) // 处理登录认证 URL
                 .successHandler(secAuthenticationSuccessHandler) // 处理登录成功
                 .failureHandler(secAuthenticationFailureHandler) // 处理登录失败
                 .and()
@@ -114,7 +121,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 .and()
                 .logout() // 配置登出
-                .addLogoutHandler(secLogoutHandler) // 配置登出处理器
+                .addLogoutHandler(secAuthenticationLogoutHandler) // 配置登出处理器
                 .logoutUrl(secProperties.getLogoutUrl()) // 处理登出 url
                 .logoutSuccessUrl("/") // 登出后跳转到 /
                 .deleteCookies("JSESSIONID") // 删除 JSESSIONID
@@ -126,9 +133,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                         SecurityConstant.FEBS_REGIST_URL// 用户注册 url
                         //                        secProperties.getCode().getImage().getCreateUrl(), // 创建图片验证码路径
                         //                        secProperties.getCode().getSms().getCreateUrl(), // 创建短信验证码路径
-//                        secProperties.getSocial().getSocialRedirectUrl(), // 重定向到社交账号注册（绑定）页面路径
-//                        secProperties.getSocial().getSocialBindUrl(), // 社交账号绑定 URL
-//                        secProperties.getSocial().getSocialRegistUrl() // 注册并绑定社交账号 URL
+                        //                        secProperties.getSocial().getSocialRedirectUrl(), // 重定向到社交账号注册（绑定）页面路径
+                        //                        secProperties.getSocial().getSocialBindUrl(), // 社交账号绑定 URL
+                        //                        secProperties.getSocial().getSocialRegistUrl() // 注册并绑定社交账号 URL
                 ).permitAll() // 配置免认证路径
                 .anyRequest()  // 所有请求
                 .authenticated() // 都需要认证

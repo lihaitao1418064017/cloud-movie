@@ -2,10 +2,9 @@ package org.lht.boot.security.common.config;
 
 import org.lht.boot.security.common.session.SecInvalidSessionStrategy;
 import org.lht.boot.security.handler.SecAuthenticationAccessDeniedHandler;
+import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
 import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
-import org.lht.boot.security.handler.SecLogoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.session.SessionRegistry;
@@ -16,9 +15,6 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.session.InvalidSessionStrategy;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author LiHaitao
@@ -46,10 +42,10 @@ public class SecConfig {
 
     // 配置登出处理器
     @Bean
-    public SecLogoutHandler logoutHandler() {
-        SecLogoutHandler secLogoutHandler = new SecLogoutHandler();
-        secLogoutHandler.setSessionRegistry(sessionRegistry());
-        return secLogoutHandler;
+    public SecAuthenticationLogoutHandler logoutHandler() {
+        SecAuthenticationLogoutHandler secAuthenticationLogoutHandler = new SecAuthenticationLogoutHandler();
+        secAuthenticationLogoutHandler.setSessionRegistry(sessionRegistry());
+        return secAuthenticationLogoutHandler;
     }
 
     @Bean
@@ -64,23 +60,23 @@ public class SecConfig {
         return new SecAuthenticationAccessDeniedHandler();
     }
 
-//    /**
-//     * XssFilter Bean
-//     */
-//    @Bean  todo
-//    @SuppressWarnings({"unchecked", "rawtypes"})
-//    public FilterRegistrationBean xssFilterRegistrationBean() {
-//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-//                filterRegistrationBean.setFilter(new XssFilter());
-//        filterRegistrationBean.setOrder(1);
-//        filterRegistrationBean.setEnabled(true);
-//        filterRegistrationBean.addUrlPatterns("/*");
-//        Map<String, String> initParameters = new HashMap<>();
-//        initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
-//        initParameters.put("isIncludeRichText", "true");
-//        filterRegistrationBean.setInitParameters(initParameters);
-//        return filterRegistrationBean;
-//    }
+    //    /**
+    //     * XssFilter Bean
+    //     */
+    //    @Bean  todo
+    //    @SuppressWarnings({"unchecked", "rawtypes"})
+    //    public FilterRegistrationBean xssFilterRegistrationBean() {
+    //        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+    //                filterRegistrationBean.setFilter(new XssFilter());
+    //        filterRegistrationBean.setOrder(1);
+    //        filterRegistrationBean.setEnabled(true);
+    //        filterRegistrationBean.addUrlPatterns("/*");
+    //        Map<String, String> initParameters = new HashMap<>();
+    //        initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
+    //        initParameters.put("isIncludeRichText", "true");
+    //        filterRegistrationBean.setInitParameters(initParameters);
+    //        return filterRegistrationBean;
+    //    }
 
 
     @Bean

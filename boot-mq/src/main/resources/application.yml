@@ -2,7 +2,9 @@ spring:
   kafka:
     bootstrap-servers: 47.99.216.57:9092
     consumer:
-      group-id: test
+      group-id: test1
+      auto-offset-reset: earliest
+      auto-commit-interval: 3000
 # 相关详细配置     http://kafka.apachecn.org/documentation.html#producerconfigs
 # activemq相关配置
   activemq:

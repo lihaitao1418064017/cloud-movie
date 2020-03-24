@@ -1,6 +1,5 @@
 package org.lht.boot.security.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JWTTokenUtils;
@@ -38,7 +37,6 @@ import java.util.Objects;
  **/
 @RestController
 @RequestMapping
-@Slf4j
 public class LoginController {
 
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -63,14 +61,6 @@ public class LoginController {
     @Autowired
     private SecProperties secProperties;
 
-
-    @RequestMapping("/")
-    public String showHome() {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        logger.info("当前登陆用户：" + name);
-
-        return "home.html";
-    }
 
     //    8888888888888888888888888888888888888888888888888888888888888888888888888
 

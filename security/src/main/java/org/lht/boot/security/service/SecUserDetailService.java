@@ -48,6 +48,7 @@ public class SecUserDetailService implements UserDetailsService {
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
             boolean notLocked = false;
+            //账户锁定判断
             if (STATUS_VALID.equals(user.getStatus())) {
                 notLocked = true;
             }

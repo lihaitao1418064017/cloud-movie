@@ -16,14 +16,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class KafkaTest {
 
     @Autowired
-    private KafkaSender<String, String> kafkaSender;
+    private KafkaSender<String, User> kafkaSender;
 
     @Test
     void sendTest() {
         User user = new User();
         user.setAge(31);
         user.setName("lihaitao");
-        kafkaSender.send("order", "sdfsdf").addCallback(new KafkaListenableFutureCallback<>());
+        long i = 0;
+        for (; ; ) {
+            i++;
+            kafkaSender.sendByJsonStr("order", user).addCallback(new KafkaListenableFutureCallback<>());
+            if (i == 100000) {
+                break;
+            }
+        }
+
 
     }
 }

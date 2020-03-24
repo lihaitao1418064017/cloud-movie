@@ -18,8 +18,7 @@ public class SecProperties {
     // 主页 URL
     private String indexUrl;
 
-    private ValidateCodeProperties code = new ValidateCodeProperties();
-
+    private String authUrl;
 
     private SessionProperties session = new SessionProperties();
 
