@@ -42,7 +42,7 @@ security:
 #  登录 URL
     loginUrl: /login.html
 #    免认证静态资源路径
-    anonResourcesUrl: /css
+    anonResourcesUrl: /swagger-resources/**,/swagger-ui.html/,v2/api-docs,/webjars/**
 #    记住我超时时间
     rememberMeTimeout: 30000
 #    登出 URL
@@ -50,6 +50,9 @@ security:
 #    主页 URL
     indexUrl: /index
     authUrl: /auth/login
+  basic:
+#    false：禁用权限
+    enabled: true
 server:
   port: 8080
 

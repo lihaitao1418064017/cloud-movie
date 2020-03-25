@@ -13,7 +13,9 @@ spring:
       uris: http://localhost:9200
       read-timeout: 30s
       connection-timeout: 10s
-
+# swagger2配置
+ mconfig:
+   swagger-ui-open: true
 
 #mybatis
 mybatis-plus:

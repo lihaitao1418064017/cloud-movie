@@ -1,25 +1,27 @@
-package org.lht.boot.security.entity;
+package org.lht.boot.security.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.lht.boot.web.domain.entity.BaseCrudEntity;
+import org.lht.boot.security.entity.Permission;
+import org.lht.boot.security.entity.UserRole;
+import org.lht.boot.web.domain.vo.AbstractVO;
 
 /**
- * @author LiHaitao
- * @description UserRole:
- * @date 2020/3/18 11:39
+ * Description:
+ *
+ * @Author lht
+ * @Date 2020/3/25 8:04 PM
  **/
 @Data
-@TableName("user_role")
-@ApiModel("用户角色实体")
-public class UserRole extends BaseCrudEntity<Integer> {
+@ApiModel("用户角色VO")
+public class UserRoleVO extends AbstractVO<UserRole,Integer> {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
+
 
     @ApiModelProperty("用户id")
     private Integer userId;

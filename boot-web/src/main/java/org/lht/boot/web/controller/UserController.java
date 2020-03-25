@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/1/15 14:21
  **/
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/test_user")
 public class UserController extends AbstractController<User, String, UserVO, UserService> {
 
 }

@@ -1,5 +1,7 @@
 package org.lht.boot.web.controller;
 
+import cn.hutool.http.HttpStatus;
+import io.swagger.annotations.*;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.service.InsertService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,12 @@ public interface InsertController<E, PK, VO> {
      * @param data
      * @return
      */
+    @ApiOperation("添加")
+    @ApiResponses({
+            @ApiResponse(code = HttpStatus.HTTP_OK, message = "操作成功"),
+            @ApiResponse(code = HttpStatus.HTTP_INTERNAL_ERROR, message = "服务器内部异常"),
+            @ApiResponse(code = HttpStatus.HTTP_FORBIDDEN, message = "权限不足"),
+            @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
     @PostMapping
     default R<PK> add(@RequestBody VO data) {
         return ok(getService().insert(voToEntity(data)));

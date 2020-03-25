@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 登录失败处理器
- */
+ * @author LiHaitao
+ * @description 登陆失败处理器
+ * @date 2020/3/25 19:50
+ **/
 @Component
 public class SecAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
