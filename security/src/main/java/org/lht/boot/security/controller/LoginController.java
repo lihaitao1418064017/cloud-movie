@@ -95,7 +95,7 @@ public class LoginController {
             //生成Token
             String token = jwtTokenUtils.createToken(authentication, false);
             //将Token写入到Http头部
-            httpResponse.addHeader("cookies", "Bearer " + token);
+            httpResponse.addHeader("Authentication", "Bearer " + token);
             return "/admin";
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");
