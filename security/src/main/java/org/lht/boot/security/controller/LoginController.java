@@ -1,5 +1,6 @@
 package org.lht.boot.security.controller;
 
+import io.swagger.annotations.Api;
 import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JwtTokenUtil;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author LiHaitao
@@ -36,6 +36,7 @@ import java.util.Objects;
  **/
 @RestController
 @RequestMapping
+@Api(tags = "登陆相关接口", description = "提供登陆相关的 Rest API")
 public class LoginController {
 
 
@@ -60,8 +61,6 @@ public class LoginController {
     private SecProperties secProperties;
 
 
-    //    8888888888888888888888888888888888888888888888888888888888888888888888888
-
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response) {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
@@ -78,18 +77,14 @@ public class LoginController {
     }
 
 
-    // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-
     @RequestMapping("/auth/login")
     @ResponseBody
     public String showLogin(String username, String password, HttpServletResponse httpResponse) throws Exception {
         //通过用户名和密码创建一个 Authentication 认证对象，实现类为 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         //如果认证对象不为空
-        if (Objects.nonNull(authenticationToken)) {
-            User user = userService.selectSingle(QueryParam.build(Term.build("username", username)));
-            ValidatorUtil.notNull(user, "用户不存在");
-        }
+        User user = userService.selectSingle(QueryParam.build(Term.build("username", username)));
+        ValidatorUtil.notNull(user, "用户不存在");
         try {
             //通过 AuthenticationManager（默认实现为ProviderManager）的authenticate方法验证 Authentication 对象
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
@@ -98,7 +93,7 @@ public class LoginController {
             //生成Token
             String token = jwtTokenUtil.createToken(authentication, false);
             //将Token写入到Http头部
-            httpResponse.addHeader("cookies", "Bearer " + token);
+            httpResponse.addHeader("Authentication", "Bearer " + token);
             return "/admin";
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");

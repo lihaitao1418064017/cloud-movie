@@ -17,6 +17,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+/**
+ * @author LiHaitao
+ * @description 用户登陆加载权限
+ * @date 2020/3/25 19:50
+ **/
+
 @Configuration
 public class SecUserDetailService implements UserDetailsService {
 
@@ -28,13 +34,6 @@ public class SecUserDetailService implements UserDetailsService {
 
     @Autowired
     private UserRoleService userRoleService;
-
-    @Autowired
-    private RolePermissionService rolePermissionService;
-
-    @Autowired
-    private PermissionService permissionService;
-
 
     private static final Integer STATUS_VALID = 1;
 

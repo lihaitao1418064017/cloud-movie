@@ -1,8 +1,12 @@
-package org.lht.boot.security.service;
+package org.lht.boot.security.handler;
 
 import org.lht.boot.security.entity.Permission;
 import org.lht.boot.security.entity.RolePermission;
 import org.lht.boot.security.entity.UserRole;
+import org.lht.boot.security.service.PermissionService;
+import org.lht.boot.security.service.RolePermissionService;
+import org.lht.boot.security.service.UserRoleService;
+import org.lht.boot.security.service.UserService;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.TermEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +21,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author LiHaitao
- * @description CustomPermissionEvaluator:
+ * @description CustomPermissionEvaluator: 权限校验
  * @date 2020/3/19 15:58
  **/
 @Component

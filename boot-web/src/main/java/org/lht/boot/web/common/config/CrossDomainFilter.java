@@ -6,6 +6,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 跨域配置
+ */
 @Slf4j
 public class CrossDomainFilter implements Filter {
 

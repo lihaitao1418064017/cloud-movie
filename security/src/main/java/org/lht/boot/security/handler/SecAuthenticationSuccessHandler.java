@@ -18,10 +18,11 @@ import org.springframework.security.web.authentication.session.ConcurrentSession
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 /**
- * 登录成功处理器
- */
+ * @author LiHaitao
+ * @description 登陆成功处理器
+ * @date 2020/3/25 19:50
+ **/
 public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private ObjectMapper mapper = new ObjectMapper();
@@ -39,7 +40,7 @@ public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHan
         WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
         String remoteAddress = details.getRemoteAddress();
 
-        LoginType loginType = LoginType.normal;
+        LoginType loginType = LoginType.NORMAL;
         Object principal = authentication.getPrincipal();
         if (principal instanceof SecUserDetails) {
             SecUserDetails userDetails = (SecUserDetails) principal;
@@ -48,7 +49,7 @@ public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHan
         }
 
         // 解决第三方登录在 session 并发控制设置不生效的问题
-        if (!LoginType.normal.equals(loginType)) {
+        if (!LoginType.NORMAL.equals(loginType)) {
             String sessionId = details.getSessionId();
             sessionRegistry.removeSessionInformation(sessionId);
             sessionRegistry.registerNewSession(sessionId, authentication.getPrincipal());
@@ -61,7 +62,7 @@ public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHan
             authenticationStrategy.onAuthentication(authentication, request, response);
 
             //            // 社交账户登录成功后直接 重定向到主页
-            //            if (LoginType.social.equals(loginType))
+            //            if (LoginType.SOCIAL.equals(loginType))
             //                redirectStrategy.sendRedirect(request, response, secProperties.getIndexUrl());
         }
         response.setContentType(SecurityConstant.JSON_UTF8);

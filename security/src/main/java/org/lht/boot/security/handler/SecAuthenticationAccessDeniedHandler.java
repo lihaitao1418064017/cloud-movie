@@ -13,10 +13,11 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 /**
- * 无权限处理类
- */
+ * @author LiHaitao
+ * @description 无权限处理器
+ * @date 2020/3/25 19:50
+ **/
 public class SecAuthenticationAccessDeniedHandler implements AccessDeniedHandler {
 
     private ObjectMapper mapper = new ObjectMapper();

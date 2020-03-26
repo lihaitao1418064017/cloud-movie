@@ -1,7 +1,9 @@
 package org.lht.boot.web.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.http.HttpStatus;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.*;
 import org.apache.commons.lang3.Validate;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
@@ -31,6 +33,15 @@ public interface QueryController<E, PK, VO, Q extends Param> {
      * @param pk
      * @return
      */
+    @ApiOperation("根据id查询")
+    @ApiResponses({
+            @ApiResponse(code = HttpStatus.HTTP_OK, message = "操作成功"),
+            @ApiResponse(code = HttpStatus.HTTP_INTERNAL_ERROR, message = "服务器内部异常"),
+            @ApiResponse(code = HttpStatus.HTTP_FORBIDDEN, message = "权限不足"),
+            @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "Object", name = "pk", value = "信息id", required = true)
+    })
     @GetMapping("/{pk}")
     @ResponseBody
     default R<VO> selectById(@PathVariable PK pk) {
@@ -46,6 +57,17 @@ public interface QueryController<E, PK, VO, Q extends Param> {
      * @param request
      * @return
      */
+    @ApiOperation("根据条件查询")
+    @ApiResponses({
+            @ApiResponse(code = HttpStatus.HTTP_OK, message = "操作成功"),
+            @ApiResponse(code = HttpStatus.HTTP_INTERNAL_ERROR, message = "服务器内部异常"),
+            @ApiResponse(code = HttpStatus.HTTP_FORBIDDEN, message = "权限不足"),
+            @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "Object", name = "request", value = "查询条件", required = true)
+            ,            @ApiImplicitParam(paramType = "body", dataType = "Object", name = "param", value = "查询条件对象", required = true)
+
+    })
     @GetMapping("/list")
     @ResponseBody
     default R<List> select(Q param, HttpServletRequest request) {
@@ -64,6 +86,17 @@ public interface QueryController<E, PK, VO, Q extends Param> {
      * @param request
      * @return
      */
+    @ApiOperation("分页查询")
+    @ApiResponses({
+            @ApiResponse(code = HttpStatus.HTTP_OK, message = "操作成功"),
+            @ApiResponse(code = HttpStatus.HTTP_INTERNAL_ERROR, message = "服务器内部异常"),
+            @ApiResponse(code = HttpStatus.HTTP_FORBIDDEN, message = "权限不足"),
+            @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "Object", name = "request", value = "查询条件url", required = true)
+            ,            @ApiImplicitParam(paramType = "body", dataType = "Object", name = "param", value = "查询条件对象", required = true)
+
+    })
     @GetMapping("/page")
     @ResponseBody
     default R<PagerResult<VO>> selectPage(Q param, HttpServletRequest request) {

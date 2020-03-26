@@ -1,25 +1,28 @@
-package org.lht.boot.security.entity;
+package org.lht.boot.security.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.lht.boot.web.domain.entity.BaseCrudEntity;
+import org.lht.boot.security.entity.RolePermission;
+import org.lht.boot.security.entity.UserRole;
+import org.lht.boot.web.domain.vo.AbstractVO;
 
 /**
- * @author LiHaitao
- * @description RolePermission: 角色与权限关联
- * @date 2020/3/18 11:34
+ * Description:
+ *
+ * @Author lht
+ * @Date 2020/3/25 8:04 PM
  **/
 @Data
-@TableName("role_permission")
-@ApiModel("角色和权限实体")
-public class RolePermission extends BaseCrudEntity<Integer> {
+@ApiModel("角色权限VO")
+public class RolePermissionVO extends AbstractVO<RolePermission,Integer> {
+
 
     @TableId(type = IdType.AUTO)
     private Integer id;
+
 
     @ApiModelProperty("角色id")
     private Integer roleId;

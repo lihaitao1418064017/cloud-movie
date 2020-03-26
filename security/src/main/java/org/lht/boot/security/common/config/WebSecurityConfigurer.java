@@ -168,6 +168,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 免认证静态资源路径
                 .antMatchers(anonResourcesUrl).permitAll()
+                //免认证接口
+                .antMatchers("/swagger-ui.html/").permitAll()
                 .antMatchers(
                         // 登录路径
                         secProperties.getLoginUrl(),
