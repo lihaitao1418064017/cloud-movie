@@ -2,11 +2,11 @@ package org.lht.boot.security.common.config;
 
 import org.apache.commons.lang3.StringUtils;
 import org.lht.boot.security.common.constant.SecurityConstant;
-import org.lht.boot.security.common.session.SecExpiredSessionStrategy;
 import org.lht.boot.security.handler.SecAuthenticationFailureHandler;
 import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
 import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
 import org.lht.boot.security.service.SecUserDetailService;
+import org.lht.boot.security.session.SecExpiredSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -72,6 +72,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /**
      * security密码加密工具类
+     *
      * @return PasswordEncoder
      */
     @Bean
@@ -81,6 +82,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /**
      * 处理 rememberMe 自动登录认证
+     *
      * @return PersistentTokenRepository
      */
     @Bean
@@ -93,6 +95,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /**
      * 认证管理器
+     *
      * @return AuthenticationManager
      * @throws Exception
      */
@@ -103,6 +106,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /**
      * url 配置
+     *
      * @param http
      * @throws Exception
      */

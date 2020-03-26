@@ -2,7 +2,7 @@ package org.lht.boot.security.controller;
 
 import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.common.config.SecProperties;
-import org.lht.boot.security.common.util.JWTTokenUtils;
+import org.lht.boot.security.common.util.JwtTokenUtil;
 import org.lht.boot.security.entity.User;
 import org.lht.boot.security.service.UserService;
 import org.lht.boot.web.api.param.QueryParam;
@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,7 +46,7 @@ public class LoginController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JWTTokenUtils jwtTokenUtils;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     private RedirectStrategy redirectStrategy;
@@ -79,7 +78,6 @@ public class LoginController {
     }
 
 
-
     // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
     @RequestMapping("/auth/login")
@@ -98,7 +96,7 @@ public class LoginController {
             //将 Authentication 绑定到 SecurityContext
             SecurityContextHolder.getContext().setAuthentication(authentication);
             //生成Token
-            String token = jwtTokenUtils.createToken(authentication, false);
+            String token = jwtTokenUtil.createToken(authentication, false);
             //将Token写入到Http头部
             httpResponse.addHeader("cookies", "Bearer " + token);
             return "/admin";

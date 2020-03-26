@@ -1,4 +1,4 @@
-package org.lht.boot.security.common.session;
+package org.lht.boot.security.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.lht.boot.security.common.constant.SecurityConstant;

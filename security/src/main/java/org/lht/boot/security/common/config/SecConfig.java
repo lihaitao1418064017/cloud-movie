@@ -1,9 +1,9 @@
 package org.lht.boot.security.common.config;
 
-import org.lht.boot.security.common.session.SecInvalidSessionStrategy;
 import org.lht.boot.security.handler.SecAuthenticationAccessDeniedHandler;
 import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
 import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
+import org.lht.boot.security.session.SecInvalidSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

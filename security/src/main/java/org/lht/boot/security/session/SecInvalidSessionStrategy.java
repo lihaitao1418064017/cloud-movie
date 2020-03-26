@@ -1,4 +1,4 @@
-package org.lht.boot.security.common.session;
+package org.lht.boot.security.session;
 
 import lombok.Data;
 import org.lht.boot.security.common.config.SecProperties;
