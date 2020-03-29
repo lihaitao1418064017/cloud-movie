@@ -1,6 +1,7 @@
 package org.lht.boot.lang.controller;
 
 import cn.hutool.captcha.LineCaptcha;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.lang.util.CaptchaUtils;
 import org.springframework.web.bind.annotation.*;
@@ -39,15 +40,13 @@ public class TestController {
     }
 
 
-    @GetMapping("check/{code}")
+    @PostMapping("test")
     @ResponseBody
-    public String check(HttpServletRequest request, HttpServletResponse response, @PathVariable String code) throws IOException {
-        String captcha = (String) request.getSession().getAttribute(request.getSession().getId());
-        if (!code.equals(captcha)) {
-            return "error";
-        }
-        log.info("sessiod---->{},captcha:{}", request.getSession().getId(), captcha);
-        request.getSession().removeAttribute(request.getSession().getId());
-        return "ok";
+    public JSONObject check(JSONObject jsonObject) throws IOException {
+        log.info("jsonObject{}",jsonObject.toJSONString());
+        return jsonObject;
     }
+
+
+
 }

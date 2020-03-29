@@ -19,11 +19,13 @@ import org.springframework.util.StringUtils;
 import java.util.Objects;
 
 /**
+ * @author lht
  * @description: OAuth2 资源服务器配置类
+ *
  */
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public abstract class ResServerConfig extends ResourceServerConfigurerAdapter {
+public abstract class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired(required = false)
     private RemoteTokenServices remoteTokenServices;

@@ -1,13 +1,13 @@
 package org.lht.boot.security.resource.config;
 
-import org.lht.boot.security.config.config.ResServerConfig;
+import org.lht.boot.security.config.config.OAuth2ResourceServerConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * @description: 资源服务器访问权限配置
  */
 @Configuration
-public class WebSecurityConfig extends ResServerConfig {
+public class WebSecurityConfig extends OAuth2ResourceServerConfig {
     // TODO: 2020/3/27 shan 
     //    @Override
     //    public void configure(HttpSecurity http) throws Exception {
