@@ -4,6 +4,7 @@ import cn.hutool.captcha.LineCaptcha;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.lang.util.CaptchaUtils;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,13 +41,12 @@ public class TestController {
     }
 
 
-    @PostMapping("test")
+    @PostMapping(value = "test", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JSONObject check(JSONObject jsonObject) throws IOException {
-        log.info("jsonObject{}",jsonObject.toJSONString());
+    public JSONObject check(@RequestBody Vo jsonObject) throws IOException {
+        log.info("jsonObject{}", jsonObject.toJSONString());
         return jsonObject;
     }
-
 
 
 }
