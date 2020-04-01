@@ -1,6 +1,7 @@
 package org.lht.boot.cache.redis;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -56,6 +57,20 @@ public class RedisUtil<K, V> {
      */
     public List<V> getList(K key) {
         return lGet(key, 0, -1);
+    }
+
+
+    /**
+     * 脚本
+     *
+     * @param script
+     * @param keys
+     * @param args
+     * @param <T>
+     * @return
+     */
+    public <T> T execute(RedisScript<T> script, List<K> keys, Object... args) {
+        return redisTemplate.execute(script, keys, args);
     }
 
 

@@ -185,6 +185,12 @@ public class ServletUtil extends cn.hutool.extra.servlet.ServletUtil {
         return "Basic " + Base64.encodeBase64(encode.getBytes());
     }
 
+    /**
+     * 获取ip地址
+     *
+     * @param request
+     * @return
+     */
     public static String getIpAddr(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {

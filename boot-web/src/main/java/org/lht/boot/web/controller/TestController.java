@@ -1,8 +1,13 @@
 package org.lht.boot.web.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.lht.boot.lang.controller.Vo;
+import org.lht.boot.web.common.annotation.Limit;
+import org.lht.boot.web.domain.LimitType;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * @author LiHaitao
@@ -11,11 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/test")
+@Slf4j
 public class TestController {
 
     @GetMapping
     public String test() {
 
         return "success";
+    }
+
+    @PostMapping("/api")
+    @Limit(name = "test接口限流", key = "test", prefix = "api_", period = 2, count = 1, limitType = LimitType.IP)
+    public JSONObject check(@RequestBody Vo jsonObject) throws IOException {
+        log.info("jsonObject{}", jsonObject.toJSONString());
+        return jsonObject;
     }
 }
