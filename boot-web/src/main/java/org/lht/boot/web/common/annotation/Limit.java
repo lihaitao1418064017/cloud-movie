@@ -28,10 +28,10 @@ public @interface Limit {
     String prefix() default "";
 
     // 时间的，单位秒
-    int period();
+    int period() default 1;
 
     // 限制访问次数
-    int count();
+    int count() default 10;
 
     // 限制类型
     LimitType limitType() default LimitType.CUSTOMER;
