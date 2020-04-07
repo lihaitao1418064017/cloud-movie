@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 /**
  * Description: 限流配置
  *
@@ -18,10 +20,13 @@ public class LimitProperties {
     /**
      * 秒
      */
-    private Integer period=3;
+    private Integer period = 3;
 
     /**
      * 次数
      */
-    private Integer count=1;
+    private Integer count = 1;
+
+
+    private List<String> ip;
 }

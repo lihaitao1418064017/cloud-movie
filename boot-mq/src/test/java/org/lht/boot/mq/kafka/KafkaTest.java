@@ -37,7 +37,23 @@ public class KafkaTest {
         //            }
         //        }
 
-        kafkaSender.send("Notify", jsonObject.toJSONString());
+        String caseEvent = "{\n" +
+                "        \"wfsj\": 1585792810000,\n" +
+                "        \"wfdz\": \"友谊路春雷路口\",\n" +
+                "        \"caseEventId\": \"3202051531230652\",\n" +
+                "        \"caseEventSign\": \"violation\",\n" +
+                "        \"caseEventTime\": 1585792810000,\n" +
+                "        \"caseEventType\": \"1\",\n" +
+                "        \"updateTime\": 1585792810000,\n" +
+                "        \"id\": \"320205153123065violation\",\n" +
+                "        \"hphm\": \"苏E131234\",\n" +
+                "        \"deptCode\": \"2635\",\n" +
+                "        \"personCode\": \"KD015347\",\n" +
+                "        \"status\": 2\n" +
+                "}";
+
+
+        kafkaSender.send("caseEventData", caseEvent);
 
     }
 }

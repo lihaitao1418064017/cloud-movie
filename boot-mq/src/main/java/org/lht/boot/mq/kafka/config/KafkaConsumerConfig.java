@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableKafka
-@EnableConfigurationProperties({KafkaProperties.class, KafkaProperties.class})
+@EnableConfigurationProperties({KafkaProperties.class})
 public class KafkaConsumerConfig {
 
     @Autowired

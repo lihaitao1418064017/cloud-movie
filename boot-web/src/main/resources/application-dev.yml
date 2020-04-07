@@ -48,6 +48,9 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+api:
+  limit:
+    ip: 127.0.0.1,localhost
 ##logging
 #logging:
 #  level: warn
