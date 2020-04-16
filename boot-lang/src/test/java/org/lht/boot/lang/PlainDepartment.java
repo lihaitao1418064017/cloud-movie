@@ -1,7 +1,6 @@
 package org.lht.boot.lang;
 
 import lombok.Data;
-import org.assertj.core.util.Lists;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * @Description: 部门统计VO
  */
 @Data
-public class DeviceSummaryVO {
+public class PlainDepartment {
 
     //    private String deptCode;
 
@@ -43,6 +42,6 @@ public class DeviceSummaryVO {
 
     private String deptId;
 
-    private List<DeviceSummaryVO> children = Lists.newArrayList();
+    private List<PlainDepartment> children;
 
 }

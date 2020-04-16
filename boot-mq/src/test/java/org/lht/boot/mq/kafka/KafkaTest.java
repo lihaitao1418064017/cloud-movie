@@ -38,22 +38,26 @@ public class KafkaTest {
         //        }
 
         String caseEvent = "{\n" +
-                "        \"wfsj\": 1585792810000,\n" +
-                "        \"wfdz\": \"友谊路春雷路口\",\n" +
-                "        \"caseEventId\": \"3202051531230652\",\n" +
+                "        \"bjdh\": \"1586245638000\",\n" +
+                "        \"caseEventId\": \"2020109094101121218\",\n" +
                 "        \"caseEventSign\": \"violation\",\n" +
-                "        \"caseEventTime\": 1585792810000,\n" +
-                "        \"caseEventType\": \"1\",\n" +
-                "        \"updateTime\": 1585792810000,\n" +
-                "        \"id\": \"320205153123065violation\",\n" +
-                "        \"hphm\": \"苏E131234\",\n" +
-                "        \"deptCode\": \"2635\",\n" +
+                "        \"caseEventType\": \"120\",\n" +
+                "        \"sfdd\": \"苏州\",        \n" +
+                "        \"bjrxm\": \"www\",\n" +
+                "        \"jjyxm\": \"www\",\n" +
+                "        \"updateTime\": 1586245638000,\n" +
+                "        \"caseEventContent\": \"kafka消费了的警情7\",\n" +
+                "        \"countTime\": 1586245638000,\n" +
                 "        \"personCode\": \"KD015347\",\n" +
-                "        \"status\": 2\n" +
+                "        \"bjsj\": 1586245638000,\n" +
+                "        \"related\": \"relating\",\n" +
+                "        \"caseEventTime\": 1586247966000,\n" +
+                "        \"deptCode\": \"2635\",\n" +
+                "        \"status\": 0\n" +
                 "}";
 
 
-        kafkaSender.send("caseEventData", caseEvent);
+        kafkaSender.send("cvf_caseEventData", caseEvent);
 
     }
 }
