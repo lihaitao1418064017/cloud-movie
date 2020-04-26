@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -19,13 +18,13 @@ import org.springframework.util.StringUtils;
 import java.util.Objects;
 
 /**
- * @author lht
  * @description: OAuth2 资源服务器配置类
- *
+ * @author: LiHaitao
+ * @date: 2020/4/26 14:16
  */
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public abstract class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired(required = false)
     private RemoteTokenServices remoteTokenServices;
@@ -45,14 +44,14 @@ public abstract class OAuth2ResourceServerConfig extends ResourceServerConfigure
                 .csrf()
                 .disable()
                 .exceptionHandling()
-            .and()
+                .and()
                 .headers()
                 .frameOptions()
                 .disable()
-            .and()
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
+                .and()
                 .requestMatcher(authorizationHeaderRequestMatcher());
         http.antMatcher("/res").authorizeRequests().anyRequest().authenticated();
 

@@ -36,7 +36,7 @@ public class CustomGlobalMethodSecurityConfiguration extends GlobalMethodSecurit
     /**
      * 前置通知
      */
-    @Around("execution(* @annotation(com.kedacom.ctsp.authz.Authorize))")
+    @Around("execution(* @annotation())")
     public void aroundAuthorize(ProceedingJoinPoint joinPoint) throws Throwable {
         //        super.methodSecurityInterceptor().invoke(new MethodInvocationAdapter(joinPoint));
     }

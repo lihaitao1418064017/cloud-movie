@@ -20,9 +20,11 @@ import java.util.Objects;
 
 /**
  * @description: OAuth2 授权服务器配置类
+ * @author: LiHaitao
+ * @date: 2020/4/26 14:09
  */
 @EnableAuthorizationServer
-public abstract class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
+public abstract class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -52,7 +54,7 @@ public abstract class AuthServerConfig extends AuthorizationServerConfigurerAdap
     public boolean isSupportRefreshToken;
 
 
-    public AuthServerConfig(int accessTokenValiditySeconds, int refreshTokenValiditySeconds, boolean isReuseRefreshToken, boolean isSupportRefreshToken) {
+    public OAuth2ServerConfig(int accessTokenValiditySeconds, int refreshTokenValiditySeconds, boolean isReuseRefreshToken, boolean isSupportRefreshToken) {
         this.accessTokenValiditySeconds = accessTokenValiditySeconds;
         this.refreshTokenValiditySeconds = refreshTokenValiditySeconds;
         this.isReuseRefreshToken = isReuseRefreshToken;
@@ -61,13 +63,14 @@ public abstract class AuthServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * 配置授权服务器端点，如令牌存储，令牌自定义，用户批准和授权类型，不包括端点安全配置
+     *
      * @param endpoints
      * @throws Exception
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         Collection<TokenEnhancer> tokenEnhancers = applicationContext.getBeansOfType(TokenEnhancer.class).values();
-        TokenEnhancerChain tokenEnhancerChain=new TokenEnhancerChain();
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain.setTokenEnhancers(new ArrayList<>(tokenEnhancers));
 
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
@@ -78,19 +81,20 @@ public abstract class AuthServerConfig extends AuthorizationServerConfigurerAdap
         defaultTokenServices.setRefreshTokenValiditySeconds(refreshTokenValiditySeconds);
         defaultTokenServices.setTokenEnhancer(tokenEnhancerChain);
         //若通过 JDBC 存储令牌
-        if (Objects.nonNull(jdbcClientDetailsService)){
+        if (Objects.nonNull(jdbcClientDetailsService)) {
             defaultTokenServices.setClientDetailsService(jdbcClientDetailsService);
         }
 
         endpoints
-            .authenticationManager(authenticationManager)
-            .userDetailsService(userDetailsService)
-            .tokenServices(defaultTokenServices);
+                .authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService)
+                .tokenServices(defaultTokenServices);
     }
 
 
     /**
      * 配置授权服务器端点的安全
+     *
      * @param oauthServer
      * @throws Exception
      */
