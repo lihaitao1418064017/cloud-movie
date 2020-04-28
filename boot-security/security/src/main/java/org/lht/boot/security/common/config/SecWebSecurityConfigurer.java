@@ -5,7 +5,6 @@ import org.lht.boot.security.handler.SecAuthenticationFailureHandler;
 import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
 import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
 import org.lht.boot.security.handler.SecRestLogoutSuccessHandler;
-import org.lht.boot.security.service.SecUserDetailService;
 import org.lht.boot.security.session.SecExpiredSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -37,7 +37,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
@@ -51,7 +51,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private SecUserDetailService secUserDetailService;
+    private UserDetailsService secUserDetailService;
 
     @Autowired
     private DataSource dataSource;

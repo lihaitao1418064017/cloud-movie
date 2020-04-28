@@ -33,9 +33,9 @@ public abstract class OAuth2ServerConfig extends AuthorizationServerConfigurerAd
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    //
     //    @Autowired
-    //    private SecUserDetailService userDetailsService;
+    //    private UserDetailsService userDetailsService;
 
     @Autowired(required = false)
     private JdbcClientDetailsService jdbcClientDetailsService;
