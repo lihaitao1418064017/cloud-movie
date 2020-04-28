@@ -6,13 +6,13 @@
         <groupId>org.lht.boot.security</groupId>
         <artifactId>security-auth2</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
     <artifactId>oauth2-config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>oauth2-config</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>jar</packaging>
+    <!--<packaging>jar</packaging>-->
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Edgware.SR1</spring-cloud.version>
@@ -54,11 +54,23 @@
 
     </dependencies>
 
+    <!--<build>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
             </plugin>
         </plugins>
     </build>

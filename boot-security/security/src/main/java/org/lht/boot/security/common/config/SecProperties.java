@@ -25,31 +25,31 @@ public class SecProperties {
     /**
      * 登录 URL
      */
-    private String loginUrl;
+    private String loginUrl = "/auth/login";
 
     private String swaggerUrl = "/swagger-ui.html/**";
 
     /**
      * 免认证静态资源路径
      */
-    private String anonResourcesUrl;
+    private String anonResourcesUrl = "/css";
     /**
      * 记住我超时时间
      */
-    private int rememberMeTimeout;
+    private int rememberMeTimeout = 30000;
     /**
      * 登出
      */
-    private String logoutUrl;
+    private String logoutUrl = "/logout";
     /**
      * 主页 URL
      */
-    private String indexUrl;
+    private String indexUrl = "/index";
 
     /**
      * 认证url
      */
-    private String authUrl;
+    private String authUrl = "/";
 
     /**
      * session相关配置

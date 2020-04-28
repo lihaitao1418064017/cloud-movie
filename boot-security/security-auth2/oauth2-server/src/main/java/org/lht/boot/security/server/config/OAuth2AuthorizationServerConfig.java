@@ -1,7 +1,9 @@
 package org.lht.boot.security.server.config;
 
 import org.lht.boot.security.config.config.OAuth2ServerConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 
 import javax.annotation.Resource;
@@ -18,6 +20,9 @@ public class OAuth2AuthorizationServerConfig extends OAuth2ServerConfig {
 
     @Resource
     private DataSource dataSource;
+
+    @Autowired
+    private UserDetailsService secUserDetailService;
 
     /**
      * 调用父类构造函数，设置令牌失效日期等信息

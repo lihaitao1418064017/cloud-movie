@@ -6,7 +6,6 @@
 		<groupId>org.lht.boot</groupId>
 		<artifactId>boot-security</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../../</relativePath> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.lht.boot.security</groupId>
 	<artifactId>security-auth2</artifactId>
@@ -27,8 +26,9 @@
 
 	<!--<dependencies>-->
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter</artifactId>-->
+			<!--<groupId>org.lht.boot</groupId>-->
+			<!--<artifactId>security</artifactId>-->
+			<!--<version>0.0.1-SNAPSHOT</version>-->
 		<!--</dependency>-->
 	<!--</dependencies>-->
 

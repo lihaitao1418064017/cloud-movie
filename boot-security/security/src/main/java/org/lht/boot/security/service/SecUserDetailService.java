@@ -1,7 +1,10 @@
 package org.lht.boot.security.service;
 
 import cn.hutool.core.date.DateUtil;
-import org.lht.boot.security.entity.*;
+import org.lht.boot.security.entity.Role;
+import org.lht.boot.security.entity.SecUserDetails;
+import org.lht.boot.security.entity.User;
+import org.lht.boot.security.entity.UserRole;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.api.param.TermEnum;
@@ -22,7 +25,6 @@ import java.util.stream.Collectors;
  * @description 用户登陆加载权限
  * @date 2020/3/25 19:50
  **/
-
 @Configuration
 public class SecUserDetailService implements UserDetailsService {
 
@@ -68,7 +70,6 @@ public class SecUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("用戶不存在");
         }
     }
-
 
 
     private List<String> findRole(User user) {

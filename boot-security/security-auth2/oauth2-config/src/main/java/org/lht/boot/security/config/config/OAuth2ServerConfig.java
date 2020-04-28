@@ -3,7 +3,6 @@ package org.lht.boot.security.config.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
@@ -35,8 +34,8 @@ public abstract class OAuth2ServerConfig extends AuthorizationServerConfigurerAd
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    //    @Autowired
+    //    private SecUserDetailService userDetailsService;
 
     @Autowired(required = false)
     private JdbcClientDetailsService jdbcClientDetailsService;
@@ -85,10 +84,10 @@ public abstract class OAuth2ServerConfig extends AuthorizationServerConfigurerAd
             defaultTokenServices.setClientDetailsService(jdbcClientDetailsService);
         }
 
-        endpoints
-                .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)
-                .tokenServices(defaultTokenServices);
+        //        endpoints
+        //                .authenticationManager(authenticationManager)
+        //                .userDetailsService(userDetailsService)
+        //                .tokenServices(defaultTokenServices);
     }
 
 
