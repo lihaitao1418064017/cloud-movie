@@ -49,7 +49,7 @@ public class SecProperties {
     /**
      * 认证url
      */
-    private String authUrl = "/";
+    private String authUrl = "/auth/login";
 
     /**
      * session相关配置

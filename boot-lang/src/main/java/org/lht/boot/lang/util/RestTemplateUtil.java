@@ -85,17 +85,24 @@ public class RestTemplateUtil {
      * http请求
      *
      * @param url
-     * @param deviceId
      * @param method
      * @param responseType
      * @param <S>
      * @return
      */
-    public static <S> S exchangeHandle(String url, String deviceId, HttpMethod method, Class<S> responseType) {
-        log.info("---------请求的User-Identify:---------{}", deviceId);
+    public static <S> S exchangeHandle(String url, HttpMethod method, Class<S> responseType) {
         log.info("---------请求的服务器地址:---------{}", method + ": " + url);
         log.info("---------请求的Body:---------{}", "null");
         String response = RestTemplateUtil.getInstance().exchange(url, method, RestTemplateUtil.createHttpEntity(null), String.class).getBody();
+        log.info("---------返回的Response:---------{}", response);
+        return JSON.parseObject(response, responseType);
+    }
+
+
+    public static <S, T> S exchangeHandleBasicHeader(String url, HttpHeaders httpHeaders, T body, HttpMethod method, Class<S> responseType) {
+        log.info("---------请求的服务器地址:---------{}", method + ": " + url);
+        log.info("---------请求的Body:---------{}", body);
+        String response = RestTemplateUtil.getInstance().exchange(url, method, new HttpEntity<>(body, httpHeaders), String.class).getBody();
         log.info("---------返回的Response:---------{}", response);
         return JSON.parseObject(response, responseType);
     }
@@ -105,14 +112,12 @@ public class RestTemplateUtil {
      *
      * @param url
      * @param id
-     * @param deviceId
      * @param method
      * @param responseType
      * @param <S>
      * @return
      */
-    public static <S, T> S exchangeHandle(String url, String id, String deviceId, HttpMethod method, T body, Class<S> responseType) {
-        log.info("---------请求的User-Identify:---------{}", deviceId);
+    public static <S, T> S exchangeHandle(String url, String id, HttpMethod method, T body, Class<S> responseType) {
         log.info("---------请求的服务器地址:---------{}", method + ": " + url.replace("{ID}", id));
         log.info("---------请求的Body:---------{}", "null");
         String response;

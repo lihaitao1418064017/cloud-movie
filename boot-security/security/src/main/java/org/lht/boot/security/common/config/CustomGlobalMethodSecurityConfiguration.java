@@ -2,7 +2,7 @@ package org.lht.boot.security.common.config;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.lht.boot.security.handler.SecPermissionEvaluator;
+import org.lht.boot.security.service.SecPermissionEvaluator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

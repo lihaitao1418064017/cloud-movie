@@ -4,6 +4,7 @@ import cn.hutool.captcha.LineCaptcha;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.lang.util.CaptchaUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,8 @@ import java.io.OutputStream;
 @RequestMapping("/")
 @RestController
 @Slf4j
-public class TestController {
+@Qualifier("testController")
+public class TestCaptchaController {
 
     @GetMapping("captcha")
     @ResponseBody

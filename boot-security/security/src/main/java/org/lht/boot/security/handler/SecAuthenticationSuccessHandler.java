@@ -7,6 +7,7 @@ import org.lht.boot.security.entity.LoginType;
 import org.lht.boot.security.entity.SecUserDetails;
 import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -18,11 +19,15 @@ import org.springframework.security.web.authentication.session.ConcurrentSession
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+//import org.lht.boot.security.entity.SecUserDetails;
+
 /**
  * @author LiHaitao
  * @description 登陆成功处理器
  * @date 2020/3/25 19:50
  **/
+@Configuration
 public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private ObjectMapper mapper = new ObjectMapper();

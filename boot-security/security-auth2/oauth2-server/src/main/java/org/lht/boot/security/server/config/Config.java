@@ -10,4 +10,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
 
+    //
+    //    @Bean
+    //    @ConfigurationProperties(prefix = "spring.datasource")
+    //    public DataSource dataSource() {
+    //        return new DruidDataSource();
+    //    }
+    //
+    //    @Bean(name = "jdbcTemplate")
+    //    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+    //        return new NamedParameterJdbcTemplate(dataSource());
+    //    }
 }

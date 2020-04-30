@@ -5,12 +5,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author LiHaitao
- * @description OAuth2ClientProperties:
+ * @description OAuth2ClientConfigProperties:
  * @date 2020/4/28 20:08
  **/
 @Data
-@ConfigurationProperties(prefix = "security.oauth2.client")
-public class OAuth2ClientProperties {
+@ConfigurationProperties(prefix = "boot.security.oauth2.client")
+public class OAuth2ClientConfigProperties {
 
     /**
      * 请求code地址，authorize请求

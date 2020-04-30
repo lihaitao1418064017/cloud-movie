@@ -1,16 +1,20 @@
 package org.lht.boot.security.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
+import org.lht.boot.lang.util.RestTemplateUtil;
 import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JwtTokenUtil;
+import org.lht.boot.security.entity.SecUserDetails;
 import org.lht.boot.security.entity.User;
-import org.lht.boot.security.service.UserService;
+import org.lht.boot.security.service.UserInfoService;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,7 +45,7 @@ public class LoginController {
 
 
     @Autowired
-    private UserService userService;
+    private UserInfoService userInfoService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -83,7 +87,7 @@ public class LoginController {
         //通过用户名和密码创建一个 Authentication 认证对象，实现类为 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         //如果认证对象不为空
-        User user = userService.selectSingle(QueryParam.build(Term.build("username", username)));
+        User user = userInfoService.selectSingle(QueryParam.build(Term.build("username", username)));
         ValidatorUtil.notNull(user, "用户不存在");
         try {
             //通过 AuthenticationManager（默认实现为ProviderManager）的authenticate方法验证 Authentication 对象
@@ -91,9 +95,16 @@ public class LoginController {
             //将 Authentication 绑定到 SecurityContext
             SecurityContextHolder.getContext().setAuthentication(authentication);
             //生成Token
-            String token = jwtTokenUtil.createToken(authentication, false);
+            //            String token = jwtTokenUtil.createToken(authentication, false);
             //将Token写入到Http头部
-            httpResponse.addHeader("Authentication", "Bearer " + token);
+            //            httpResponse.addHeader("Authentication", "Bearer " + token);
+            SecUserDetails userDetails = (SecUserDetails) SecurityContextHolder
+                    .getContext().getAuthentication().getPrincipal();
+            System.out.println(userDetails);
+            JSONObject s = RestTemplateUtil.exchangeHandle("http://localhost:8081/oauth2/authorize",
+                    HttpMethod.GET
+                    , null
+                    , JSONObject.class);
             return "/admin";
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");

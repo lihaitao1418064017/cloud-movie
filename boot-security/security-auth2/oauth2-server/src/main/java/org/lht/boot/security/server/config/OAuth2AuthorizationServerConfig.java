@@ -38,11 +38,11 @@ public class OAuth2AuthorizationServerConfig extends OAuth2ServerConfig {
         super.configure(clients);
         //        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
         clients.inMemory()                          // 使用内存存储客户端信息
-                .withClient("app")       // client_id
-                .secret("pass")                   // client_secret
+                .withClient("boot-oauth2")       // client_id
+                .secret("oauth2")                   // client_secret
                 .authorizedGrantTypes("authorization_code", "password", "client_credentials", "client_credentials")     // 该client允许的授权类型
                 .accessTokenValiditySeconds(3600)               // Token 的有效期
-                .scopes("read")                    // 允许的授权范围
+                .scopes("scope")                    // 允许的授权范围
                 .autoApprove(true);                  //登录后绕过批准询问(/oauth/confirm_access)
     }
 }

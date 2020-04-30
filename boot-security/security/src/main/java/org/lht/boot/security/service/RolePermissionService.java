@@ -5,7 +5,7 @@ import org.lht.boot.web.service.BaseCrudService;
 
 /**
  * @author LiHaitao
- * @description UserService:
+ * @description UserInfoService:
  * @date 2020/3/19 14:48
  **/
 public interface RolePermissionService extends BaseCrudService<RolePermission, Integer> {

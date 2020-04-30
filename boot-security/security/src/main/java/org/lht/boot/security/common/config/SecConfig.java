@@ -4,10 +4,13 @@ import org.lht.boot.security.handler.SecAuthenticationAccessDeniedHandler;
 import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
 import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
 import org.lht.boot.security.handler.SecRestLogoutSuccessHandler;
+import org.lht.boot.security.service.SecPermissionEvaluator;
 import org.lht.boot.security.session.SecInvalidSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -16,6 +19,8 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.session.InvalidSessionStrategy;
+
+import static org.springframework.context.annotation.ScopedProxyMode.INTERFACES;
 
 /**
  * @author LiHaitao
@@ -95,5 +100,24 @@ public class SecConfig {
         return new HttpSessionRequestCache();
     }
 
+
+    //    @Bean
+    //    @ConfigurationProperties(prefix = "spring.datasource")
+    //    public DataSource dataSource() {
+    //        return new DruidDataSource();
+    //    }
+    //
+    //    @Bean(name = "jdbcTemplate")
+    //    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+    //        return new NamedParameterJdbcTemplate(dataSource());
+    //    }
+
+
+    @Bean
+    @Lazy
+    @Scope(proxyMode = INTERFACES)
+    public SecPermissionEvaluator secPermissionEvaluator() {
+        return new SecPermissionEvaluator();
+    }
 
 }

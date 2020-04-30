@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -145,8 +146,8 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository())
                 // rememberMe 过期时间，单为秒
                 .tokenValiditySeconds(secProperties.getRememberMeTimeout())
-                // 处理自动登录逻辑
-                .userDetailsService(secUserDetailService)
+                //                // 处理自动登录逻辑
+                //                .userDetailsService(secUserDetailService)
                 .and()
                 // 配置 session管理器
                 .sessionManagement()
@@ -198,6 +199,13 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
+    }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.userDetailsService(secUserDetailService);
     }
 
 

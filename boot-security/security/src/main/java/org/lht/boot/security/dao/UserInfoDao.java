@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @date 2020/3/19 13:50
  **/
 @Repository
-public interface UserDao extends BaseMybatisPlusDao<User> {
+public interface UserInfoDao extends BaseMybatisPlusDao<User> {
 
 
 }

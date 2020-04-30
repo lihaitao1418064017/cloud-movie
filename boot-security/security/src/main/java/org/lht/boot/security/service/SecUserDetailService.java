@@ -1,6 +1,7 @@
 package org.lht.boot.security.service;
 
 import cn.hutool.core.date.DateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.security.entity.Role;
 import org.lht.boot.security.entity.SecUserDetails;
 import org.lht.boot.security.entity.User;
@@ -25,11 +26,12 @@ import java.util.stream.Collectors;
  * @description 用户登陆加载权限
  * @date 2020/3/25 19:50
  **/
+@Slf4j
 @Configuration
 public class SecUserDetailService implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserInfoService userInfoService;
 
     @Autowired
     private RoleService roleService;
@@ -39,9 +41,12 @@ public class SecUserDetailService implements UserDetailsService {
 
     private static final Integer STATUS_VALID = 1;
 
+    //    @Autowired
+    //    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = this.userService.selectSingle(QueryParam.build(Term.build("username", username)));
+        User user = this.userInfoService.selectSingle(QueryParam.build(Term.build("username", username)));
         if (user != null) {
             final List<String> roles = findRole(user);
             final List<SimpleGrantedAuthority> simpleGrantedAuthorities = roles
@@ -53,6 +58,7 @@ public class SecUserDetailService implements UserDetailsService {
             if (STATUS_VALID.equals(user.getStatus())) {
                 notLocked = true;
             }
+            //            log.info("user:{} ,password:{}", user.getUsername(), passwordEncoder.encode("123456"));
             SecUserDetails userDetails = new SecUserDetails(user.getUsername()
                     , user.getPassword()
                     , true

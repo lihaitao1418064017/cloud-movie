@@ -1,6 +1,7 @@
 package org.lht.boot.security.client.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.lht.boot.security.client.entity.OAuth2Token;
 import org.lht.boot.security.client.service.OAuth2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,20 @@ public class OAuth2Controller {
     @RequestMapping("/authorize")
     public ModelAndView authorize(HttpServletRequest request, HttpServletResponse response) {
         try {
+
             String applyForTokenUri = oAuth2Service.authorize(request, response);
             return new ModelAndView(new RedirectView(applyForTokenUri));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @RequestMapping("/callback")
+    public ModelAndView authorize(String code) {
+        try {
+            OAuth2Token oAuth2Token = oAuth2Service.getOAuth2Token(code);
+            log.info("oauth2Token:{}", oAuth2Token);
+            return new ModelAndView(new RedirectView());
         } catch (Exception e) {
             return null;
         }

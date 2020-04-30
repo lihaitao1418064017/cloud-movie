@@ -1,19 +1,15 @@
-package org.lht.boot.security.handler;
+package org.lht.boot.security.service;
 
 import org.lht.boot.security.entity.Permission;
 import org.lht.boot.security.entity.RolePermission;
 import org.lht.boot.security.entity.UserRole;
-import org.lht.boot.security.service.PermissionService;
-import org.lht.boot.security.service.RolePermissionService;
-import org.lht.boot.security.service.UserRoleService;
-import org.lht.boot.security.service.UserService;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.TermEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,8 +20,11 @@ import java.util.stream.Collectors;
  * @description CustomPermissionEvaluator: 权限校验
  * @date 2020/3/19 15:58
  **/
-@Component
+@Configuration
 public class SecPermissionEvaluator implements PermissionEvaluator {
+
+
+    // TODO: 2020/4/30 注入为null问题 
 
 
     @Autowired
@@ -38,14 +37,19 @@ public class SecPermissionEvaluator implements PermissionEvaluator {
     private PermissionService permissionService;
 
     @Autowired
-    private UserService userService;
+    private UserInfoService userInfoService;
 
+    //    @PostConstruct
+    //    public void init() {
+    //        this.rolePermissionService = this.rolePermissionService;
+    //    }
 
     @Override
     public boolean hasPermission(Authentication authentication, Object url, Object per) {
         // 获得loadUserByUsername()方法的结果
+        userRoleService.delete(QueryParam.empty());
         User userDetail = (User) authentication.getPrincipal();
-        org.lht.boot.security.entity.User user = userService.selectSingle(QueryParam.build("username", userDetail.getUsername()));
+        org.lht.boot.security.entity.User user = userInfoService.selectSingle(QueryParam.build("username", userDetail.getUsername()));
         List<Permission> permissions = findPermission(user);
         for (Permission permission : permissions) {
             if (url.equals(permission.getUrl()) && per.equals(permission.getName())) {
