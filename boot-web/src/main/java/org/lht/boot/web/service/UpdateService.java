@@ -19,6 +19,7 @@
 package org.lht.boot.web.service;
 
 import org.apache.commons.lang3.Validate;
+import org.lht.boot.web.api.param.UpdateParam;
 
 import java.util.Collection;
 import java.util.List;
@@ -104,5 +105,11 @@ public interface UpdateService<E, PK> extends Service {
         return entities.size();
     }
 
-    ;
+    /**
+     * 根据条件更新
+     *
+     * @param param
+     * @return
+     */
+    int patch(UpdateParam<E> param);
 }

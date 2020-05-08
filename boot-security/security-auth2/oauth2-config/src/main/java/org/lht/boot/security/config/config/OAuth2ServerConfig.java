@@ -33,7 +33,7 @@ public abstract class OAuth2ServerConfig extends AuthorizationServerConfigurerAd
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    //
+
     //    @Autowired
     //    private UserDetailsService userDetailsService;
 
@@ -84,10 +84,7 @@ public abstract class OAuth2ServerConfig extends AuthorizationServerConfigurerAd
             defaultTokenServices.setClientDetailsService(jdbcClientDetailsService);
         }
 
-        //        endpoints
-        //                .authenticationManager(authenticationManager)
-        //                .userDetailsService(userDetailsService)
-        //                .tokenServices(defaultTokenServices);
+        endpoints.authenticationManager(authenticationManager);
     }
 
 

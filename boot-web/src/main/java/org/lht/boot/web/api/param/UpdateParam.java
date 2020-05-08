@@ -13,6 +13,27 @@ public class UpdateParam<T> extends Param {
     private T data;
 
 
+    public UpdateParam() {
+    }
+
+    public UpdateParam(T data) {
+        this.data = data;
+    }
+
+    public <C extends UpdateParam<T>> C set(T data) {
+        this.data = data;
+        return (C) this;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+
     /**
      * 创建一个空的查询参数实体,该实体无任何参数.
      *

@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.security.client.entity.OAuth2Token;
 import org.lht.boot.security.client.service.OAuth2Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description OAuth2Controller:
  * @date 2020/4/28 19:33
  **/
-@RestController
+@Controller
 @RequestMapping("/oauth2")
 @Slf4j
 public class OAuth2Controller {

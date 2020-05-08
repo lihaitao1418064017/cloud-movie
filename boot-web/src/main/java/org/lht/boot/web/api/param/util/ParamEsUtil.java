@@ -168,6 +168,19 @@ public class ParamEsUtil {
      * @return
      */
     public static SearchSourceBuilder buildSearchSourceBuilder(Param param) {
+        BoolQueryBuilder boolQueryBuilder = buildSearchQueryBuilder(param);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(boolQueryBuilder);
+        return searchSourceBuilder;
+    }
+
+    /**
+     * 构建and or 以及term条件的BoolQueryBuilder
+     *
+     * @param param
+     * @return
+     */
+    public static BoolQueryBuilder buildSearchQueryBuilder(Param param) {
         List<Term> terms = param.getTerms();
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         terms.forEach(term -> {
@@ -184,11 +197,16 @@ public class ParamEsUtil {
                     throw new NotSupportedException("operator[%s] not supported in elasticsearch TermType and or or");
             }
         });
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(boolQueryBuilder);
-        return searchSourceBuilder;
+        return boolQueryBuilder;
     }
 
+
+    /**
+     * 构建聚合条件
+     *
+     * @param param
+     * @param searchSourceBuilder
+     */
     public static void buildAggregation(AggregationParam param, SearchSourceBuilder searchSourceBuilder) {
         if (CollectionUtils.isNotEmpty(param.getGroupBys())) {
             AggregationBuilder aggregationBuilder;

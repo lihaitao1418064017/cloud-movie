@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @description Security通用配置
  * @date 2020/3/24 21:58
  **/
-@ConfigurationProperties(prefix = "security.url")
+@ConfigurationProperties(prefix = "security.authorization.url")
 @Data
 public class SecProperties {
 

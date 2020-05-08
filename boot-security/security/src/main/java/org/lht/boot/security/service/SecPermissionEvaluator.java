@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class SecPermissionEvaluator implements PermissionEvaluator {
 
 
-    // TODO: 2020/4/30 注入为null问题 
-
-
     @Autowired
     private RolePermissionService rolePermissionService;
 
@@ -39,15 +36,10 @@ public class SecPermissionEvaluator implements PermissionEvaluator {
     @Autowired
     private UserInfoService userInfoService;
 
-    //    @PostConstruct
-    //    public void init() {
-    //        this.rolePermissionService = this.rolePermissionService;
-    //    }
 
     @Override
     public boolean hasPermission(Authentication authentication, Object url, Object per) {
         // 获得loadUserByUsername()方法的结果
-        userRoleService.delete(QueryParam.empty());
         User userDetail = (User) authentication.getPrincipal();
         org.lht.boot.security.entity.User user = userInfoService.selectSingle(QueryParam.build("username", userDetail.getUsername()));
         List<Permission> permissions = findPermission(user);

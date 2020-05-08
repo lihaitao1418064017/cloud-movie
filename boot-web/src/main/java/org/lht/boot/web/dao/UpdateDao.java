@@ -1,5 +1,9 @@
 package org.lht.boot.web.dao;
 
+import com.alibaba.fastjson.JSONObject;
+import org.lht.boot.web.api.param.UpdateParam;
+
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +42,7 @@ public interface UpdateDao<E, PK> extends Dao {
      */
     PK patch(E e);
 
+
     /**
      * 部分字段更新(批量)
      *
@@ -45,4 +50,7 @@ public interface UpdateDao<E, PK> extends Dao {
      * @return
      */
     List<PK> patch(Collection<E> entities);
+
+
+    int patch(UpdateParam<JSONObject> updateParam) throws IOException;
 }

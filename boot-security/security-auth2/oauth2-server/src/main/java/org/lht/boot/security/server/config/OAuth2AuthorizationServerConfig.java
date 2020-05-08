@@ -4,8 +4,6 @@ import org.lht.boot.security.config.config.OAuth2ServerConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,9 +13,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 public class OAuth2AuthorizationServerConfig extends OAuth2ServerConfig {
-
-    @Resource
-    private DataSource dataSource;
 
 
     /**

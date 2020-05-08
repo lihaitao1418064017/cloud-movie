@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author LiHaitao
- * @description
+ * @description RoleDao
  * @date 2020/3/25 19:50
  **/
 @Repository

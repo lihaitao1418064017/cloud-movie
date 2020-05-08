@@ -19,10 +19,7 @@ import org.elasticsearch.script.Script;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.ClassUtil;
-import org.lht.boot.web.api.param.AggregationParam;
-import org.lht.boot.web.api.param.PagerResult;
-import org.lht.boot.web.api.param.Param;
-import org.lht.boot.web.api.param.QueryParam;
+import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.api.param.util.ParamEsUtil;
 import org.lht.boot.web.common.exception.JestException;
 import org.lht.boot.web.common.util.JestUtil;
@@ -377,6 +374,26 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
                 .stream()
                 .map(E::getId)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int patch(UpdateParam<JSONObject> updateParam) throws IOException {
+        String update = XContentFactory
+                .jsonBuilder()
+                .startObject()
+                .field("query", ParamEsUtil.buildSearchQueryBuilder(updateParam))
+                .startObject("script")
+                .field("inline", JestUtil.buildScript(updateParam.getData(), false))
+                .endObject()
+                .endObject()
+                .string();
+        UpdateByQuery.Builder builder = new UpdateByQuery
+                .Builder(update)
+                .refresh(refresh)
+                .addIndex(this.getAlias())
+                .addType(this.getType());
+        UpdateByQueryResult result = JestUtil.execute(jestClient, gson, builder.build());
+        return Long.valueOf(result.getUpdatedCount()).intValue();
     }
 
 

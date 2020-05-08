@@ -25,10 +25,14 @@ public class CustomGlobalMethodSecurityConfiguration extends GlobalMethodSecurit
     @Autowired
     private SecProperties secProperties;
 
+    @Autowired
+    private SecPermissionEvaluator secPermissionEvaluator;
+
+
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setPermissionEvaluator(new SecPermissionEvaluator());
+        expressionHandler.setPermissionEvaluator(secPermissionEvaluator);
         expressionHandler.setDefaultRolePrefix(secProperties.getDefaultRolePrefix());
         return expressionHandler;
     }

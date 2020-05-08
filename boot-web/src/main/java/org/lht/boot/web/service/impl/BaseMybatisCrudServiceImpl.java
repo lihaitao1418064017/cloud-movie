@@ -6,6 +6,7 @@ import org.apache.commons.lang3.Validate;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.QueryParam;
+import org.lht.boot.web.api.param.UpdateParam;
 import org.lht.boot.web.api.param.util.ParamMybatisUtil;
 import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
@@ -137,6 +138,11 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
         Validate.notNull(data.getId());
         dao.updateById(data);
         return data.getId();
+    }
+
+    @Override
+    public int patch(UpdateParam<E> param) {
+        return dao.update(param.getData(), ParamMybatisUtil.toQueryWrapper(param));
     }
 
 

@@ -6,6 +6,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -19,9 +20,14 @@ public class SecAuthenticationLogoutHandler implements LogoutHandler {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        String sessionId = request.getRequestedSessionId();
-        if (sessionId != null) {
-            sessionRegistry.removeSessionInformation(sessionId);
+        //        String sessionId = request.getRequestedSessionId();
+        //        if (sessionId != null) {
+        //            sessionRegistry.removeSessionInformation(sessionId);
+        //        }
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
         }
     }
 

@@ -1,8 +1,6 @@
 package org.lht.boot.security.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
-import org.lht.boot.lang.util.RestTemplateUtil;
 import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JwtTokenUtil;
@@ -14,7 +12,6 @@ import org.lht.boot.web.api.param.Term;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -101,10 +98,10 @@ public class LoginController {
             SecUserDetails userDetails = (SecUserDetails) SecurityContextHolder
                     .getContext().getAuthentication().getPrincipal();
             System.out.println(userDetails);
-            JSONObject s = RestTemplateUtil.exchangeHandle("http://localhost:8081/oauth2/authorize",
-                    HttpMethod.GET
-                    , null
-                    , JSONObject.class);
+            //            JSONObject s = RestTemplateUtil.exchangeHandle("http://localhost:8081/oauth2/authorize",
+            //                    HttpMethod.GET
+            //                    , null
+            //                    , JSONObject.class);
             return "/admin";
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");

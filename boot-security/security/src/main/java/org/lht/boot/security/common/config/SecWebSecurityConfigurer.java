@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -38,6 +39,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@Order(1)
 public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
@@ -136,7 +138,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // 处理登录认证 URL
                 .loginProcessingUrl(secProperties.getAuthUrl())
                 .and().exceptionHandling().accessDeniedPage(secProperties.getAccessDenyUrl())
-                .and().logout().logoutUrl(secProperties.getLogoutUrl())
+                .and().logout().logoutUrl("/aaa")
                 // 处理登录成功
                 .logoutSuccessHandler(secRestLogoutSuccessHandler)
                 .and()
@@ -147,7 +149,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // rememberMe 过期时间，单为秒
                 .tokenValiditySeconds(secProperties.getRememberMeTimeout())
                 //                // 处理自动登录逻辑
-                //                .userDetailsService(secUserDetailService)
+                .userDetailsService(secUserDetailService)
                 .and()
                 // 配置 session管理器
                 .sessionManagement()
@@ -182,6 +184,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         // 登录路径
                         secProperties.getLoginUrl(),
+                        //                        "/oauth/authorize/**",
                         // 用户注册 url
                         secProperties.getAccessDenyUrl(),
                         secProperties.getSwaggerUrl()

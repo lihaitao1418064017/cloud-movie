@@ -23,10 +23,10 @@ public interface BaseMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper
      * @return
      */
     default PagerResult<E> selectPage(QueryParam queryParam) {
-        PagerResult page = new PagerResult();
+        PagerResult<E> page = new PagerResult<E>();
         page.setCurrent(queryParam.getPageNo());
         page.setSize(queryParam.getPageSize());
-        IPage iPage = selectPage(page, ParamMybatisUtil.toQueryWrapper(queryParam));
+        IPage<E> iPage = selectPage(page, ParamMybatisUtil.toQueryWrapper(queryParam));
         page.setTotalPages(iPage.getPages());
         page.setTotal(iPage.getTotal());
         page.setRecords(iPage.getRecords());

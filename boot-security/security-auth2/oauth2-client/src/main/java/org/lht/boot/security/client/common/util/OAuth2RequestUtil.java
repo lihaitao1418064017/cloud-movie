@@ -8,7 +8,10 @@ import org.springframework.util.MultiValueMap;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @description: OAuth2请求工具类
@@ -70,10 +73,10 @@ public class OAuth2RequestUtil {
         });
         return endpoint +
                 "?" +
-                Optional.of(paramList
+                paramList
                         .stream()
                         .reduce((a, b) -> a + "&" + b)
-                        .get());
+                        .get();
     }
 
 
