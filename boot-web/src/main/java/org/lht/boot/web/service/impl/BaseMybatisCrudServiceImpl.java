@@ -1,8 +1,10 @@
 package org.lht.boot.web.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.Validate;
+import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.QueryParam;
@@ -140,9 +142,11 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
         return data.getId();
     }
 
+
     @Override
-    public int patch(UpdateParam<E> param) {
-        return dao.update(param.getData(), ParamMybatisUtil.toQueryWrapper(param));
+    public int patch(UpdateParam<JSONObject> param) {
+        BaseCrudEntity baseCrudEntity = BeanUtils.mapToBean(param.getData(), BaseCrudEntity.class, false);
+        return dao.update((E) baseCrudEntity, ParamMybatisUtil.toQueryWrapper(param));
     }
 
 

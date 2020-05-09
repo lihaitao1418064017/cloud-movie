@@ -1,8 +1,10 @@
 package org.lht.boot.web.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import org.lht.boot.web.api.param.AggregationParam;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
+import org.lht.boot.web.api.param.UpdateParam;
 import org.lht.boot.web.dao.ElasticSearchCrudDao;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.service.AbstractEsCrudService;
@@ -108,6 +110,11 @@ public class AbstractEsCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends 
     @Override
     public PK patch(E data) {
         return dao.patch(data);
+    }
+
+    @Override
+    public int patch(UpdateParam<JSONObject> param) {
+        return dao.patch(param);
     }
 
 

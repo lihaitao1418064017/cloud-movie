@@ -18,6 +18,7 @@
 
 package org.lht.boot.web.service;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.Validate;
 import org.lht.boot.web.api.param.UpdateParam;
 
@@ -111,5 +112,5 @@ public interface UpdateService<E, PK> extends Service {
      * @param param
      * @return
      */
-    int patch(UpdateParam<E> param);
+    int patch(UpdateParam<JSONObject> param);
 }

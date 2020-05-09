@@ -82,8 +82,8 @@ class TeacherServiceTest {
     @Test
     void Agg() {
         AggregationParam empty = AggregationParam.empty();
-        empty.groupBy("sex");
-        empty.aggregation(Aggregation.builder().field("age").as("maxAge").type(AggregationEnum.MAX).build());
+        //        empty.groupBy("sex");
+        empty.aggregation(Aggregation.builder().field("age").as("maxAge").type(AggregationEnum.AVG).build());
         List<TeacherAggVO> select = teacherService.select(empty, TeacherAggVO.class);
         log.info("select:{}", select);
     }

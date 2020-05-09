@@ -21,6 +21,7 @@ import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.ClassUtil;
 import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.api.param.util.ParamEsUtil;
+import org.lht.boot.web.common.exception.CommonException;
 import org.lht.boot.web.common.exception.JestException;
 import org.lht.boot.web.common.util.JestUtil;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
@@ -377,16 +378,21 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
     }
 
     @Override
-    public int patch(UpdateParam<JSONObject> updateParam) throws IOException {
-        String update = XContentFactory
-                .jsonBuilder()
-                .startObject()
-                .field("query", ParamEsUtil.buildSearchQueryBuilder(updateParam))
-                .startObject("script")
-                .field("inline", JestUtil.buildScript(updateParam.getData(), false))
-                .endObject()
-                .endObject()
-                .string();
+    public int patch(UpdateParam<JSONObject> updateParam) {
+        String update =
+                null;
+        try {
+            update = jsonBuilder()
+                    .startObject()
+                    .field("query", ParamEsUtil.buildSearchQueryBuilder(updateParam))
+                    .startObject("script")
+                    .field("inline", JestUtil.buildScript(updateParam.getData(), false))
+                    .endObject()
+                    .endObject()
+                    .string();
+        } catch (IOException e) {
+            throw new CommonException(e.getMessage());
+        }
         UpdateByQuery.Builder builder = new UpdateByQuery
                 .Builder(update)
                 .refresh(refresh)
