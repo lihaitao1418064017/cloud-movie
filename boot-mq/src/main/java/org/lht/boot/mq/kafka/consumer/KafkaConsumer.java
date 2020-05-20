@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class KafkaConsumer {
 
 
-    @KafkaListener(topics = {"order"}, containerFactory = "basicKafkaListenerContainerFactory")
+    @KafkaListener(topics = {"${cvf.viid.kafka.topic:Notify}"}, containerFactory = "basicKafkaListenerContainerFactory")
     public void listener(KafkaMessage<String> message) {
         log.info("message:{}", message);
     }
