@@ -1,12 +1,8 @@
 package org.lht.boot.lang;
 
-import cn.hutool.core.util.RandomUtil;
-import cn.hutool.core.util.StrUtil;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.lht.boot.lang.util.RandomUtils;
-import org.springframework.beans.BeanUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +25,18 @@ public class RandomTest {
         }
 
 
+    }
+
+    @Test
+    public void test05() {
+
+
+        String isUnique = null;
+        if (isUnique == null) {
+            String resourcePoolReport = null;
+            isUnique = resourcePoolReport == null ? "true" : "false";
+        }
+        System.out.println("true".equals(isUnique));
     }
 
     @Test
@@ -75,41 +83,41 @@ public class RandomTest {
 
     @Test
     public void test04() {
-//
-//        List<DeviceSummaryVO> deviceSummaryVOS = Lists.newArrayList();
-//        String path = "";
-//        for (int i = 0; i < 10000; i++) {
-//            DeviceSummaryVO deviceSummaryVO = new DeviceSummaryVO();
-//            deviceSummaryVO.setDeptPath(path + i);
-//            deviceSummaryVO.setPeopleNum(RandomUtil.randomLong(1000));
-//            deviceSummaryVO.setDeviceTotalNum(RandomUtil.randomLong(1000));
-//            deviceSummaryVOS.add(deviceSummaryVO);
-//        }
-//        Long start = System.currentTimeMillis();
-//        List<DeviceSummaryVO> deviceSummaryVOList = Lists.newArrayList();
-//        for (DeviceSummaryVO deviceSummaryVO : deviceSummaryVOS) {
-//            DeviceSummaryVO deviceSummary = new DeviceSummaryVO();
-//            BeanUtils.copyProperties(deviceSummaryVO, deviceSummary);
-//            for (DeviceSummaryVO it : deviceSummaryVOS) {
-//                if (StrUtil.isNotBlank(it.getDeptPath())
-//                        && it.getDeptPath().contains(deviceSummary.getDeptPath())
-//                        && !it.getDeptPath().equals(deviceSummary.getDeptPath())) {
-//                    Long peopleNum = deviceSummary.getPeopleNum();
-//                    peopleNum = peopleNum == null ? 0 : peopleNum;
-//                    Long sPeopleNum = it.getPeopleNum();
-//                    sPeopleNum = sPeopleNum == null ? 0 : sPeopleNum;
-//                    deviceSummary.setPeopleNum(peopleNum + sPeopleNum);
-//                    Long deviceTotalNum = deviceSummary.getDeviceTotalNum();
-//                    deviceTotalNum = deviceTotalNum == null ? 0 : deviceTotalNum;
-//                    Long sDeviceTotalNum = it.getDeviceTotalNum();
-//                    sDeviceTotalNum = sDeviceTotalNum == null ? 0 : sDeviceTotalNum;
-//                    deviceSummary.setDeviceTotalNum(deviceTotalNum + sDeviceTotalNum);
-//                }
-//            }
-//            deviceSummaryVOList.add(deviceSummary);
-//        }
-//
-//        long end = System.currentTimeMillis();
-//        System.out.println(end - start);
+        //
+        //        List<DeviceSummaryVO> deviceSummaryVOS = Lists.newArrayList();
+        //        String path = "";
+        //        for (int i = 0; i < 10000; i++) {
+        //            DeviceSummaryVO deviceSummaryVO = new DeviceSummaryVO();
+        //            deviceSummaryVO.setDeptPath(path + i);
+        //            deviceSummaryVO.setPeopleNum(RandomUtil.randomLong(1000));
+        //            deviceSummaryVO.setDeviceTotalNum(RandomUtil.randomLong(1000));
+        //            deviceSummaryVOS.add(deviceSummaryVO);
+        //        }
+        //        Long start = System.currentTimeMillis();
+        //        List<DeviceSummaryVO> deviceSummaryVOList = Lists.newArrayList();
+        //        for (DeviceSummaryVO deviceSummaryVO : deviceSummaryVOS) {
+        //            DeviceSummaryVO deviceSummary = new DeviceSummaryVO();
+        //            BeanUtils.copyProperties(deviceSummaryVO, deviceSummary);
+        //            for (DeviceSummaryVO it : deviceSummaryVOS) {
+        //                if (StrUtil.isNotBlank(it.getDeptPath())
+        //                        && it.getDeptPath().contains(deviceSummary.getDeptPath())
+        //                        && !it.getDeptPath().equals(deviceSummary.getDeptPath())) {
+        //                    Long peopleNum = deviceSummary.getPeopleNum();
+        //                    peopleNum = peopleNum == null ? 0 : peopleNum;
+        //                    Long sPeopleNum = it.getPeopleNum();
+        //                    sPeopleNum = sPeopleNum == null ? 0 : sPeopleNum;
+        //                    deviceSummary.setPeopleNum(peopleNum + sPeopleNum);
+        //                    Long deviceTotalNum = deviceSummary.getDeviceTotalNum();
+        //                    deviceTotalNum = deviceTotalNum == null ? 0 : deviceTotalNum;
+        //                    Long sDeviceTotalNum = it.getDeviceTotalNum();
+        //                    sDeviceTotalNum = sDeviceTotalNum == null ? 0 : sDeviceTotalNum;
+        //                    deviceSummary.setDeviceTotalNum(deviceTotalNum + sDeviceTotalNum);
+        //                }
+        //            }
+        //            deviceSummaryVOList.add(deviceSummary);
+        //        }
+        //
+        //        long end = System.currentTimeMillis();
+        //        System.out.println(end - start);
     }
 }

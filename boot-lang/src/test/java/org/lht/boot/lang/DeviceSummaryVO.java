@@ -45,4 +45,6 @@ public class DeviceSummaryVO {
 
     private List<DeviceSummaryVO> children = Lists.newArrayList();
 
+    private Integer num = 0;
+
 }

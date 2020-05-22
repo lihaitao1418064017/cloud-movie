@@ -34,5 +34,14 @@ public class RedisTest {
 
         List list = redisUtil.lGet("key", 0, -1);
         log.info("list:{}", list);
+        System.out.println((String) list.get(0));
+        log.info("list:{}", redisUtil.lGet("key", 0, -1));
+
     }
+
+    @Test
+    public void test03() {
+
+    }
+
 }

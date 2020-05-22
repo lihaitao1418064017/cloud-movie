@@ -2,10 +2,15 @@ package org.lht.boot.web.service;
 
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.lucene.search.join.ScoreMode;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.jupiter.api.Test;
 import org.lht.boot.web.api.param.Aggregation;
 import org.lht.boot.web.api.param.AggregationEnum;
 import org.lht.boot.web.api.param.AggregationParam;
+import org.lht.boot.web.api.param.QueryParam;
+import org.lht.boot.web.api.param.util.ParamEsUtil;
 import org.lht.boot.web.domain.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -86,6 +91,15 @@ class TeacherServiceTest {
         empty.aggregation(Aggregation.builder().field("age").as("maxAge").type(AggregationEnum.AVG).build());
         List<TeacherAggVO> select = teacherService.select(empty, TeacherAggVO.class);
         log.info("select:{}", select);
+    }
+
+    @Test
+    void nested() {
+
+        BoolQueryBuilder tempBuilder = ParamEsUtil.buildSearchQueryBuilder(QueryParam.empty());
+
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        queryBuilder.must(QueryBuilders.nestedQuery("nested", tempBuilder, ScoreMode.None));
     }
 
 }

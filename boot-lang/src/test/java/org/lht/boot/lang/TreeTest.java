@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.RandomUtils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +54,43 @@ public class TreeTest {
 
 
     @Test
+    public void test03() {
+        DeviceSummaryVO deviceSummaryVO = new DeviceSummaryVO();
+        deviceSummaryVO.setDeptName("1級");
+        deviceSummaryVO.setNum(0);
+
+        DeviceSummaryVO deviceSummaryVO1 = new DeviceSummaryVO();
+        deviceSummaryVO1.setDeptName("2級");
+        deviceSummaryVO1.setNum(0);
+
+        deviceSummaryVO.setChildren(Lists.newArrayList(deviceSummaryVO1));
+
+        DeviceSummaryVO deviceSummaryVO2 = new DeviceSummaryVO();
+        deviceSummaryVO2.setDeptName("3級");
+        deviceSummaryVO2.setNum(1);
+        deviceSummaryVO1.setChildren(Lists.newArrayList(deviceSummaryVO2));
+
+
+        DeviceSummaryVO deviceSummaryVO3 = new DeviceSummaryVO();
+        deviceSummaryVO3.setDeptName("4級");
+        deviceSummaryVO3.setNum(0);
+
+        deviceSummaryVO2.setChildren(Lists.newArrayList(deviceSummaryVO3));
+
+        DeviceSummaryVO deviceSummaryVO4 = new DeviceSummaryVO();
+        deviceSummaryVO4.setDeptName("5級");
+        deviceSummaryVO4.setNum(0);
+
+        deviceSummaryVO3.setChildren(Lists.newArrayList(deviceSummaryVO4));
+        ArrayList<DeviceSummaryVO> deviceSummaryVOS = Lists.newArrayList(deviceSummaryVO);
+        deepTree(deviceSummaryVOS);
+
+        log.info("deviceSummary:{}", deviceSummaryVOS);
+
+    }
+
+
+    @Test
     public void bianli() {
         long start = System.currentTimeMillis();
 
@@ -79,7 +118,7 @@ public class TreeTest {
             //            }
         }
         long end = System.currentTimeMillis();
-        log.info("const :{}", end - start);
+        log.info("cost :{}", end - start);
 
     }
 
@@ -96,6 +135,26 @@ public class TreeTest {
             return plainDepartment;
         }).collect(Collectors.toList());
         return collect;
+    }
+
+
+    void deepTree(List<DeviceSummaryVO> deviceSummaryVOS) {
+        Iterator<DeviceSummaryVO> iterator = deviceSummaryVOS.iterator();
+        while (iterator.hasNext()) {
+            DeviceSummaryVO next = iterator.next();
+
+            List<DeviceSummaryVO> children = next.getChildren();
+            if (CollectionUtil.isNotEmpty(children)) {
+                Iterator<DeviceSummaryVO> deviceSummaryVOIterator = children.iterator();
+                while (deviceSummaryVOIterator.hasNext()) {
+                    DeviceSummaryVO deviceSummaryVO = deviceSummaryVOIterator.next();
+                    deepTree(deviceSummaryVO.getChildren());
+                }
+                int sum = children.stream().mapToInt(DeviceSummaryVO::getNum).sum();
+                next.setNum(sum + next.getNum());
+            }
+        }
+
     }
 
     private DeviceSummaryVO initTree(DeviceSummaryVO deviceSummaryVO) {
