@@ -3,10 +3,9 @@ package org.lht.boot.web.service;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.lht.boot.web.api.param.Aggregation;
-import org.lht.boot.web.api.param.AggregationEnum;
-import org.lht.boot.web.api.param.AggregationParam;
+import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.domain.entity.Teacher;
+import org.lht.boot.web.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -30,6 +29,10 @@ class TeacherServiceTest {
         Teacher teacher = new Teacher();
         teacher.setAge(25);
         teacher.setName("赵四");
+        User user=new User();
+        user.setAge(12);
+        user.setName("lihaitao");
+        teacher.setUser(user);
         teacherService.insert(teacher);
     }
 
@@ -86,6 +89,13 @@ class TeacherServiceTest {
         empty.aggregation(Aggregation.builder().field("age").as("maxAge").type(AggregationEnum.AVG).build());
         List<TeacherAggVO> select = teacherService.select(empty, TeacherAggVO.class);
         log.info("select:{}", select);
+    }
+
+
+    @Test
+    void selectPage(){
+        List<Teacher> select = teacherService.select(QueryParam.empty().build(Term.build("user.age", 13)));
+        log.info("select :{}",select);
     }
 
 }

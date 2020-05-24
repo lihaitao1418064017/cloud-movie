@@ -13,10 +13,20 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>boot</name>
 	<description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+
+
+    <modules>
+        <module>boot-cache</module>
+        <module>boot-lang</module>
+        <module>boot-security</module>
+        <module>boot-mq</module>
+        <module>boot-web</module>
+    </modules>
 
 	<dependencies>
 		<dependency>

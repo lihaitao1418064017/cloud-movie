@@ -24,4 +24,6 @@ public class Teacher extends BaseCrudEntity<String> {
     private String identify;
 
     private String grade;
+
+    private User user;
 }
