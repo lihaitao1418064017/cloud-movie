@@ -247,18 +247,9 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
         if (param instanceof QueryParam) {
             QueryParam queryParam = (QueryParam) param;
             Search.Builder builder = ParamEsUtil.buildPageSearchBuilder(queryParam);
-            builder.addIndex(getAlias()).addType(getType());
-            SearchResult result = JestUtil.execute(jestClient, gson, builder.build());
-            List<E> eList = result.getSourceAsObjectList(this.entityType, true);
-            PagerResult page = new PagerResult();
-            page.setRecords(eList);
-            page.setTotal(result.getTotal());
-            page.setSize(queryParam.getPageSize());
-            page.setCurrent(queryParam.getPageNo());
-            page.setTotalPages(page.getPages());
-            return page;
+            return getPagerResult(queryParam, builder);
         }
-        return new PagerResult<>();
+        return new PagerResult<E>();
     }
 
 
@@ -453,17 +444,21 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
         if (param instanceof QueryParam) {
             QueryParam queryParam = (QueryParam) param;
             Search.Builder builder = ParamEsUtil.buildNestQueryPageSearchBuilder(queryParam, nestedFields);
-            builder.addIndex(getAlias()).addType(getType());
-            SearchResult result = JestUtil.execute(jestClient, gson, builder.build());
-            List<E> eList = result.getSourceAsObjectList(this.entityType, true);
-            PagerResult page = new PagerResult();
-            page.setRecords(eList);
-            page.setTotal(result.getTotal());
-            page.setSize(queryParam.getPageSize());
-            page.setCurrent(queryParam.getPageNo());
-            page.setTotalPages(page.getPages());
-            return page;
+            return getPagerResult(queryParam, builder);
         }
         return new PagerResult<>();
+    }
+
+    private PagerResult<E> getPagerResult(QueryParam queryParam, Search.Builder builder) {
+        builder.addIndex(getAlias()).addType(getType());
+        SearchResult result = JestUtil.execute(jestClient, gson, builder.build());
+        List<E> eList = result.getSourceAsObjectList(this.entityType, true);
+        PagerResult<E> page = new PagerResult<E>();
+        page.setRecords(eList);
+        page.setTotal(result.getTotal());
+        page.setSize(queryParam.getPageSize());
+        page.setCurrent(queryParam.getPageNo());
+        page.setTotalPages(page.getPages());
+        return page;
     }
 }
