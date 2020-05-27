@@ -14,6 +14,7 @@ import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -32,16 +33,19 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     protected Dao dao;
 
     @Override
+    @Transactional
     public int delete(PK pk) {
         return dao.deleteById(pk);
     }
 
     @Override
+    @Transactional
     public <Q extends Param> int delete(Q param) {
         return dao.delete(param);
     }
 
     @Override
+    @Transactional
     public PK insert(E data) {
         dao.insert(data);
         return data.getId();
@@ -96,6 +100,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
+    @Transactional
     public PK update(PK id, E data) {
         Validate.notNull(data);
         data.setId(id);
@@ -104,6 +109,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
+    @Transactional
     public PK update(E data) {
         Validate.notNull(data.getId());
         dao.updateById(data);
@@ -111,6 +117,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
+    @Transactional
     public PK upsert(E entity) {
         Validate.notNull(entity);
         E e = dao.selectById(entity.getId());
@@ -122,6 +129,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
+    @Transactional
     public List<PK> upsert(Collection<E> entities) {
         entities.forEach(this::upsert);
         return entities.stream().map(E::getId).collect(Collectors.toList());
@@ -129,6 +137,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
+    @Transactional
     public PK patch(PK id, E data) {
         data.setId(id);
         dao.updateById(data);
@@ -136,6 +145,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
+    @Transactional
     public PK patch(E data) {
         Validate.notNull(data.getId());
         dao.updateById(data);
@@ -144,6 +154,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
 
 
     @Override
+    @Transactional
     public int patch(UpdateParam<JSONObject> param) {
         BaseCrudEntity baseCrudEntity = BeanUtils.mapToBean(param.getData(), BaseCrudEntity.class, false);
         return dao.update((E) baseCrudEntity, ParamMybatisUtil.toQueryWrapper(param));

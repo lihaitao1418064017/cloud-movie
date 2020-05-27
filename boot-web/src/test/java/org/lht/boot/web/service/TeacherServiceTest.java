@@ -6,12 +6,10 @@ import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.jupiter.api.Test;
-import org.lht.boot.web.api.param.Aggregation;
-import org.lht.boot.web.api.param.AggregationEnum;
-import org.lht.boot.web.api.param.AggregationParam;
-import org.lht.boot.web.api.param.QueryParam;
+import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.api.param.util.ParamEsUtil;
 import org.lht.boot.web.domain.entity.Teacher;
+import org.lht.boot.web.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -35,6 +33,10 @@ class TeacherServiceTest {
         Teacher teacher = new Teacher();
         teacher.setAge(25);
         teacher.setName("赵四");
+        User user = new User();
+        user.setAge(12);
+        user.setName("lihaitao");
+        teacher.setUser(user);
         teacherService.insert(teacher);
     }
 
@@ -93,13 +95,20 @@ class TeacherServiceTest {
         log.info("select:{}", select);
     }
 
+
     @Test
     void nested() {
-
         BoolQueryBuilder tempBuilder = ParamEsUtil.buildSearchQueryBuilder(QueryParam.empty());
-
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
         queryBuilder.must(QueryBuilders.nestedQuery("nested", tempBuilder, ScoreMode.None));
+
+
+    }
+
+    @Test
+    void selectPage() {
+        List<Teacher> select = teacherService.select(QueryParam.empty().build(Term.build("user.age", 13)));
+        log.info("select :{}", select);
     }
 
 }
