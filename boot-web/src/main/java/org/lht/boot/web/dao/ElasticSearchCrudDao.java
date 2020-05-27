@@ -19,8 +19,10 @@ import org.elasticsearch.script.Script;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.ClassUtil;
+import org.lht.boot.lang.util.ReflectionUtil;
 import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.api.param.util.ParamEsUtil;
+import org.lht.boot.web.common.annotation.Nested;
 import org.lht.boot.web.common.exception.CommonException;
 import org.lht.boot.web.common.exception.JestException;
 import org.lht.boot.web.common.util.JestUtil;
@@ -36,6 +38,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
@@ -58,12 +61,16 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
     @Autowired
     private Gson gson;
 
+    protected List<String> nestedFields;
+
 
     public ElasticSearchCrudDao() {
         //获取当前实体E上的的注解
         entityType = (Class<E>) ClassUtil.getGenericType(this.getClass(), 0);
         this.esEntity = ClassUtil.getAnnotation(this.entityType, EsEntity.class);
         this.searchMaxSize = 9999;
+        this.nestedFields = ReflectionUtil.getAccessibleFields(this.entityType, Nested.class).stream()
+                .map(field -> field.getName()).collect(toList());
     }
 
 
@@ -111,9 +118,9 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
                 .Builder(ParamEsUtil.buildSearchSourceBuilder(param).toString())
                 .addIndex(this.getAlias())
                 .addType(this.getType())
-                .setParameter("scroll_size", Integer.valueOf(5000))
+                .setParameter("scroll_size", 5000)
                 .refresh(this.refresh)
-                .setParameter("slices", Integer.valueOf(5))
+                .setParameter("slices", 5)
                 .build();
         JestResult result = JestUtil.execute(jestClient, gson, deleteByQuery);
         return result.getJsonObject().get("deleted").getAsInt();
@@ -155,19 +162,15 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
             bulk.addAction(index);
         });
         BulkResult execute = JestUtil.execute(jestClient, gson, bulk.build());
-        Set failedIds = (Set) execute
+        Set failedIds = execute
                 .getFailedItems()
                 .stream()
-                .map((item) -> {
-                    return item.id;
-                })
+                .map(item -> item.id)
                 .collect(Collectors.toSet());
         return entities
                 .stream()
                 .map(E::getId)
-                .filter((pk) -> {
-                    return !failedIds.contains(pk);
-                })
+                .filter(pk -> !failedIds.contains(pk))
                 .collect(Collectors.toList());
     }
 
@@ -255,8 +258,9 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
             page.setTotalPages(page.getPages());
             return page;
         }
-        return null;
+        return new PagerResult<>();
     }
+
 
     @Override
     public <Q extends Param> List<E> select(Q param) {
@@ -318,19 +322,15 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
             bulk.addAction(build(e));
         });
         BulkResult execute = JestUtil.execute(jestClient, gson, bulk.build());
-        Set failedIds = (Set) execute
+        Set failedIds = execute
                 .getFailedItems()
                 .stream()
-                .map((item) -> {
-                    return item.id;
-                })
+                .map(item -> item.id)
                 .collect(Collectors.toSet());
         return entities
                 .stream()
                 .map(E::getId)
-                .filter((pk) -> {
-                    return !failedIds.contains(pk);
-                })
+                .filter(pk -> !failedIds.contains(pk))
                 .collect(Collectors.toList());
     }
 
@@ -352,12 +352,10 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
                 .refresh(this.refresh)
                 .build();
         BulkResult bulkResult = JestUtil.execute(jestClient, gson, bulk);
-        return (List<PK>) bulkResult
+        return bulkResult
                 .getItems()
                 .stream()
-                .map((item) -> {
-                    return (PK) item.id;
-                })
+                .map((item) -> (PK) item.id)
                 .collect(Collectors.toList());
     }
 
@@ -379,8 +377,7 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
 
     @Override
     public int patch(UpdateParam<JSONObject> updateParam) {
-        String update =
-                null;
+        String update;
         try {
             update = jsonBuilder()
                     .startObject()
@@ -443,5 +440,30 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
                 .stream()
                 .map(jsonObject -> JSONObject.toJavaObject(jsonObject, clazz))
                 .collect(Collectors.toList());
+    }
+
+
+    /**
+     * 嵌套查询
+     *
+     * @param param
+     * @return
+     */
+    public <Q extends Param> PagerResult<E> nestedSelectPage(Q param) {
+        if (param instanceof QueryParam) {
+            QueryParam queryParam = (QueryParam) param;
+            Search.Builder builder = ParamEsUtil.buildNestQueryPageSearchBuilder(queryParam, nestedFields);
+            builder.addIndex(getAlias()).addType(getType());
+            SearchResult result = JestUtil.execute(jestClient, gson, builder.build());
+            List<E> eList = result.getSourceAsObjectList(this.entityType, true);
+            PagerResult page = new PagerResult();
+            page.setRecords(eList);
+            page.setTotal(result.getTotal());
+            page.setSize(queryParam.getPageSize());
+            page.setCurrent(queryParam.getPageNo());
+            page.setTotalPages(page.getPages());
+            return page;
+        }
+        return new PagerResult<>();
     }
 }

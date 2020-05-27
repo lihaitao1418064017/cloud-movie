@@ -1,5 +1,6 @@
 package org.lht.boot.web.api.param.util;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
@@ -7,6 +8,7 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.search.aggregation.*;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -63,6 +65,26 @@ public class ParamEsUtil {
         Search.Builder builder = buildSearchBuilder(searchSourceBuilder);
         return buildFieldsSearchBuilder(builder, param.getIncludes(), param.getExcludes());
     }
+
+    /**
+     * 构建支持嵌套查询的分页 Search.Builder
+     *
+     * @param param
+     * @return Search.Builder
+     */
+    public static Search.Builder buildNestQueryPageSearchBuilder(Param param, List<String> nesteds) {
+        SearchSourceBuilder searchSourceBuilder = buildNestedQuerySearchSourceBuilder(param, nesteds);
+        buildSortSearchSourceBuilder(searchSourceBuilder, param);
+        if (param instanceof QueryParam) {
+            QueryParam queryParam = (QueryParam) param;
+            if (queryParam.isPaging()) {
+                buildPageableSearchBuilder(queryParam, searchSourceBuilder);
+            }
+        }
+        Search.Builder builder = buildSearchBuilder(searchSourceBuilder);
+        return buildFieldsSearchBuilder(builder, param.getIncludes(), param.getExcludes());
+    }
+
 
     /**
      * 构建聚合查询的Search.Builder
@@ -174,6 +196,32 @@ public class ParamEsUtil {
         return searchSourceBuilder;
     }
 
+
+    /**
+     * 嵌套查询的 where and or 条件
+     *
+     * @param param
+     * @return
+     */
+    public static SearchSourceBuilder buildNestedQuerySearchSourceBuilder(Param param, List<String> nesteds) {
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        List<Term> terms = param.getTerms();
+        if (CollectionUtil.isNotEmpty(nesteds)) {
+            nesteds.forEach(name -> {
+                List<Term> collect = terms.stream().filter(term -> term.getColumn().startsWith(name)).collect(Collectors.toList());
+                if (CollectionUtil.isNotEmpty(collect)) {
+                    terms.removeAll(collect);
+                    BoolQueryBuilder boolQueryBuilder = buildSearchQueryBuilder(collect);
+                    queryBuilder.must(QueryBuilders.nestedQuery(name, boolQueryBuilder, ScoreMode.None));
+                }
+            });
+        }
+        buildSearchQueryBuilder(queryBuilder, terms);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(queryBuilder);
+        return searchSourceBuilder;
+    }
+
     /**
      * 构建and or 以及term条件的BoolQueryBuilder
      *
@@ -181,8 +229,36 @@ public class ParamEsUtil {
      * @return
      */
     public static BoolQueryBuilder buildSearchQueryBuilder(Param param) {
-        List<Term> terms = param.getTerms();
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        return buildSearchQueryBuilder(param.getTerms());
+    }
+
+    /**
+     * 构建and or 以及term条件的BoolQueryBuilder
+     *
+     * @param param
+     * @return
+     */
+    public static BoolQueryBuilder buildSearchQueryBuilder(BoolQueryBuilder boolQueryBuilder, Param param) {
+        return buildSearchQueryBuilder(boolQueryBuilder, param.getTerms());
+    }
+
+    /**
+     * 构建and or 以及term条件的BoolQueryBuilder
+     *
+     * @param terms
+     * @return
+     */
+    public static BoolQueryBuilder buildSearchQueryBuilder(List<Term> terms) {
+        return buildSearchQueryBuilder(QueryBuilders.boolQuery(), terms);
+    }
+
+    /**
+     * 构建and or 以及term条件的BoolQueryBuilder
+     *
+     * @param terms
+     * @return
+     */
+    public static BoolQueryBuilder buildSearchQueryBuilder(BoolQueryBuilder boolQueryBuilder, List<Term> terms) {
         terms.forEach(term -> {
             QueryBuilder queryBuilder = buildQueryBuilder(term);
             switch (term.getType()) {
