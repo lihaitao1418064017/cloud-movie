@@ -5,7 +5,7 @@ import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JwtTokenUtil;
 import org.lht.boot.security.entity.SecUserDetails;
-import org.lht.boot.security.entity.User;
+import org.lht.boot.security.entity.UserInfo;
 import org.lht.boot.security.service.UserInfoService;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
@@ -21,10 +21,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +35,7 @@ import java.io.IOException;
  * @description LoginController: 登陆控制器
  * @date 2020/3/19 14:57
  **/
-@RestController
+@Controller
 @RequestMapping
 @Api(tags = "登陆相关接口", description = "提供登陆相关的 Rest API")
 public class LoginController {
@@ -79,13 +79,12 @@ public class LoginController {
 
 
     @RequestMapping("/auth/login")
-    @ResponseBody
     public String showLogin(String username, String password, HttpServletResponse httpResponse) throws Exception {
         //通过用户名和密码创建一个 Authentication 认证对象，实现类为 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         //如果认证对象不为空
-        User user = userInfoService.selectSingle(QueryParam.build(Term.build("username", username)));
-        ValidatorUtil.notNull(user, "用户不存在");
+        UserInfo userInfo = userInfoService.selectSingle(QueryParam.build(Term.build("username", username)));
+        ValidatorUtil.notNull(userInfo, "用户不存在");
         try {
             //通过 AuthenticationManager（默认实现为ProviderManager）的authenticate方法验证 Authentication 对象
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
@@ -102,7 +101,7 @@ public class LoginController {
             //                    HttpMethod.GET
             //                    , null
             //                    , JSONObject.class);
-            return "/admin";
+            return "redirect:" + "http://localhost:8081/oauth2/authorize";
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");
         }

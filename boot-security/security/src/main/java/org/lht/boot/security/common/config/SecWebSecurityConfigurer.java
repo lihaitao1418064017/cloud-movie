@@ -154,7 +154,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // 配置 session管理器
                 .sessionManagement()
                 // 处理 session失效
-                .invalidSessionStrategy(invalidSessionStrategy)
+                //                .invalidSessionStrategy(invalidSessionStrategy)
                 // 最大并发登录数量
                 .maximumSessions(secProperties.getSession().getMaximumSessions())
                 // 处理并发登录被踢出
@@ -166,10 +166,10 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 // 配置登出
                 .logout()
-                // 配置登出处理器
-                .addLogoutHandler(secAuthenticationLogoutHandler)
-                // 处理登出 url
-                .logoutUrl(secProperties.getLogoutUrl())
+                //                // 配置登出处理器
+                //                .addLogoutHandler(secAuthenticationLogoutHandler)
+                //                // 处理登出 url
+                //                .logoutUrl(secProperties.getLogoutUrl())
                 // 登出后跳转到 /
                 .logoutSuccessUrl("/")
                 // 删除 JSESSIONID
@@ -184,7 +184,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         // 登录路径
                         secProperties.getLoginUrl(),
-                        //                        "/oauth/authorize/**",
+                        "/oauth2/**",
                         // 用户注册 url
                         secProperties.getAccessDenyUrl(),
                         secProperties.getSwaggerUrl()

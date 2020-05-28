@@ -23,4 +23,9 @@ public class Role extends BaseCrudEntity<Integer> {
 
     @ApiModelProperty("角色名称")
     private String name;
+    @ApiModelProperty("角色标识")
+    private String sign;
+
+    @ApiModelProperty("角色描述")
+    private String description;
 }

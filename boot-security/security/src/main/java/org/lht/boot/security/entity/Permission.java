@@ -28,6 +28,9 @@ public class Permission extends BaseCrudEntity<Integer> {
     @ApiModelProperty("权限名称")
     private String name;
 
+    @ApiModelProperty("权限标识")
+    private String sign;
+
     @ApiModelProperty("权限描述")
     private String description;
 

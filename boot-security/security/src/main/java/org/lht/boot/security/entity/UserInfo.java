@@ -10,13 +10,13 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
 /**
  * @author LiHaitao
- * @description User:
+ * @description UserInfo:
  * @date 2020/3/18 11:23
  **/
 @Data
 @TableName("user")
 @ApiModel("用户实体")
-public class User extends BaseCrudEntity<Integer> {
+public class UserInfo extends BaseCrudEntity<Integer> {
 
     @TableId(type = IdType.AUTO)
     private Integer id;

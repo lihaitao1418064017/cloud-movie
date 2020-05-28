@@ -1,7 +1,7 @@
 package org.lht.boot.security.controller;
 
 import io.swagger.annotations.Api;
-import org.lht.boot.security.entity.User;
+import org.lht.boot.security.entity.UserInfo;
 import org.lht.boot.security.service.UserInfoService;
 import org.lht.boot.security.vo.UserVO;
 import org.lht.boot.web.controller.AbstractController;
@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @Api(tags = "用户相关接口", description = "提供用户相关的 Rest API")
-public class UserInfoController extends AbstractController<User, Integer, UserVO, UserInfoService> {
+public class UserInfoController extends AbstractController<UserInfo, Integer, UserVO, UserInfoService> {
 
 }

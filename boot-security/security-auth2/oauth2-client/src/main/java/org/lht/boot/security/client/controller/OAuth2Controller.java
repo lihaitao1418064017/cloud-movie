@@ -29,7 +29,6 @@ public class OAuth2Controller {
     @RequestMapping("/authorize")
     public ModelAndView authorize(HttpServletRequest request, HttpServletResponse response) {
         try {
-
             String applyForTokenUri = oAuth2Service.authorize(request, response);
             return new ModelAndView(new RedirectView(applyForTokenUri));
         } catch (Exception e) {
@@ -41,8 +40,10 @@ public class OAuth2Controller {
     public ModelAndView authorize(String code) {
         try {
             OAuth2Token oAuth2Token = oAuth2Service.getOAuth2Token(code);
+            //设置当前登录用户信息
+            oAuth2Service.currentUserLogin(oAuth2Token);
             log.info("oauth2Token:{}", oAuth2Token);
-            return new ModelAndView(new RedirectView());
+            return new ModelAndView(new RedirectView("/index"));
         } catch (Exception e) {
             return null;
         }

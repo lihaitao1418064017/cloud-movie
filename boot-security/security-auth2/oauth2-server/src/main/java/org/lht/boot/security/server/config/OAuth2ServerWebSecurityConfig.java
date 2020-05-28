@@ -32,9 +32,5 @@ public class OAuth2ServerWebSecurityConfig extends SecWebSecurityConfigurer {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http
-                .authorizeRequests()
-                .antMatchers("/oauth/authorize/**").permitAll()
-                .antMatchers("/oauth/token").permitAll();
     }
 }

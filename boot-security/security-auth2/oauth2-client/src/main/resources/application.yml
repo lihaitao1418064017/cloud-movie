@@ -6,7 +6,7 @@ boot:
     oauth2:
       client:
         serverUri: http://localhost:8080/oauth/authorize
-        clientUri: http://localhost:8081/oauth/token
+        clientUri: http://localhost:8081/
         clientId: boot-oauth2
         clientSecret: oauth2
         grantType: authorization_code

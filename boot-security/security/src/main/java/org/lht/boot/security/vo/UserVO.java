@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.lht.boot.security.entity.User;
+import org.lht.boot.security.entity.UserInfo;
 import org.lht.boot.web.domain.vo.AbstractVO;
 
 /**
@@ -16,7 +16,7 @@ import org.lht.boot.web.domain.vo.AbstractVO;
  **/
 @Data
 @ApiModel("用户VO")
-public class UserVO extends AbstractVO<User,Integer> {
+public class UserVO extends AbstractVO<UserInfo, Integer> {
 
     @TableId(type = IdType.AUTO)
     private Integer id;

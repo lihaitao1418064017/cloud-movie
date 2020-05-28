@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.security.entity.Role;
 import org.lht.boot.security.entity.SecUserDetails;
-import org.lht.boot.security.entity.User;
+import org.lht.boot.security.entity.UserInfo;
 import org.lht.boot.security.entity.UserRole;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
@@ -46,30 +46,30 @@ public class SecUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = this.userInfoService.selectSingle(QueryParam.build(Term.build("username", username)));
-        if (user != null) {
-            final List<String> roles = findRole(user);
+        UserInfo userInfo = this.userInfoService.selectSingle(QueryParam.build(Term.build("username", username)));
+        if (userInfo != null) {
+            final List<String> roles = findRole(userInfo);
             final List<SimpleGrantedAuthority> simpleGrantedAuthorities = roles
                     .stream()
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
             boolean notLocked = false;
             //账户锁定判断
-            if (STATUS_VALID.equals(user.getStatus())) {
+            if (STATUS_VALID.equals(userInfo.getStatus())) {
                 notLocked = true;
             }
-            //            log.info("user:{} ,password:{}", user.getUsername(), passwordEncoder.encode("123456"));
-            SecUserDetails userDetails = new SecUserDetails(user.getUsername()
-                    , user.getPassword()
+            //            log.info("userInfo:{} ,password:{}", userInfo.getUsername(), passwordEncoder.encode("123456"));
+            SecUserDetails userDetails = new SecUserDetails(userInfo.getUsername()
+                    , userInfo.getPassword()
                     , true
                     , true
                     , true
                     , notLocked
                     , simpleGrantedAuthorities);
 
-            userDetails.setUserId(user.getId());
-            userDetails.setPassword(user.getPassword());
-            userDetails.setUsername(user.getUsername());
+            userDetails.setUserId(userInfo.getId());
+            userDetails.setPassword(userInfo.getPassword());
+            userDetails.setUsername(userInfo.getUsername());
             userDetails.setLoginTime(DateUtil.formatDate(new Date()));
             return userDetails;
         } else {
@@ -78,9 +78,9 @@ public class SecUserDetailService implements UserDetailsService {
     }
 
 
-    private List<String> findRole(User user) {
+    private List<String> findRole(UserInfo userInfo) {
         List<UserRole> userRoles = this.userRoleService
-                .select(QueryParam.build("user_id", user.getId()));
+                .select(QueryParam.build("user_id", userInfo.getId()));
         return roleService.select(QueryParam
                 .build("id", TermEnum.in,
                         userRoles

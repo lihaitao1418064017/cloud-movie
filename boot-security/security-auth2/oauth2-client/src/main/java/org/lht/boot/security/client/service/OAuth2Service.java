@@ -1,6 +1,7 @@
 package org.lht.boot.security.client.service;
 
 import org.lht.boot.security.client.entity.OAuth2Token;
+import org.lht.boot.security.client.entity.OAuth2UserAuthentication;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,4 +28,21 @@ public interface OAuth2Service {
      * @return
      */
     OAuth2Token getOAuth2Token(String authorizationCode);
+
+
+    /**
+     * 当前用户登录
+     *
+     * @param oAuth2Token
+     */
+    void currentUserLogin(OAuth2Token oAuth2Token);
+
+
+    /**
+     * 获取登录用户信息
+     *
+     * @param auth2Token
+     * @return
+     */
+    OAuth2UserAuthentication getAuthenticationByAccessToken(OAuth2Token auth2Token);
 }

@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
+
 /**
  * @author LiHaitao
  * @description 用户登陆信息
@@ -32,6 +33,7 @@ public class SecUserDetails extends User {
     private String password;
 
     private String loginTime;
+
 
     public SecUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);

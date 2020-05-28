@@ -34,6 +34,7 @@ public class OAuth2AuthorizationServerConfig extends OAuth2ServerConfig {
         //        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
         clients.inMemory()                          // 使用内存存储客户端信息
                 .withClient("boot-oauth2")       // client_id
+                .redirectUris("http://localhost:8081/oauth2/callback")
                 .secret("oauth2")                   // client_secret
                 .authorizedGrantTypes("authorization_code", "password", "client_credentials", "client_credentials")     // 该client允许的授权类型
                 .accessTokenValiditySeconds(3600)               // Token 的有效期

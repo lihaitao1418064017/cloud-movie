@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan("org.lht.boot.security")
 @SpringBootApplication
+
 public class Oauth2ClientApplication {
 
     public static void main(String[] args) {

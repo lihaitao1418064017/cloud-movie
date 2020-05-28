@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS userInfo;
 
-CREATE TABLE user
+CREATE TABLE userInfo
 (
 	id BIGINT(20) NOT NULL COMMENT '主键ID',
 	name VARCHAR(30) NULL DEFAULT NULL COMMENT '名称',
@@ -12,11 +12,11 @@ CREATE TABLE user
 	update_time BIGINT(20) NOT NULL COMMENT '更新时间',
 	PRIMARY KEY (id)
 );
-ALTER TABLE user ADD update_time bigint(20)  DEFAULT 0;
-ALTER TABLE user ADD create_time bigint(20)  DEFAULT 0;
-ALTER TABLE user ADD creator_code VARCHAR(30) DEFAULT NULL ;
-ALTER TABLE user ADD updater_code VARCHAR(30) DEFAULT NULL ;
-ALTER TABLE user ADD status INT(11)  DEFAULT 0;
+ALTER TABLE userInfo ADD update_time bigint(20)  DEFAULT 0;
+ALTER TABLE userInfo ADD create_time bigint(20)  DEFAULT 0;
+ALTER TABLE userInfo ADD creator_code VARCHAR(30) DEFAULT NULL ;
+ALTER TABLE userInfo ADD updater_code VARCHAR(30) DEFAULT NULL ;
+ALTER TABLE userInfo ADD status INT(11)  DEFAULT 0;
 
 ALTER TABLE role ADD update_time bigint(20)  DEFAULT 0;
 ALTER TABLE role ADD create_time bigint(20)  DEFAULT 0;
