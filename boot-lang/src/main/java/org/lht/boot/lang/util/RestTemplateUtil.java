@@ -63,6 +63,25 @@ public class RestTemplateUtil {
     }
 
     /**
+     * 创建HttpEntity
+     *
+     * @param body
+     * @param <T>
+     * @return
+     */
+    private static <T> HttpEntity createHttpEntity(T body,HttpHeaders httpHeaders) {
+        if (null != body) {
+            if (body instanceof String) {
+                return new HttpEntity<>(body, httpHeaders);
+            } else {
+                return new HttpEntity<>(JSON.toJSONString(body), httpHeaders);
+            }
+        } else {
+            return new HttpEntity<>(httpHeaders);
+        }
+    }
+
+    /**
      * http请求
      *
      * @param url
@@ -102,7 +121,7 @@ public class RestTemplateUtil {
     public static <S, T> S exchangeHandleBasicHeader(String url, HttpHeaders httpHeaders, T body, HttpMethod method, Class<S> responseType) {
         log.info("---------请求的服务器地址:---------{}", method + ": " + url);
         log.info("---------请求的Body:---------{}", body);
-        String response = RestTemplateUtil.getInstance().exchange(url, method, new HttpEntity<>(body, httpHeaders), String.class).getBody();
+        String response = RestTemplateUtil.getInstance().exchange(url, method, createHttpEntity(body, httpHeaders), String.class).getBody();
         log.info("---------返回的Response:---------{}", response);
         return JSON.parseObject(response, responseType);
     }

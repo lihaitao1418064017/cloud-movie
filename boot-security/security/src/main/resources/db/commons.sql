@@ -40,8 +40,8 @@ CREATE TABLE `permission`  (
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES (1, '/userInfo/common', 'common', NULL, 0, 0, 0, NULL, NULL, 0);
-INSERT INTO `permission` VALUES (2, '/userInfo/admin', 'admin', NULL, 0, 0, 0, NULL, NULL, 0);
+INSERT INTO `permission` VALUES (1, '/userInfo/common', 'common','common' NULL, 0, 0, 0, NULL, NULL, 0);
+INSERT INTO `permission` VALUES (2, '/userInfo/admin', 'admin','admin', NULL, 0, 0, 0, NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for role
@@ -63,8 +63,8 @@ CREATE TABLE `role`  (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, 'USER', 0, 0, NULL, NULL, 0);
-INSERT INTO `role` VALUES (2, 'ADMIN', 0, 0, NULL, NULL, 0);
+INSERT INTO `role` VALUES (1, 'USER','user','用户', 0, 0, NULL, NULL, 0);
+INSERT INTO `role` VALUES (2, 'ADMIN','admin','管理员', 0, 0, NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for role_permission

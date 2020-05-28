@@ -1,5 +1,6 @@
 package org.lht.boot.security.client.common.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.Base64Utils;
@@ -42,12 +43,12 @@ public class OAuth2RequestUtil {
      * @param redirectUri
      * @return
      */
-    public static MultiValueMap<String, String> getAccessTokenBody(String gruntType, String scope, String code, String redirectUri) {
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("grant_type", gruntType);
-        formData.add("scope", scope);
-        formData.add("code", code);
-        formData.add("redirect_uri", redirectUri);
+    public static JSONObject getAccessTokenBody(String gruntType, String scope, String code, String redirectUri) {
+        JSONObject formData = new JSONObject();
+        formData.put("grant_type", gruntType);
+        formData.put("scope", scope);
+        formData.put("code", code);
+        formData.put("redirect_uri", redirectUri);
         return formData;
     }
 
@@ -59,7 +60,7 @@ public class OAuth2RequestUtil {
      */
     public static HttpHeaders getBasicHeader(String clientAuthentication) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
         httpHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         httpHeaders.add("Authorization", "Basic " + clientAuthentication);
         return httpHeaders;

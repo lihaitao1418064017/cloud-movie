@@ -5,7 +5,7 @@ boot:
   security:
     oauth2:
       client:
-        serverUri: http://localhost:8080/oauth/authorize
+        serverUri: http://localhost:8080/
         clientUri: http://localhost:8081/
         clientId: boot-oauth2
         clientSecret: oauth2

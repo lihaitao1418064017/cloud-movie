@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication(scanBasePackages = {"org.lht.boot.security"})
 @EnableAuthJWTTokenStore    // 使用 JWT 存储令牌
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-
 public class ServerApplication {
 
     public static void main(String[] args) {
