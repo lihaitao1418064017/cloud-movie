@@ -45,20 +45,20 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         authParameters.put("response_type", oAuth2ClientConfigProperties.getResponseType());
         authParameters.put("redirect_uri", OAuth2RequestUtil.getEncodedUrl(oAuth2ClientConfigProperties.getClientUri()) + "oauth2/callback");
 
-        return OAuth2RequestUtil.buildAuthorizeUrl(oAuth2ClientConfigProperties.getServerUri()+"oauth/authorize", authParameters);
+        return OAuth2RequestUtil.buildAuthorizeUrl(oAuth2ClientConfigProperties.getServerUri() + "oauth/authorize", authParameters);
     }
+
 
     @Override
     public OAuth2Token getOAuth2Token(String authorizationCode) {
-        String authBase64 = OAuth2RequestUtil
-                .encodeCredentials(oAuth2ClientConfigProperties.getClientId()
-                        , oAuth2ClientConfigProperties.getClientSecret());
-        OAuth2Token oAuth2Token = RestTemplateUtil.exchangeHandleBasicHeader(oAuth2ClientConfigProperties.getServerUri() + "oauth/token"
+        String authBase64 = OAuth2RequestUtil.encodeCredentials(oAuth2ClientConfigProperties.getClientId(), oAuth2ClientConfigProperties.getClientSecret());
+        OAuth2Token oAuth2Token = RestTemplateUtil.exchangeHandleBasicHeader(oAuth2ClientConfigProperties.getServerUri()
+                        + "oauth/token"
                 , OAuth2RequestUtil.getBasicHeader(authBase64)
-                , OAuth2RequestUtil.getAccessTokenBody(oAuth2ClientConfigProperties.getGrantType()
+                , OAuth2RequestUtil.getAccessTokenBody(authorizationCode
                         , oAuth2ClientConfigProperties.getScope()
-                        , authorizationCode
-                        , oAuth2ClientConfigProperties.getClientUri() + "/oauth2/callback"
+                        , "http://localhost:8081/oauth2/callback",
+                        oAuth2ClientConfigProperties.getGrantType()
                 )
                 , HttpMethod.POST
                 , OAuth2Token.class);

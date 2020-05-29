@@ -1,6 +1,5 @@
 package org.lht.boot.security.client.common.util;
 
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.Base64Utils;
@@ -34,35 +33,29 @@ public class OAuth2RequestUtil {
         return new String(Base64Utils.encode(credentials.getBytes()));
     }
 
+
     /**
-     * 获取accessToken参数体
+     * 获取授权码accessToken的参数体
      *
-     * @param gruntType
-     * @param scope
-     * @param code
-     * @param redirectUri
+     * @param authorizationCode
      * @return
      */
-    public static JSONObject getAccessTokenBody(String gruntType, String scope, String code, String redirectUri) {
-        JSONObject formData = new JSONObject();
-        formData.put("grant_type", gruntType);
-        formData.put("scope", scope);
-        formData.put("code", code);
-        formData.put("redirect_uri", redirectUri);
+    public static MultiValueMap<String, String> getAccessTokenBody(String authorizationCode, String scope, String redirect_uri, String grant_type) {
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("grant_type", grant_type);
+        formData.add("scope", scope);
+        formData.add("code", authorizationCode);
+        formData.add("redirect_uri", redirect_uri);
         return formData;
     }
 
-    /**
-     * 获取Authorization 值为Basic的headers
-     *
-     * @param clientAuthentication
-     * @return
-     */
     public static HttpHeaders getBasicHeader(String clientAuthentication) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         httpHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         httpHeaders.add("Authorization", "Basic " + clientAuthentication);
+
         return httpHeaders;
     }
 

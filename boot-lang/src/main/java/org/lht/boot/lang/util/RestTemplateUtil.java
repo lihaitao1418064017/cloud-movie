@@ -4,13 +4,12 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.nio.charset.Charset;
 
 /**
@@ -27,6 +26,8 @@ public class RestTemplateUtil {
      * 延迟加载，当被调用时才初始化，保证线程安全
      */
     private static class SingletonRestTemplate {
+        static final RestTemplate SIMPLE = new RestTemplate();
+
         static final RestTemplate INSTANCE = new RestTemplateBuilder().additionalMessageConverters(new StringHttpMessageConverter(Charset.forName("UTF-8"))).build();
     }
 
@@ -39,6 +40,14 @@ public class RestTemplateUtil {
     public static RestTemplate getInstance() {
         return SingletonRestTemplate.INSTANCE;
     }
+
+    /**
+     * 单例实例
+     */
+    public static RestTemplate getSimpleInstance() {
+        return SingletonRestTemplate.SIMPLE;
+    }
+
 
     /**
      * 创建HttpEntity
@@ -62,24 +71,16 @@ public class RestTemplateUtil {
         }
     }
 
-    /**
-     * 创建HttpEntity
-     *
-     * @param body
-     * @param <T>
-     * @return
-     */
-    private static <T> HttpEntity createHttpEntity(T body,HttpHeaders httpHeaders) {
-        if (null != body) {
-            if (body instanceof String) {
-                return new HttpEntity<>(body, httpHeaders);
-            } else {
-                return new HttpEntity<>(JSON.toJSONString(body), httpHeaders);
-            }
-        } else {
-            return new HttpEntity<>(httpHeaders);
-        }
+
+    private static <T> RequestEntity<T> requestEntity(String url, HttpHeaders httpHeaders, HttpMethod method, T body) {
+        return new RequestEntity<T>(
+                body,
+                httpHeaders, method,
+                URI.create(
+                        url
+                ));
     }
+
 
     /**
      * http请求
@@ -118,10 +119,14 @@ public class RestTemplateUtil {
     }
 
 
-    public static <S, T> S exchangeHandleBasicHeader(String url, HttpHeaders httpHeaders, T body, HttpMethod method, Class<S> responseType) {
+    public static <S, T> S exchangeHandleBasicHeader(String url, HttpHeaders httpHeaders, MultiValueMap<String, String> body, HttpMethod method, Class<S> responseType) {
         log.info("---------请求的服务器地址:---------{}", method + ": " + url);
-        log.info("---------请求的Body:---------{}", body);
-        String response = RestTemplateUtil.getInstance().exchange(url, method, createHttpEntity(body, httpHeaders), String.class).getBody();
+        log.info("---------请求的params:---------{}", body);
+        RequestEntity<MultiValueMap<String, String>> requestEntity = new RequestEntity<MultiValueMap<String, String>>(
+                body,
+                httpHeaders, HttpMethod.POST,
+                URI.create(url));
+        String response = RestTemplateUtil.getSimpleInstance().exchange(requestEntity, String.class).getBody();
         log.info("---------返回的Response:---------{}", response);
         return JSON.parseObject(response, responseType);
     }
