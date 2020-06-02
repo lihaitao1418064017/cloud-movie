@@ -1,10 +1,9 @@
 package org.lht.boot.security.server.domain.entity;
 
 import lombok.Data;
-import org.lht.boot.security.entity.Permission;
-import org.lht.boot.security.entity.Role;
-import org.lht.boot.security.entity.UserInfo;
-
+import org.lht.boot.security.resource.entity.Permission;
+import org.lht.boot.security.resource.entity.Role;
+import org.lht.boot.security.resource.entity.UserInfo;
 
 import java.util.Set;
 

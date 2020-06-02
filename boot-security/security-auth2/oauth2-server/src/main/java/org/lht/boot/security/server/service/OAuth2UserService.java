@@ -2,9 +2,9 @@ package org.lht.boot.security.server.service;
 
 import cn.hutool.core.util.ObjectUtil;
 import org.lht.boot.security.common.exception.SecException;
-import org.lht.boot.security.entity.*;
+import org.lht.boot.security.resource.entity.*;
+import org.lht.boot.security.resource.service.*;
 import org.lht.boot.security.server.domain.entity.OAuth2UserAuthentication;
-import org.lht.boot.security.service.*;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.TermEnum;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@MapperScan("org.lht.boot.security.dao")
+@MapperScan("org.lht.boot.security.resource.dao")
 @SpringBootApplication
 @EnableConfigurationProperties(SecProperties.class)
 @EnableSwagger2

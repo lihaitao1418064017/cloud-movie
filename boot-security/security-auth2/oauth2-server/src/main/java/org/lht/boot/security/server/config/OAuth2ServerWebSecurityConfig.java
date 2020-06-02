@@ -1,7 +1,7 @@
 package org.lht.boot.security.server.config;
 
 import org.lht.boot.security.common.config.SecWebSecurityConfigurer;
-import org.lht.boot.security.service.SecUserDetailService;
+import org.lht.boot.security.server.service.SecUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  **/
 
 @Configuration
-@Order(10)
+@Order(90)
 public class OAuth2ServerWebSecurityConfig extends SecWebSecurityConfigurer {
 
 
@@ -33,4 +33,6 @@ public class OAuth2ServerWebSecurityConfig extends SecWebSecurityConfigurer {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
     }
+
+
 }

@@ -1,10 +1,10 @@
 package org.lht.boot.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.lht.boot.security.common.LoginType;
+import org.lht.boot.security.common.SecUserDetails;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.constant.SecurityConstant;
-import org.lht.boot.security.entity.LoginType;
-import org.lht.boot.security.entity.SecUserDetails;
 import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//import org.lht.boot.security.entity.SecUserDetails;
+//import org.lht.boot.security.resource.entity.SecUserDetails;
 
 /**
  * @author LiHaitao

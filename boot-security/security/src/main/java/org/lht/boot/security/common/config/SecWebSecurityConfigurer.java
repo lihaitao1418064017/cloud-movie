@@ -12,13 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -39,7 +37,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@Order(1)
+@Order(99)
 public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
@@ -52,9 +50,6 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecProperties secProperties;
 
-
-    @Autowired
-    private UserDetailsService secUserDetailService;
 
     @Autowired
     private DataSource dataSource;
@@ -110,6 +105,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+
     /**
      * url 配置
      *
@@ -149,7 +145,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // rememberMe 过期时间，单为秒
                 .tokenValiditySeconds(secProperties.getRememberMeTimeout())
                 //                // 处理自动登录逻辑
-                .userDetailsService(secUserDetailService)
+                //                .userDetailsService(secUserDetailService)
                 .and()
                 // 配置 session管理器
                 .sessionManagement()
@@ -204,13 +200,6 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
-    }
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.userDetailsService(secUserDetailService);
     }
 
 

@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  * @date 2020/4/30 15:30
  **/
 @Configuration
-@Order(10)
+@Order(90)
 public class OAuth2ClientWebSecurityConfigurer extends SecWebSecurityConfigurer {
 
 
@@ -19,4 +19,5 @@ public class OAuth2ClientWebSecurityConfigurer extends SecWebSecurityConfigurer 
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
     }
+
 }
