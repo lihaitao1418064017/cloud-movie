@@ -22,7 +22,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class OAuth2ResourceServerConfig1 extends ResourceServerConfigurerAdapter {
 
     @Autowired(required = false)
     private RemoteTokenServices remoteTokenServices;

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author LiHaitao
- * @description OAuth2UserService:
+ * @description OAuth2UserService:用户信息服务类
  * @date 2020/5/28 15:24
  **/
 @Service

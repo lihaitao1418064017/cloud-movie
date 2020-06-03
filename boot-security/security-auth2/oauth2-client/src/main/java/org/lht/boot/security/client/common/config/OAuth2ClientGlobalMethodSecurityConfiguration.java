@@ -1,6 +1,6 @@
 package org.lht.boot.security.client.common.config;
 
-import org.lht.boot.security.client.service.SecPermissionEvaluator;
+import org.lht.boot.security.client.service.OAuth2PermissionEvaluator;
 import org.lht.boot.security.common.config.SecProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,19 +19,19 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableConfigurationProperties(SecProperties.class)
-public class CustomGlobalMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+public class OAuth2ClientGlobalMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
     @Autowired
     private SecProperties secProperties;
 
     @Autowired
-    private SecPermissionEvaluator secPermissionEvaluator;
+    private OAuth2PermissionEvaluator OAuth2PermissionEvaluator;
 
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setPermissionEvaluator(secPermissionEvaluator);
+        expressionHandler.setPermissionEvaluator(OAuth2PermissionEvaluator);
         expressionHandler.setDefaultRolePrefix(secProperties.getDefaultRolePrefix());
         return expressionHandler;
     }

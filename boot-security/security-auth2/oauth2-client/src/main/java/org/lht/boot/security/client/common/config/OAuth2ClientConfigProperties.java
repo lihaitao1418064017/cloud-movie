@@ -39,7 +39,7 @@ public class OAuth2ClientConfigProperties {
     /**
      * 授权类型 oauth2.0 请求accessToken的模式
      */
-    private String grantType;
+    private String grantType;//authorization_code
 
 
 }

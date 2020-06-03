@@ -1,10 +1,14 @@
-package org.lht.boot.security.server.config;
+package org.lht.boot.security.server.common.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -12,16 +16,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
 
 /**
  * @description: OAuth2 授权服务器配置
@@ -30,12 +28,14 @@ import java.util.Objects;
  */
 @Configuration
 @EnableAuthorizationServer
+@EnableConfigurationProperties({OAuth2ServerConfigProperties.class})
+@SuppressWarnings("all")
+@Slf4j
 public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
 
     @Autowired
-    DataSource dataSource;
-
+    private DataSource dataSource;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -46,22 +46,17 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @Autowired
     private ClientDetailsService clientDetailsService;
 
+    @Autowired
+    private ResourceServerProperties resourceServerProperties;
 
-    //令牌失效时间
-    public int accessTokenValiditySeconds;
+    @Autowired
+    private OAuth2ServerConfigProperties oAuth2ServerConfigProperties;
 
-    //刷新令牌失效时间
-    public int refreshTokenValiditySeconds;
-
-    //是否可以重用刷新令牌
-    public boolean isReuseRefreshToken;
-
-    //是否支持刷新令牌
-    public boolean isSupportRefreshToken;
+    @Autowired
+    private UserDetailsService oAuth2SecurityUserDetailService;
 
 
     @Bean
@@ -69,11 +64,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         return new JdbcTokenStore(dataSource);
     }
 
-
     @Bean
     public ClientDetailsService clientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
+
 
     /**
      * 配置授权服务器端点，如令牌存储，令牌自定义，用户批准和授权类型，不包括端点安全配置
@@ -83,25 +78,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        Collection<TokenEnhancer> tokenEnhancers = applicationContext.getBeansOfType(TokenEnhancer.class).values();
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(new ArrayList<>(tokenEnhancers));
-
-
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setReuseRefreshToken(isReuseRefreshToken);
-        defaultTokenServices.setSupportRefreshToken(isSupportRefreshToken);
-        defaultTokenServices.setTokenStore(tokenStore);
-        defaultTokenServices.setAccessTokenValiditySeconds(accessTokenValiditySeconds);
-        defaultTokenServices.setRefreshTokenValiditySeconds(refreshTokenValiditySeconds);
-        defaultTokenServices.setTokenEnhancer(tokenEnhancerChain);
-        //若通过 JDBC 存储令牌
-        if (Objects.nonNull(clientDetailsService)) {
-            defaultTokenServices.setClientDetailsService(clientDetailsService);
-        }
-
-        endpoints.authenticationManager(authenticationManager);
-
+        endpoints
+                .tokenStore(tokenStore)
+                .authenticationManager(authenticationManager)
+                .userDetailsService(oAuth2SecurityUserDetailService)
+                .setClientDetailsService(clientDetailsService);
 
     }
 

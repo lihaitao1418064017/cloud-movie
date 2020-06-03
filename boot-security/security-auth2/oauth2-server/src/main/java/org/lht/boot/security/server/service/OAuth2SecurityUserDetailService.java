@@ -9,6 +9,7 @@ import org.lht.boot.security.resource.entity.UserRole;
 import org.lht.boot.security.resource.service.RoleService;
 import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.resource.service.UserRoleService;
+import org.lht.boot.security.server.common.constant.OAuth2UserConstant;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.api.param.TermEnum;
@@ -19,7 +20,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
  **/
 @Slf4j
 @Configuration
-@Component
-public class SecUserDetailService implements UserDetailsService {
+@SuppressWarnings("all")
+public class OAuth2SecurityUserDetailService implements UserDetailsService {
 
     @Autowired
     private UserInfoService userInfoService;
@@ -45,7 +45,6 @@ public class SecUserDetailService implements UserDetailsService {
     @Autowired
     private UserRoleService userRoleService;
 
-    private static final Integer STATUS_VALID = 1;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -62,7 +61,7 @@ public class SecUserDetailService implements UserDetailsService {
                     .collect(Collectors.toList());
             boolean notLocked = false;
             //账户锁定判断
-            if (STATUS_VALID.equals(userInfo.getStatus())) {
+            if (OAuth2UserConstant.STATUS_VALID.equals(userInfo.getStatus())) {
                 notLocked = true;
             }
             log.info("userInfo:{} ,password:{}", userInfo.getUsername(), passwordEncoder.encode("123456"));
@@ -85,15 +84,21 @@ public class SecUserDetailService implements UserDetailsService {
     }
 
 
+    /**
+     * 获取角色
+     *
+     * @param userInfo
+     * @return
+     */
     private List<String> findRole(UserInfo userInfo) {
-        List<UserRole> userRoles = this.userRoleService
-                .select(QueryParam.build("user_id", userInfo.getId()));
-        return roleService.select(QueryParam
-                .build("id", TermEnum.in,
-                        userRoles
-                                .stream()
-                                .map(UserRole::getRoleId)
-                                .collect(Collectors.toList())))
+        List<UserRole> userRoles = this.userRoleService.select(QueryParam.build("user_id", userInfo.getId()));
+        return roleService
+                .select(QueryParam
+                        .build("id", TermEnum.in,
+                                userRoles
+                                        .stream()
+                                        .map(UserRole::getRoleId)
+                                        .collect(Collectors.toList())))
                 .stream()
                 .map(Role::getSign)
                 .collect(Collectors.toList());

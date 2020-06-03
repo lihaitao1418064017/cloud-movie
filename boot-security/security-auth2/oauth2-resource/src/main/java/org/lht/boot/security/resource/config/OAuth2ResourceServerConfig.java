@@ -14,7 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter {
+public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -23,7 +24,8 @@ public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter {
                 .authenticated()
                 .and()
                 .requestMatchers()
-                .antMatchers("/role/**");//受保护的资源地址
+                .antMatchers("/role/**", "/permission/**", "/user/**");//受保护的资源地址
     }
+
 
 }

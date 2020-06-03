@@ -15,7 +15,7 @@ import java.util.Set;
  * @date 2020/3/19 15:58
  **/
 @Configuration
-public class SecPermissionEvaluator implements PermissionEvaluator {
+public class OAuth2PermissionEvaluator implements PermissionEvaluator {
 
 
     @Override
