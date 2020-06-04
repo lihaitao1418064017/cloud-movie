@@ -1,7 +1,7 @@
 package org.lht.boot.web.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.domain.entity.User;

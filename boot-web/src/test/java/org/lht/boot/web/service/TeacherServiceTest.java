@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.api.param.util.ParamEsUtil;
 import org.lht.boot.web.domain.entity.Teacher;

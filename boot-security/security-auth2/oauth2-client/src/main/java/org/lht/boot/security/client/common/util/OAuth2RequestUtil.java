@@ -40,12 +40,14 @@ public class OAuth2RequestUtil {
      * @param authorizationCode
      * @return
      */
-    public static MultiValueMap<String, String> getAccessTokenBody(String authorizationCode, String scope, String redirect_uri, String grant_type) {
+    public static MultiValueMap<String, String> getAccessTokenBody(String authorizationCode, String scope, String redirect_uri, String grant_type, String clientId, String clientSecret) {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("grant_type", grant_type);
         formData.add("scope", scope);
         formData.add("code", authorizationCode);
         formData.add("redirect_uri", redirect_uri);
+        formData.add("client_id", clientId);
+        formData.add("client_secret", clientSecret);
         return formData;
     }
 

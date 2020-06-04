@@ -21,8 +21,8 @@ public class OAuth2UserController {
     @Autowired
     private OAuth2UserService oAuth2UserService;
 
-    @GetMapping("getLoginUser")
-    public R<OAuth2UserAuthentication> getLoginUser(String username, String clientId) {
-        return R.ok(oAuth2UserService.getLoginUser(username, clientId));
+    @GetMapping("/getLoginUser")
+    public R<OAuth2UserAuthentication> getLoginUser(String clientId, String clientSecret, String accessToken) {
+        return R.ok(oAuth2UserService.getLoginUser(clientId, clientSecret, accessToken));
     }
 }

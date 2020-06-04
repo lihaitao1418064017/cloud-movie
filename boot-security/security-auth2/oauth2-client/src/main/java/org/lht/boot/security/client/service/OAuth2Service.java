@@ -35,7 +35,7 @@ public interface OAuth2Service {
      *
      * @param oAuth2Token
      */
-    void currentUserLogin(OAuth2Token oAuth2Token);
+    void currentUserLogin(OAuth2Token oAuth2Token, HttpServletRequest request);
 
 
     /**

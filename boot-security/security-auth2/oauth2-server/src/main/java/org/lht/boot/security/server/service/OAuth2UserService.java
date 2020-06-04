@@ -42,13 +42,13 @@ public class OAuth2UserService {
     /**
      * 获取登录用户信息
      *
-     * @param username
+     * @param
      * @param clientId
      * @return
      */
-    public OAuth2UserAuthentication getLoginUser(String username, String clientId) {
-        //检测用户
-        UserInfo userInfo = userInfoService.selectByUsername(username);
+    public OAuth2UserAuthentication getLoginUser(String clientId, String clientSecret, String accessToken) {
+        //检测用户 todo
+        UserInfo userInfo = userInfoService.selectByUsername(clientId);
         if (ObjectUtil.isNull(userInfo)) {
             throw new SecException("用户不存在");
         }

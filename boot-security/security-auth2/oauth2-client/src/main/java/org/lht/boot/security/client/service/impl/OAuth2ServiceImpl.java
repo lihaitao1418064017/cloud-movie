@@ -7,11 +7,11 @@ import org.lht.boot.security.client.common.util.OAuth2RequestUtil;
 import org.lht.boot.security.client.entity.AuthUserDetails;
 import org.lht.boot.security.client.entity.OAuth2Token;
 import org.lht.boot.security.client.entity.OAuth2UserAuthentication;
-import org.lht.boot.security.client.service.OAuth2ServerService;
 import org.lht.boot.security.client.service.OAuth2Service;
+import org.lht.boot.security.client.service.OAuth2UserService;
 import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,14 +29,16 @@ import java.util.Map;
  * @date 2020/4/28 19:44
  **/
 @Service
-@EnableConfigurationProperties(OAuth2ClientConfigProperties.class)
 public class OAuth2ServiceImpl implements OAuth2Service {
 
     @Autowired
     private OAuth2ClientConfigProperties oAuth2ClientConfigProperties;
 
     @Autowired
-    private OAuth2ServerService oAuth2ServerService;
+    private OAuth2UserService oAuth2ServerService;
+
+    @Value("${server.session.timeout:86400}")
+    private int expireTime;
 
     @Override
     public String authorize(HttpServletRequest request, HttpServletResponse response) {
@@ -57,8 +60,10 @@ public class OAuth2ServiceImpl implements OAuth2Service {
                 , OAuth2RequestUtil.getBasicHeader(authBase64)
                 , OAuth2RequestUtil.getAccessTokenBody(authorizationCode
                         , oAuth2ClientConfigProperties.getScope()
-                        , "http://localhost:8081/oauth2/callback",
-                        oAuth2ClientConfigProperties.getGrantType()
+                        , "http://localhost:8081/oauth2/callback"
+                        , oAuth2ClientConfigProperties.getGrantType()
+                        , oAuth2ClientConfigProperties.getClientId()
+                        , oAuth2ClientConfigProperties.getClientSecret()
                 )
                 , HttpMethod.POST
                 , OAuth2Token.class);
@@ -73,15 +78,16 @@ public class OAuth2ServiceImpl implements OAuth2Service {
      *
      * @param oAuth2Token
      */
-
     @Override
-    public void currentUserLogin(OAuth2Token oAuth2Token) {
+    public void currentUserLogin(OAuth2Token oAuth2Token, HttpServletRequest request) {
         OAuth2UserAuthentication authenticationByAccessToken = getAuthenticationByAccessToken(oAuth2Token);
         authenticationByAccessToken.setOAuth2Token(oAuth2Token);
         AuthUserDetails secUserDetails = new AuthUserDetails(authenticationByAccessToken);
         PreAuthenticatedAuthenticationToken authentication =
                 new PreAuthenticatedAuthenticationToken(secUserDetails, oAuth2Token, secUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        HttpSession session = request.getSession(true);
+        session.setMaxInactiveInterval(expireTime);
     }
 
     @Override

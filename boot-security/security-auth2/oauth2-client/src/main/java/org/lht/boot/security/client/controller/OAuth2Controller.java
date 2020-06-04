@@ -1,6 +1,7 @@
 package org.lht.boot.security.client.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.lht.boot.security.client.common.config.OAuth2ClientConfigProperties;
 import org.lht.boot.security.client.entity.OAuth2Token;
 import org.lht.boot.security.client.service.OAuth2Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class OAuth2Controller {
     @Autowired
     private OAuth2Service oAuth2Service;
 
+    @Autowired
+    private OAuth2ClientConfigProperties clientConfigProperties;
+
     @RequestMapping("/authorize")
     public ModelAndView authorize(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -37,15 +41,18 @@ public class OAuth2Controller {
     }
 
     @RequestMapping("/callback")
-    public ModelAndView authorize(String code) {
+    public ModelAndView authorize(HttpServletRequest request, HttpServletResponse response, String code) {
         try {
             OAuth2Token oAuth2Token = oAuth2Service.getOAuth2Token(code);
             //设置当前登录用户信息
-            oAuth2Service.currentUserLogin(oAuth2Token);
+            oAuth2Service.currentUserLogin(oAuth2Token, request);
+            response.addHeader("Authorization", "Bearer " + oAuth2Token.getAccessToken());
             log.info("oauth2Token:{}", oAuth2Token);
-            return new ModelAndView(new RedirectView("/index"));
+            return new ModelAndView(new RedirectView(clientConfigProperties.getClientUri()));
         } catch (Exception e) {
             return null;
         }
     }
+
+
 }

@@ -3,7 +3,7 @@ package org.lht.boot.web.dao;
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.lht.boot.lang.util.RandomUtils;
 import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.domain.entity.Teacher;

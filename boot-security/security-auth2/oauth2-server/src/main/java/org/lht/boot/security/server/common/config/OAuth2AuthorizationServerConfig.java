@@ -2,7 +2,6 @@ package org.lht.boot.security.server.common.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
@@ -46,11 +44,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private ClientDetailsService clientDetailsService;
-
-    @Autowired
-    private ResourceServerProperties resourceServerProperties;
 
     @Autowired
     private OAuth2ServerConfigProperties oAuth2ServerConfigProperties;
@@ -62,11 +55,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Bean
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
-    }
-
-    @Bean
-    public ClientDetailsService clientDetailsService() {
-        return new JdbcClientDetailsService(dataSource);
     }
 
 
@@ -82,7 +70,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(oAuth2SecurityUserDetailService)
-                .setClientDetailsService(clientDetailsService);
+                .setClientDetailsService(new JdbcClientDetailsService(dataSource));
 
     }
 
@@ -110,10 +98,10 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         super.configure(clients);
-        clients.withClientDetails(clientDetailsService());
+        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
 
 
-        //        //        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
+        //        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
         //        clients.inMemory()                          // 使用内存存储客户端信息
         //                .withClient("boot-oauth2")       // client_id
         //                .redirectUris("http://localhost:8081/oauth2/callback")

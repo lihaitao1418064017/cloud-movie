@@ -7,9 +7,6 @@ import org.junit.Test;
 
 import java.util.concurrent.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
 
 @Slf4j
 public class FutureRunnableTest {
@@ -35,15 +32,15 @@ public class FutureRunnableTest {
 
     @Test
     public void test01() {
-        Callable<String> callable=()->{
+        Callable<String> callable = () -> {
             Thread.sleep(3000L);
-           return "nihao";
+            return "nihao";
         };
 
-        FutureRunnable<String> futureRunnable=new FutureRunnable<>(callable);
+        FutureRunnable<String> futureRunnable = new FutureRunnable<>(callable);
         new Thread(futureRunnable).start();
         String result = futureRunnable.get();
-        log.info("reslult:{}",result);
+        log.info("reslult:{}", result);
 
     }
 

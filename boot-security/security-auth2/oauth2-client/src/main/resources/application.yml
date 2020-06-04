@@ -18,3 +18,12 @@ spring:
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: boot-oauth2-client
+
+# cloud相关配置
+feign:
+  hystrix:
+    enabled: true

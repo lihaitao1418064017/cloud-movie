@@ -2,13 +2,11 @@ package org.lht.boot.web.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.ReflectionUtil;
 import org.lht.boot.web.domain.entity.User;
 
-import java.lang.reflect.Field;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +26,10 @@ public class UtilTest {
 
     @Test
     public void testMap() {
-        String sortName="age";
-        String order="asc";
+        String sortName = "age";
+        String order = "asc";
 
-        List<User> users= Lists.newArrayList();
+        List<User> users = Lists.newArrayList();
         users.add(new User());
         //.........
 

@@ -27,9 +27,15 @@ spring:
     host: 47.99.216.57
     port: 6379
   elasticsearch:
-    jest:
+    rest:
        uris: http://47.99.216.57:9200
        connection-timeout: 3000
+
+  application:
+    name: boot-oauth2-server
+#    新的bean允许覆盖
+  main:
+    allow-bean-definition-overriding: true
 
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 
@@ -82,3 +88,15 @@ security:
     resource:
       filter-order: 80
 
+
+
+# eureka相关配置
+
+
+zuul:
+  sensitive-headers: Cookie,Set-Cookie
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8088/eureka/

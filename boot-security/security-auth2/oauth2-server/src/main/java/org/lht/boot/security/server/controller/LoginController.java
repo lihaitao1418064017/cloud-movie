@@ -2,12 +2,12 @@ package org.lht.boot.security.server.controller;
 
 import io.swagger.annotations.Api;
 import org.lht.boot.lang.util.ValidatorUtil;
-import org.lht.boot.security.common.SecUserDetails;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JwtTokenUtil;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.web.api.param.QueryParam;
+import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.api.param.Term;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +79,7 @@ public class LoginController {
 
 
     @RequestMapping("/auth/login")
-    public String showLogin(String username, String password, HttpServletResponse httpResponse) throws Exception {
+    public R showLogin(String username, String password, HttpServletResponse httpResponse) throws Exception {
         //通过用户名和密码创建一个 Authentication 认证对象，实现类为 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         //如果认证对象不为空
@@ -94,14 +94,7 @@ public class LoginController {
             //            String token = jwtTokenUtil.createToken(authentication, false);
             //将Token写入到Http头部
             //            httpResponse.addHeader("Authentication", "Bearer " + token);
-            SecUserDetails userDetails = (SecUserDetails) SecurityContextHolder
-                    .getContext().getAuthentication().getPrincipal();
-            System.out.println(userDetails);
-            //            JSONObject s = RestTemplateUtil.exchangeHandle("http://localhost:8081/oauth2/authorize",
-            //                    HttpMethod.GET
-            //                    , null
-            //                    , JSONObject.class);
-            return "redirect:" + "http://localhost:8081/oauth2/authorize";
+            return R.ok();
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");
         }

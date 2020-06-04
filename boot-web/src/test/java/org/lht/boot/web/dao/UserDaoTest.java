@@ -2,7 +2,7 @@ package org.lht.boot.web.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.api.param.util.ParamMybatisUtil;
