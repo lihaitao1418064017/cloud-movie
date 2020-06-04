@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author LiHaitao
- * @description OAuth2UserService:
+ * @description OAuth2UserService:用户信息等相关接口
  * @date 2020/6/4 16:06
  **/
-@FeignClient(value = "boot-oauth2-server", fallback = OAuth2UserServiceHystrixFallBack.class)
+@FeignClient(value = "BOOT-OAUTH2-SERVER"
+        , fallback = OAuth2UserServiceHystrixFallBack.class
+        )
 public interface OAuth2UserService {
 
     @GetMapping("/getLoginUser")

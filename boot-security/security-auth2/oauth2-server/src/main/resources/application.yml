@@ -91,11 +91,6 @@ security:
 
 
 # eureka相关配置
-
-
-zuul:
-  sensitive-headers: Cookie,Set-Cookie
-
 eureka:
   client:
     serviceUrl:

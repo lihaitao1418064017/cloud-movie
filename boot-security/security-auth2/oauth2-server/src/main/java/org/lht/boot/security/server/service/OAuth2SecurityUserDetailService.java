@@ -64,7 +64,7 @@ public class OAuth2SecurityUserDetailService implements UserDetailsService {
             if (OAuth2UserConstant.STATUS_VALID.equals(userInfo.getStatus())) {
                 notLocked = true;
             }
-            log.info("userInfo:{} ,password:{}", userInfo.getUsername(), passwordEncoder.encode("oauth2"));
+            log.info("userInfo:{} ,password:{}", userInfo.getUsername(), passwordEncoder.encode("123456"));
             SecUserDetails userDetails = new SecUserDetails(userInfo.getUsername()
                     , userInfo.getPassword()
                     , true

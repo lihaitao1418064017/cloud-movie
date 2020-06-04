@@ -24,7 +24,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
                 .authenticated()
                 .and()
                 .requestMatchers()
-                .antMatchers("/role/**", "/permission/**", "/user/**");//受保护的资源地址
+                .antMatchers("/role/**", "/permission/**", "/user/**","/getLoginUser/**");//受保护的资源地址
     }
 
 
