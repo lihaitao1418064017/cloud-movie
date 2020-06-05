@@ -50,12 +50,12 @@ public class OAuth2UserService {
         //检测用户 todo
         UserInfo userInfo = userInfoService.selectByUsername(clientId);
         if (ObjectUtil.isNull(userInfo)) {
-            throw new SecException("用户不存在");
+            throw new SecException("用户不存在1");
         }
         OAuth2UserAuthentication oAuth2UserAuthentication = new OAuth2UserAuthentication();
         oAuth2UserAuthentication.setPermissions(findPermission(userInfo));
         oAuth2UserAuthentication.setRoles(findRole(userInfo));
-        oAuth2UserAuthentication.setUserInfo(userInfo);
+        oAuth2UserAuthentication.setUser(userInfo);
         return oAuth2UserAuthentication;
     }
 

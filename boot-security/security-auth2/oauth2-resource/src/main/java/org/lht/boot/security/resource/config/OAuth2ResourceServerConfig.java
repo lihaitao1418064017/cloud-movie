@@ -19,12 +19,13 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/user/getLoginUser/**").permitAll();
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .requestMatchers()
-                .antMatchers("/role/**", "/permission/**", "/user/**","/getLoginUser/**");//受保护的资源地址
+                .antMatchers("/role/**", "/permission/**", "/user/**");
     }
 
 

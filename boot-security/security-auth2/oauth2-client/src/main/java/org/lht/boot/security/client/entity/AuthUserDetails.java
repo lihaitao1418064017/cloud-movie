@@ -31,7 +31,7 @@ public class AuthUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authentication.getResources();
+        return authentication.getPermissions();
     }
 
     public Set<AuthRole> getRoles() {

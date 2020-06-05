@@ -18,6 +18,7 @@ public class OAuth2ClientWebSecurityConfigurer extends SecWebSecurityConfigurer 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
+
     }
 
 }

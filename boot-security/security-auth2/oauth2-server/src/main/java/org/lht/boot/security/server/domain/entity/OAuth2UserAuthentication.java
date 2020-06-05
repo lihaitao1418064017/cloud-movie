@@ -30,7 +30,7 @@ public class OAuth2UserAuthentication {
     /**
      * 用户基本信息
      */
-    private UserInfo userInfo;
+    private UserInfo user;
 
 
     /**

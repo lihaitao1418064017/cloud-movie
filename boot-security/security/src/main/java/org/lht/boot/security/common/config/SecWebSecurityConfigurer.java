@@ -183,6 +183,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                         "/oauth2/**",
                         "/oauth/**",
                         "/api/**",
+                        "/user/getLoginUser/**",
                         // 用户注册 url
                         secProperties.getAccessDenyUrl(),
                         secProperties.getSwaggerUrl()

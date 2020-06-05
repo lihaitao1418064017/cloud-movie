@@ -24,7 +24,7 @@ public class OAuth2PermissionEvaluator implements PermissionEvaluator {
         Set<AuthResource> authResources = (Set<AuthResource>) userDetail.getAuthorities();
         for (AuthResource authResource : authResources) {
             String resource = authResource.getAuthority();
-            if (url.equals(resource) && per.equals(authResource.getUrl())) {
+            if (url.equals(authResource.getUrl()) && per.equals(resource)) {
                 return true;
             }
 

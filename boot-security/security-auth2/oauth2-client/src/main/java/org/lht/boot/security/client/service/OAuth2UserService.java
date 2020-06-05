@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  **/
 @FeignClient(value = "BOOT-OAUTH2-SERVER"
         , fallback = OAuth2UserServiceHystrixFallBack.class
-        )
+)
 public interface OAuth2UserService {
 
-    @GetMapping("/getLoginUser")
+    @GetMapping("/user/getLoginUser")
     R<OAuth2UserAuthentication> getLoginUserByAccessToken(@RequestParam("clientId") String clientId
             , @RequestParam("clientSecret") String clientSecret
             , @RequestParam("accessToken") String accessToken);

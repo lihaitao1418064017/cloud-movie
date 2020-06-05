@@ -7,6 +7,7 @@ import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,14 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/5/28 15:25
  **/
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class OAuth2UserController {
 
     @Autowired
     private OAuth2UserService oAuth2UserService;
 
     @GetMapping("/getLoginUser")
-    public R<OAuth2UserAuthentication> getLoginUser(String clientId, String clientSecret, String accessToken) {
+    public R<OAuth2UserAuthentication> getLoginUser(@RequestParam("clientId") String clientId
+            , @RequestParam("clientSecret") String clientSecret
+            , @RequestParam("accessToken") String accessToken) {
         return R.ok(oAuth2UserService.getLoginUser(clientId, clientSecret, accessToken));
     }
 }

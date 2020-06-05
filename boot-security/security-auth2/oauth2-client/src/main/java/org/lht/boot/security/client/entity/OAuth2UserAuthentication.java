@@ -16,7 +16,7 @@ public class OAuth2UserAuthentication {
     private Set<AuthRole> roles;
 
 
-    private Set<AuthResource> resources;
+    private Set<AuthResource> permissions;
 
 
     private AuthUser user;
