@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author LiHaitao
- * @description OAuth2UserService:用户信息等相关接口
+ * @description OAuth2UserService:用户登录信息等相关接口
  * @date 2020/6/4 16:06
  **/
 @FeignClient(value = "BOOT-OAUTH2-SERVER"

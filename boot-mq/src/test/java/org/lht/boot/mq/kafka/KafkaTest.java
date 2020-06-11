@@ -38,15 +38,15 @@ public class KafkaTest {
         //        }
 
         String caseEvent = "{\n" +
-                "        \"bjdh\": \"1586245638000\",\n" +
-                "        \"caseEventId\": \"2020109094101121218\",\n" +
-                "        \"caseEventSign\": \"violation\",\n" +
-                "        \"caseEventType\": \"120\",\n" +
-                "        \"sfdd\": \"苏州\",        \n" +
+                "        \"bjdh\": \"12312312\",\n" +
+                "        \"caseEventId\": \"12312398765356\",\n" +
+                "        \"caseEventSign\": \"policecase\",\n" +
+                "        \"caseEventType\": \"970109\",\n" +
+                "        \"sfdd\": \"西安\",        \n" +
                 "        \"bjrxm\": \"www\",\n" +
                 "        \"jjyxm\": \"www\",\n" +
                 "        \"updateTime\": 1586245638000,\n" +
-                "        \"caseEventContent\": \"kafka消费了的警情7\",\n" +
+                "        \"caseEventContent\": \"test警情类型\",\n" +
                 "        \"countTime\": 1586245638000,\n" +
                 "        \"personCode\": \"KD015347\",\n" +
                 "        \"bjsj\": 1586245638000,\n" +

@@ -37,7 +37,6 @@ public class SecConfig {
         return new SessionRegistryImpl();
     }
 
-    // 使用 javaconfig 的方式配置是为了注入 sessionRegistry
     @Bean
     public SecAuthenticationSuccessHandler secAuthenticationSucessHandler() {
         SecAuthenticationSuccessHandler secAuthenticationSuccessHandler = new SecAuthenticationSuccessHandler();
@@ -45,7 +44,6 @@ public class SecConfig {
         return secAuthenticationSuccessHandler;
     }
 
-    // 配置登出处理器
     @Bean
     public SecAuthenticationLogoutHandler logoutHandler() {
         SecAuthenticationLogoutHandler secAuthenticationLogoutHandler = new SecAuthenticationLogoutHandler();

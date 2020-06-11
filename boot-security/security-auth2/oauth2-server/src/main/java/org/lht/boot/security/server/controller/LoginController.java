@@ -2,7 +2,6 @@ package org.lht.boot.security.server.controller;
 
 import io.swagger.annotations.Api;
 import org.lht.boot.lang.util.ValidatorUtil;
-import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.util.JwtTokenUtil;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
@@ -19,16 +18,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author LiHaitao
@@ -55,27 +49,11 @@ public class LoginController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private RequestCache requestCache;
 
-    @Autowired
-    private SecProperties secProperties;
-
-
-    @GetMapping("/login")
-    public String login(HttpServletRequest request, HttpServletResponse response) {
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-        if (savedRequest != null) {
-            String redirectUrl = savedRequest.getRedirectUrl();
-            log.info("引发跳转的请求是：{}", redirectUrl);
-        }
-        return "login";
-    }
-
-    @GetMapping("/")
-    public void success(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        redirectStrategy.sendRedirect(request, response, secProperties.getIndexUrl());
-    }
+    //    @GetMapping("/")
+    //    public void success(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //        redirectStrategy.sendRedirect(request, response, secProperties.getIndexUrl());
+    //    }
 
 
     @RequestMapping("/auth/login")
@@ -90,10 +68,6 @@ public class LoginController {
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             //将 Authentication 绑定到 SecurityContext
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            //生成Token
-            //            String token = jwtTokenUtil.createToken(authentication, false);
-            //将Token写入到Http头部
-            //            httpResponse.addHeader("Authentication", "Bearer " + token);
             return R.ok();
         } catch (BadCredentialsException authentication) {
             throw new Exception("密码错误");

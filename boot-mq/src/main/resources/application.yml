@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: 10.65.3.17:29092,10.65.3.18:29092,10.65.3.19:29092
+    bootstrap-servers: 10.68.7.131:19092
     consumer:
       group-id: test1
       auto-offset-reset: earliest

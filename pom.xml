@@ -22,6 +22,8 @@
         <module>boot-security</module>
         <module>boot-mq</module>
         <module>boot-web</module>
+        <module>cloud-zuul</module>
+        <module>cloud-eureka-server</module>
     </modules>
 
 
