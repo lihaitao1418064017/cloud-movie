@@ -22,7 +22,14 @@ eureka:
 
 zuul:
   routes:
-    api:
-        path: /**
-        serviceId: www.baidu.com
-#        serviceId: boot-oauth2-client
+#   相当于项目路径
+    blog:
+        path: /baidu/**
+#        path映射到的地址
+        url: http://www.baidu.com
+    OAuth2-client:
+        path: /test/hello/**
+        serviceId: boot-oauth2-client
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
