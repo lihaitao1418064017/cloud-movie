@@ -67,20 +67,21 @@ public class PasswordFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
 
         // TODO: 2020/6/12 密码校验必须是权限系统并且是登录请求 
-        String username = request.getParameter("password");
-        request.getContextPath();
-        if (null != username && username.equals("123456")) {
-            ctx.setSendZuulResponse(true);
-            ctx.setResponseStatusCode(200);
-            ctx.set("isSuccess", true);
-            return null;
-        } else {
-            ctx.setSendZuulResponse(false);
-            ctx.setResponseStatusCode(400);
-            ctx.setResponseBody("The password cannot be empty");
-            ctx.set("isSuccess", false);
-            return null;
-        }
+        //        String username = request.getParameter("password");
+        //        request.getContextPath();
+        //        if (null != username && username.equals("123456")) {
+        //            ctx.setSendZuulResponse(true);
+        //            ctx.setResponseStatusCode(200);
+        //            ctx.set("isSuccess", true);
+        //            return null;
+        //        } else {
+        //            ctx.setSendZuulResponse(false);
+        //            ctx.setResponseStatusCode(400);
+        //            ctx.setResponseBody("The password cannot be empty");
+        //            ctx.set("isSuccess", false);
+        //            return null;
+        //        }
+        return null;
     }
 
 }
