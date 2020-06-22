@@ -6,60 +6,51 @@ spring:
     name: cloud-gateway
 
 
+#
 
 
 ---
 spring:
   cloud:
+      gateway:
+        discovery:
+          locator:
+            enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+        routes:
+          - id: payment_routh #payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名
+            #uri: http://localhost:8001          #匹配后提供服务的路由地址
+            uri: lb://cloud-payment-service #匹配后提供服务的路由地址
+            predicates:
+              - Path=/payment/get/**         # 断言，路径相匹配的进行路由
+
+          - id: payment_routh2 #payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名
+            #uri: http://localhost:8001          #匹配后提供服务的路由地址
+            uri: lb://cloud-payment-service #匹配后提供服务的路由地址
+            predicates:
+              - Path=/payment/lb/**         # 断言，路径相匹配的进行路由
+              #- After=2020-02-21T15:51:37.485+08:00[Asia/Shanghai]
+              #- Cookie=username,zzyy
+              #- Header=X-Request-Id, \d+  # 请求头要有X-Request-Id属性并且值为整数的正则表达式
+---
+spring:
+  cloud:
     gateway:
       routes:
-#      Ψһ��ʶ
-      - id: add_request_header_route
-#      ·�ɵ�����ĵ�ַ
+#      跟时间相关的predicates还有Before Route Predicate Factory、Between Route Predicate Factory
+      - id: cloud-gateway
+#      请求会被路由到http://httpbin.org:80/get。
         uri: http://httpbin.org:80/get
-
         filters:
         - AddRequestHeader=X-Request-Foo, Bar
-        #        ��������PredicateDefinition���� ��name =After ��args= 2017-01-20T17:42:47.789-07:00[America/Denver]��
-        #         predicates��After������ã���ѭ����Լ�������õ�˼�룬��ʵ�ʱ�AfterRoutePredicateFactory�������������
-        #          ���After����ָ��������Gateway web handler��ΪAfterRoutePredicateFactory
+        #       After=2017-01-20T17:42:47.789-07:00[America/Denver] 会被解析成PredicateDefinition对象
+        #      （name =After ，args= 2017-01-20T17:42:47.789-07:00[America/Denver]）在这里需要注意的是predicates的After这个配置，
+#            遵循的契约大于配置的思想，它实际被AfterRoutePredicateFactory这个类所处理，这个After就是指定了它的Gateway web handler类为AfterRoutePredicateFactory，
+#           同理，其他类型的predicate也遵循这个规则，跟时间相关的predicates还有Before Route Predicate Factory、Between Route Predicate Factory
         predicates:
-        - After=2017-01-20T17:42:47.789-07:00[America/Denver]
-  profiles: add_request_header_route
-
----
-spring:
-  cloud:
-    gateway:
-      routes:
-      - id: add_response_header_route
-        uri: http://httpbin.org:80/get
-        filters:
-        - AddResponseHeader=X-Response-Foo, Bar
-        predicates:
-        - After=2017-01-20T17:42:47.789-07:00[America/Denver]
-  profiles: add_response_header_route
-
-
----
-spring:
-  cloud:
-    gateway:
-      routes:
-      - id: rewritepath_route
-        uri: https://blog.csdn.net
-        predicates:
-        - Path=/foo/**
-        filters:
-        - RewritePath=/foo/(?<segment>.*), /$\{segment}
-  profiles: rewritepath_route
-
+        - After=2018-01-20T17:42:47.789-07:00[America/Denver]
 ---
 
 
 
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8088/eureka/
+
