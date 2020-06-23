@@ -9,19 +9,22 @@
 
     <!--分页查询-->
     <select id="selectPage" resultType="org.lht.boot.security.resource.vo.UserVO">
-    SELECT
-    `user`.*,
-    role.id AS role_id,
-    role.NAME role_name,
-    role.sign AS role_sign
-    FROM
-    `user`,
-    role,
-    user_role
-    WHERE
-    user_role.user_id = `user`.id
-    AND
-    user_role.role_id = role.id;
+        SELECT
+        `user`.*,
+        role.id AS role_id,
+        role.NAME role_name,
+        role.sign AS role_sign
+        FROM
+        `user`,
+        role,
+        user_role
+        WHERE
+        user_role.user_id = `user`.id
+        AND
+        user_role.role_id = role.id ,
+        <foreach collection="terms" open="" separator="," close="" item="term">
+            #{term.column} = #{term.value}
+        </foreach>
     </select>
 
 

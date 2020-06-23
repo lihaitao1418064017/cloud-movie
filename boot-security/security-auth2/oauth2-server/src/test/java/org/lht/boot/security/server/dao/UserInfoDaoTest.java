@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.lht.boot.security.resource.dao.UserInfoDao;
 import org.lht.boot.security.resource.vo.UserVO;
 import org.lht.boot.security.server.OAuth2ServerApplication;
+import org.lht.boot.web.api.param.Param;
+import org.lht.boot.web.api.param.Term;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,7 +27,9 @@ public class UserInfoDaoTest {
     @Test
     public void test01() {
         Page<UserVO> page = new Page(1, 10);
-        IPage<UserVO> userInfoDtos = userInfoDao.selectPage(page);
+        Param queryParam = new Param();
+        queryParam.addTerm(Term.build("password", "123456"));
+        IPage<UserVO> userInfoDtos = userInfoDao.selectPage(page, queryParam.getTerms());
         log.info("userInfoDtos:{}", userInfoDtos);
     }
 }
