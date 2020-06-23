@@ -1,23 +1,18 @@
-package org.lht.boot.security.resource.entity;
+package org.lht.boot.security.resource.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import org.lht.boot.web.domain.entity.BaseCrudEntity;
+import org.lht.boot.security.resource.entity.Role;
+
+import java.util.Set;
 
 /**
  * @author LiHaitao
- * @description UserInfo:用户基本信息
- * @date 2020/3/18 11:23
+ * @description UserInfoDTO:用户信息dto
+ * @date 2020/6/23 15:25
  **/
 @Data
-@TableName("user")
-@ApiModel("用户实体")
-public class UserInfo extends BaseCrudEntity<Integer> {
+public class UserInfoDTO extends BaseCrudDTO {
 
-    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -55,4 +50,8 @@ public class UserInfo extends BaseCrudEntity<Integer> {
      */
     private String password;
 
+    /**
+     * 角色信息
+     */
+    private Set<Role> roles;
 }

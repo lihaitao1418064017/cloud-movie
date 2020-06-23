@@ -3,9 +3,12 @@ package org.lht.boot.web.common.config;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Properties;
 
 /**
  * @author LiHaitao
@@ -13,7 +16,8 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/1/9 16:29
  **/
 @Configuration
-@ConditionalOnClass(value = {PaginationInterceptor.class})
+@EnableTransactionManagement
+//@ConditionalOnClass(value = {PaginationInterceptor.class})
 public class MybatisConfig {
 
     /**
@@ -22,17 +26,24 @@ public class MybatisConfig {
      */
     @Bean
     public PerformanceInterceptor performanceInterceptor() {
-        return new PerformanceInterceptor();
+        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
+        //格式化sql语句
+        Properties properties = new Properties();
+        properties.setProperty("format", "true");
+        performanceInterceptor.setProperties(properties);
+        return performanceInterceptor;
     }
 
     /**
-     * 多租户配置
+     * 分页插件
      *
      * @return
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor();
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        paginationInterceptor.setSqlParser(new JsqlParserCountOptimize());
+        return paginationInterceptor;
     }
 
 

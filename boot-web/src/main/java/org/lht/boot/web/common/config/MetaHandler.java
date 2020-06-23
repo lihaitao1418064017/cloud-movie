@@ -17,12 +17,12 @@ public class MetaHandler implements MetaObjectHandler {
     public void insertFill(org.apache.ibatis.reflection.MetaObject metaObject) {
 
         Object createTime = getFieldValByName("createTime", metaObject);
-        Object createCode = getFieldValByName("creatorCode", metaObject);
+        Object createCode = getFieldValByName("creatorId", metaObject);
         Object status = getFieldValByName("status", metaObject);
 
 
         if (createCode == null) {
-            setFieldValByName("creatorCode", "1111", metaObject);
+            setFieldValByName("creatorId", "1111", metaObject);
         }
         if (createTime == null) {
             setFieldValByName("createTime", System.currentTimeMillis(), metaObject);
@@ -35,12 +35,12 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void updateFill(org.apache.ibatis.reflection.MetaObject metaObject) {
         Object updateTime = getFieldValByName("updateTime", metaObject);
-        Object updateCode = getFieldValByName("updaterCode", metaObject);
+        Object updateCode = getFieldValByName("updateId", metaObject);
         if (updateTime == null) {
             setFieldValByName("updateTime", System.currentTimeMillis(), metaObject);
         }
         if (updateCode == null) {
-            setFieldValByName("updaterCode", "ll", metaObject);
+            setFieldValByName("updateId", "ll", metaObject);
         }
     }
 

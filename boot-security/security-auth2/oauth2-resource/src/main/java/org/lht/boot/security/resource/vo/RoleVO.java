@@ -22,7 +22,12 @@ public class RoleVO extends AbstractVO<Role, Integer> {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-
     @ApiModelProperty(name = "角色名称")
     private String name;
+
+    @ApiModelProperty(name = "角色标识")
+    private String sign;
+
+    @ApiModelProperty(name = "角色描述")
+    private String description;
 }

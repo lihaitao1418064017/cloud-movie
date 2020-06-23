@@ -93,7 +93,6 @@ public class OAuth2ServiceImpl implements OAuth2Service {
     @Override
     public OAuth2UserAuthentication getAuthenticationByAccessToken(OAuth2Token auth2Token) {
         R<OAuth2UserAuthentication> loginUserByAccessToken = oAuth2ServerService.getLoginUserByAccessToken(oAuth2ClientConfigProperties.getClientId()
-                , oAuth2ClientConfigProperties.getClientSecret()
                 , auth2Token.getAccessToken());
         return loginUserByAccessToken.getResult();
     }

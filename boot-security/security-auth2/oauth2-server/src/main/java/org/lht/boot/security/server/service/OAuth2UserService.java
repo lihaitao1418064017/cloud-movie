@@ -59,7 +59,7 @@ public class OAuth2UserService {
      * @param clientId
      * @return
      */
-    public OAuth2UserAuthentication getLoginUser(String clientId, String clientSecret, String username) {
+    public OAuth2UserAuthentication getLoginUser(String clientId, String username) {
         Collection<OAuth2AccessToken> tokensByClientId = tokenStore.findTokensByClientId(clientId);
         if (CollectionUtil.isEmpty(tokensByClientId)) {
             throw new IllegalArgumentException("accessToken not exists");

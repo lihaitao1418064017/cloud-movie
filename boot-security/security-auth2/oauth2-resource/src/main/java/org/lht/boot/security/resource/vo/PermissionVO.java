@@ -28,4 +28,9 @@ public class PermissionVO extends AbstractVO<Permission, Integer> {
 
     @ApiModelProperty("上级权限id")
     private Integer pid;
+
+    @ApiModelProperty("权限标识")
+    private String sign;
+
+
 }

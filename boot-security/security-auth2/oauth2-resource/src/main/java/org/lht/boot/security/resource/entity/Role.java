@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
@@ -21,11 +20,18 @@ public class Role extends BaseCrudEntity<Integer> {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("角色名称")
+    /**
+     * 角色名称
+     */
     private String name;
-    @ApiModelProperty("角色标识")
+
+    /**
+     * 角色标识
+     */
     private String sign;
 
-    @ApiModelProperty("角色描述")
+    /**
+     * 角色描述
+     */
     private String description;
 }

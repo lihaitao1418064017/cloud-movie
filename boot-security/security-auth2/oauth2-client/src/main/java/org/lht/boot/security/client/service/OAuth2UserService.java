@@ -19,7 +19,7 @@ public interface OAuth2UserService {
 
     @GetMapping("/user/getLoginUser")
     R<OAuth2UserAuthentication> getLoginUserByAccessToken(@RequestParam("clientId") String clientId
-            , @RequestParam("clientSecret") String clientSecret
-            , @RequestParam("accessToken") String accessToken);
+            //            , @RequestParam("clientSecret") String clientSecret
+            , @RequestParam("username") String username);
 
 }

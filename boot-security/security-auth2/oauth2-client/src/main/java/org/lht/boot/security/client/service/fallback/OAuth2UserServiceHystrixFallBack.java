@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class OAuth2UserServiceHystrixFallBack implements OAuth2UserService {
 
     @Override
-    public R<OAuth2UserAuthentication> getLoginUserByAccessToken(String clientId, String clientSecret, String accessToken) {
+    public R<OAuth2UserAuthentication> getLoginUserByAccessToken(String clientId, String accessToken) {
         return R.error("Gets a logon user error");
     }
 }

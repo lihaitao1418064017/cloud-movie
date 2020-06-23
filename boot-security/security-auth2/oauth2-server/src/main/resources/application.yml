@@ -1,42 +1,12 @@
-
 server:
   port: 8080
-#encrypt:
-#  key-store:
-#    location: mytest.jks
-#    secret: mypass
-#    alias: mytest
-# 若从数据库中获取客户端信息则需配置数据库源
-#spring:
-#  datasource:
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:test
-#    username: sa
-#  h2:
-#    console:
-#      enabled: true
-
 #spring
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/commons?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
-    username: root
-    password: root
-    type: com.alibaba.druid.pool.DruidDataSource
-  redis:
-    host: 47.99.216.57
-    port: 6379
-  elasticsearch:
-    rest:
-       uris: http://47.99.216.57:9200
-       connection-timeout: 3000
-
-  application:
-    name: boot-oauth2-server
+  profiles:
+    active: dev
 #    新的bean允许覆盖
   main:
     allow-bean-definition-overriding: true
-
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 
 #mybatis
@@ -66,32 +36,4 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
-
-# security 配置
-security:
-  url:
-#  登录 URL
-    loginUrl: /login.html
-#    免认证静态资源路径
-    anonResourcesUrl: /swagger-resources/**,/swagger-ui.html/,v2/api-docs,/webjars/**
-#    记住我超时时间
-    rememberMeTimeout: 30000
-#    登出 URL
-    logoutUrl: /logout
-#    主页 URL
-    indexUrl: /index
-    authUrl: /auth/login
-  basic:
-#    false：禁用权限
-    enabled: true
-  oauth2:
-    resource:
-      filter-order: 80
-
-
-
-# eureka相关配置
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8088/eureka/
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
@@ -22,19 +21,34 @@ public class Permission extends BaseCrudEntity<Integer> {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("权限url")
+    /**
+     * 访问url
+     */
     private String url;
 
-    @ApiModelProperty("权限名称")
+    /**
+     * 权限名称
+     */
     private String name;
 
-    @ApiModelProperty("权限标识")
+    /**
+     * 权限标识
+     */
     private String sign;
 
-    @ApiModelProperty("权限描述")
+    /**
+     * 权限描述
+     */
     private String description;
 
-    @ApiModelProperty("上级权限id")
+    /**
+     * 上级权限
+     */
     private Integer pid;
+
+    /**
+     * 权限路径
+     */
+    private String path;
 
 }

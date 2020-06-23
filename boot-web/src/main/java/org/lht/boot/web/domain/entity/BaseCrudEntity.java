@@ -16,14 +16,14 @@ public abstract class BaseCrudEntity<PK> implements Entity<PK> {
     @TableField(value = "status", fill = FieldFill.INSERT)
     private Integer status;
 
-    @TableField(value = "creator_code", fill = FieldFill.INSERT)
-    private String creatorCode;
+    @TableField(value = "creator_id", fill = FieldFill.INSERT)
+    private String creatorId;
 
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Long createTime;
 
-    @TableField(value = "updater_code", fill = FieldFill.UPDATE)
-    private String updaterCode;
+    @TableField(value = "update_id", fill = FieldFill.UPDATE)
+    private String updateId;
 
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Long updateTime;

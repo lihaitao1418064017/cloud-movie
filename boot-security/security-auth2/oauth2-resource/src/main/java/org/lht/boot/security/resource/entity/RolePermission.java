@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
@@ -21,9 +20,7 @@ public class RolePermission extends BaseCrudEntity<Integer> {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("角色id")
     private Integer roleId;
 
-    @ApiModelProperty("权限id")
     private Integer permissionId;
 }
