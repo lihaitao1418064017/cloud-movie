@@ -17,30 +17,36 @@ public class PagerResult<E> extends Page<E> {
 
     private Long totalPages;
 
-    public void setPage(QueryParam queryParam) {
+    public PagerResult(int current, int size) {
+        super(current, size);
+    }
+
+    public PagerResult() {
+        super();
+    }
+
+    public void totalPages() {
         if (getSize() > 0) {
             this.totalPages = this.getTotal() % this.getSize() == 0 ? this.getTotal() / this.getSize() : this.getTotal() / this.getSize() + 1;
         }
     }
 
+    public void setPage(QueryParam queryParam) {
+        this.setCurrent(queryParam.getPageNo());
+        this.setSize(queryParam.getPageSize());
+    }
+
+
     public <VO> PagerResult<VO> convertTo(Function<E, VO> converter) {
-        PagerResult newResult = new PagerResult();
+        PagerResult<VO> newResult = new PagerResult<VO>();
         newResult.setTotal(this.getTotal());
         newResult.setTotalPages(this.totalPages);
         newResult.setCurrent(this.getCurrent());
         newResult.setSize(this.getSize());
-        List<VO> collect = this.getRecords().stream().map(e -> converter.apply(e)).collect(Collectors.toList());
+        List<VO> collect = this.getRecords().stream().map(converter::apply).collect(Collectors.toList());
         newResult.setRecords(collect);
         return newResult;
     }
 
-    public <E> PagerResult<E> convertToPagerResult() {
-        PagerResult newResult = new PagerResult();
-        newResult.setTotal(this.getTotal());
-        newResult.setTotalPages(this.totalPages);
-        newResult.setCurrent(this.getCurrent());
-        newResult.setSize(this.getSize());
-        newResult.setRecords(getRecords());
-        return newResult;
-    }
+
 }

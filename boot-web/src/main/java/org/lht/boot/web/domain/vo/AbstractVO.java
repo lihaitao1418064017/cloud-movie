@@ -17,11 +17,11 @@ public abstract class AbstractVO<E, PK extends Serializable> implements CrudVO<E
 
     private Integer status;
 
-    private String creatorCode;
+    private String creatorId;
 
     private Long createTime;
 
-    private String updaterCode;
+    private String updaterId;
 
     private Long updateTime;
 }

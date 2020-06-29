@@ -3,8 +3,9 @@ package org.lht.boot.web.dao;
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.lht.boot.lang.util.RandomUtils;
+import org.lht.boot.web.WebApplication;
 import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.domain.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +14,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SpringBootTest
+@SpringBootTest(classes = WebApplication.class)
 @Slf4j
-class TeacherDaoTest {
+public class TeacherDaoTest {
 
     @Autowired
     private TeacherDao teacherEsDao;
 
 
     @Test
-    void delete() {
+    public void delete() {
         List<Teacher> all = teacherEsDao.findAll();
         List<String> collect = all.stream().map(Teacher::getId).collect(Collectors.toList());
         teacherEsDao.deleteById(collect);
     }
 
     @Test
-    void add() {
+    public void add() {
         List<Teacher> teachers = Lists.newArrayList();
         int i = 10000;
         for (; i > 0; i--) {
@@ -51,7 +52,7 @@ class TeacherDaoTest {
     }
 
     @Test
-    void update() {
+    public void update() {
         Teacher teacher = new Teacher();
         teacher.setName("Yuanchun");
         teacher.setAge(100);
@@ -62,7 +63,7 @@ class TeacherDaoTest {
     }
 
     @Test
-    void updateEntitis() {
+    public void updateEntitis() {
         Teacher teacher = new Teacher();
         teacher.setName("Yuanchun");
         teacher.setAge(88);
@@ -73,7 +74,7 @@ class TeacherDaoTest {
     }
 
     @Test
-    void patch() {
+    public void patch() {
         Teacher teacher = new Teacher();
         teacher.setName("李海涛1");
         //        teacher.setAge(100);
@@ -82,18 +83,18 @@ class TeacherDaoTest {
     }
 
     @Test
-    void findAll() {
+    public void findAll() {
         List<Teacher> teachers = teacherEsDao.findAll(Lists.newArrayList("eba7494105d041bfa3629b10308d88d3", "6adcb8c750ee401f9f34665f39422564"));
         log.info("teachers:{}", teachers);
     }
 
     @Test
-    void getAll() {
+    public void getAll() {
 
     }
 
     @Test
-    void selectByParam() {
+    public void selectByParam() {
         QueryParam queryParam = new QueryParam();
         queryParam.setPageSize(1000);
         queryParam.and(Term.build("age", 76));
@@ -104,10 +105,10 @@ class TeacherDaoTest {
     }
 
     @Test
-    void selectPage() {
+    public void selectPage() {
         QueryParam queryParam = new QueryParam();
-        queryParam.setPageSize(10);
-        queryParam.setPageNo(1);
+        queryParam.setPageSize(500);
+        queryParam.setPageNo(100);
         //        queryParam.and(Term.build("age", 76));
         queryParam.addTerm(Term.build("sex", 1));
         //        queryParam.excludes("age", "sex");

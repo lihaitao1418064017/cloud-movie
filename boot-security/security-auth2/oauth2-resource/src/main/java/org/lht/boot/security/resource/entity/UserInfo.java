@@ -26,6 +26,11 @@ public class UserInfo extends BaseCrudEntity<Integer> {
     private String username;
 
     /**
+     * 用户姓名
+     */
+    private String name;
+
+    /**
      * 手机号
      */
     private String phone;

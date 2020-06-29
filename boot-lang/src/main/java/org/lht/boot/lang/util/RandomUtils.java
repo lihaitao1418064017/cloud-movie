@@ -70,7 +70,7 @@ public class RandomUtils extends RandomUtil {
         if (isChinese) {
             return randomString("男女", 1);
         }
-        return randomInt(1) + "";
+        return String.valueOf(randomInt(2));
     }
 
 }

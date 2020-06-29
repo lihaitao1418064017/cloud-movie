@@ -2,7 +2,7 @@ package org.lht.boot.web.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.ReflectionUtil;
 import org.lht.boot.web.domain.entity.User;

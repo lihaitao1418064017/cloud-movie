@@ -21,8 +21,11 @@ public class UserVO extends AbstractVO<UserInfo, Integer> {
     @ApiModelProperty("id")
     private Integer id;
 
-    @ApiModelProperty("用户姓名")
+    @ApiModelProperty("用户名")
     private String username;
+
+    @ApiModelProperty("用户姓名")
+    private String name;
 
     @ApiModelProperty("手机号")
     private String phone;

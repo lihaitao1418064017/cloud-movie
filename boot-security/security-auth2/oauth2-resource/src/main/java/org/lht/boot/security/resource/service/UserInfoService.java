@@ -1,6 +1,9 @@
 package org.lht.boot.security.resource.service;
 
 import org.lht.boot.security.resource.entity.UserInfo;
+import org.lht.boot.security.resource.vo.UserVO;
+import org.lht.boot.web.api.param.PagerResult;
+import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.service.BaseCrudService;
 
 /**
@@ -17,4 +20,12 @@ public interface UserInfoService extends BaseCrudService<UserInfo, Integer> {
      * @return
      */
     UserInfo selectByUsername(String username);
+
+    /**
+     * 分页查询，带角色信息
+     *
+     * @param queryParam
+     * @return
+     */
+    PagerResult<UserVO> page(QueryParam queryParam);
 }

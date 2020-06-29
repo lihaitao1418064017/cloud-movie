@@ -2,10 +2,10 @@ package org.lht.boot.web.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
-import org.lht.boot.web.api.param.util.ParamMybatisUtil;
 import org.lht.boot.web.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +29,7 @@ class UserDaoTest {
         QueryWrapper queryWrapper = new QueryWrapper();
         //        userDao.selectPage()
         //       userDao.();
+
     }
 
     @Test
@@ -36,7 +37,7 @@ class UserDaoTest {
         QueryParam queryParam = new QueryParam();
         queryParam.and(Term.build("age", 1234));
         queryParam.setPageSize(5);
-        User page = userDao.selectOne(ParamMybatisUtil.toQueryWrapper(queryParam));
+        PagerResult<User> page = userDao.selectPage(queryParam);
         log.info("page:{}", page);
     }
 

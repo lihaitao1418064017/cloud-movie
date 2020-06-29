@@ -3,6 +3,8 @@ package org.lht.boot.security.resource.service.impl;
 import org.lht.boot.security.resource.dao.UserInfoDao;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
+import org.lht.boot.security.resource.vo.UserVO;
+import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.service.impl.BaseMybatisCrudServiceImpl;
@@ -19,5 +21,14 @@ public class UserInfoServiceImpl extends BaseMybatisCrudServiceImpl<UserInfo, In
     @Override
     public UserInfo selectByUsername(String username) {
         return selectSingle(QueryParam.build(Term.build("username", username)));
+    }
+
+    @Override
+    public PagerResult<UserVO> page(QueryParam queryParam) {
+        PagerResult<UserVO> page = new PagerResult<UserVO>();
+        page.setPage(queryParam);
+        page = dao.page(page, queryParam.getTerms());
+        page.totalPages(queryParam);
+        return page;
     }
 }
