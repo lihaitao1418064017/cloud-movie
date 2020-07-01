@@ -28,7 +28,7 @@ public class UserInfoServiceImpl extends BaseMybatisCrudServiceImpl<UserInfo, In
         PagerResult<UserVO> page = new PagerResult<UserVO>();
         page.setPage(queryParam);
         page = dao.page(page, queryParam.getTerms());
-        page.totalPages(queryParam);
+        page.totalPages();
         return page;
     }
 }

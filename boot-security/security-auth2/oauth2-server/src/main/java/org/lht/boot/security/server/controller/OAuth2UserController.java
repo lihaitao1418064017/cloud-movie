@@ -24,7 +24,7 @@ public class OAuth2UserController {
 
     @GetMapping("/getLoginUser")
     public R<OAuth2UserAuthentication> getLoginUser(@RequestParam("clientId") String clientId
-            , @RequestParam("username") String username) {
-        return R.ok(oAuth2UserService.getLoginUser(clientId, username));
+            , @RequestParam("accessToken") String accessToken) {
+        return R.ok(oAuth2UserService.getLoginUser(clientId, accessToken));
     }
 }

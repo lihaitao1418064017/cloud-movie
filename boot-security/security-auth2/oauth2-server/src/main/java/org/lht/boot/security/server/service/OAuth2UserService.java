@@ -3,6 +3,7 @@ package org.lht.boot.security.server.service;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.lht.boot.cache.redis.RedisUtil;
 import org.lht.boot.security.common.exception.SecException;
 import org.lht.boot.security.resource.entity.*;
 import org.lht.boot.security.resource.service.*;
@@ -46,10 +47,15 @@ public class OAuth2UserService {
 
     @Autowired
     private PermissionService permissionService;
+
     @Autowired
     private ClientDetailsService clientDetailsService;
+
     @Autowired
-    TokenStore tokenStore;
+    private TokenStore tokenStore;
+
+    @Autowired
+    private RedisUtil<String, String> redisUtil;
 
 
     /**
@@ -59,17 +65,22 @@ public class OAuth2UserService {
      * @param clientId
      * @return
      */
-    public OAuth2UserAuthentication getLoginUser(String clientId, String username) {
+    public OAuth2UserAuthentication getLoginUser(String clientId, String accessToken) {
         Collection<OAuth2AccessToken> tokensByClientId = tokenStore.findTokensByClientId(clientId);
         if (CollectionUtil.isEmpty(tokensByClientId)) {
             throw new IllegalArgumentException("accessToken not exists");
         }
+
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
         if (clientDetails == null) {
             throw new IllegalArgumentException("client not exists");
         }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("accessToken not exists!");
+        }
+        String username = redisUtil.get(accessToken);
         if (username == null) {
-            throw new IllegalArgumentException("用户名为空");
+            throw new IllegalArgumentException("username not exists!");
         }
         UserInfo userInfo = userInfoService.selectByUsername(username);
         if (ObjectUtil.isNull(userInfo)) {

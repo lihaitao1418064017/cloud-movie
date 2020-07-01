@@ -51,6 +51,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private UserDetailsService oAuth2SecurityUserDetailService;
 
+    @Autowired
+    private CustomTokenEnhancer customTokenEnhancer;
+
 
     @Bean
     public TokenStore tokenStore() {
@@ -70,6 +73,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(oAuth2SecurityUserDetailService)
+                .tokenEnhancer(customTokenEnhancer)
                 .setClientDetailsService(new JdbcClientDetailsService(dataSource));
 
     }
