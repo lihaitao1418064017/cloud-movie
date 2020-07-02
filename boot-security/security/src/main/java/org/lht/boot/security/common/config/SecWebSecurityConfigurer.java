@@ -125,12 +125,11 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 //过滤前验证
                 //.addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
                 // 表单方式
-                .formLogin()
+                .formLogin().loginPage("/lll")
                 .successHandler(secAuthenticationSuccessHandler)
                 // 处理登录失败
                 .failureHandler(secAuthenticationFailureHandler)
                 // 未认证跳转 URL
-                .loginPage(secProperties.getLoginUrl())
                 // 处理登录认证 URL
                 .loginProcessingUrl(secProperties.getAuthUrl())
                 .and().exceptionHandling().accessDeniedPage(secProperties.getAccessDenyUrl())
@@ -150,7 +149,8 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // 配置 session管理器
                 .sessionManagement()
                 // 处理 session失效
-                //                .invalidSessionStrategy(invalidSessionStrategy)
+                //                .invalidSessionUrl("/login/invalid")
+                .invalidSessionStrategy(invalidSessionStrategy)
                 // 最大并发登录数量
                 .maximumSessions(secProperties.getSession().getMaximumSessions())
                 // 处理并发登录被踢出

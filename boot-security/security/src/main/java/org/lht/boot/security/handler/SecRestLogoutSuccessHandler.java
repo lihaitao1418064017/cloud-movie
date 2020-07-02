@@ -27,7 +27,7 @@ public class SecRestLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-
+        log.info("登出成功。。。。。。。。。。。。。。。");
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.setCharacterEncoding("UTF-8");
 

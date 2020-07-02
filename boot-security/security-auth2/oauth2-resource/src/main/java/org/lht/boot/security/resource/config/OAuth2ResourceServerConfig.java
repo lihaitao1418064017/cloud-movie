@@ -25,7 +25,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
                 .authenticated()
                 .and()
                 .requestMatchers()
-                .antMatchers("/role/**", "/permission/**", "/user/**");
+                .antMatchers("/resources/**");
     }
 
 

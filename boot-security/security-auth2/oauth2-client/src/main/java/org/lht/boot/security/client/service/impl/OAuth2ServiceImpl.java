@@ -83,8 +83,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         OAuth2UserAuthentication authenticationByAccessToken = getAuthenticationByAccessToken(oAuth2Token);
         authenticationByAccessToken.setOAuth2Token(oAuth2Token);
         AuthUserDetails secUserDetails = new AuthUserDetails(authenticationByAccessToken);
-        PreAuthenticatedAuthenticationToken authentication =
-                new PreAuthenticatedAuthenticationToken(secUserDetails, oAuth2Token, secUserDetails.getAuthorities());
+        PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(secUserDetails, oAuth2Token, secUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         HttpSession session = request.getSession(true);
         session.setMaxInactiveInterval(expireTime);

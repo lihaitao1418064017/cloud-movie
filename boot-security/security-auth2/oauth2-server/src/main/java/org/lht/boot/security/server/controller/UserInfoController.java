@@ -1,4 +1,4 @@
-package org.lht.boot.security.resource.controller;
+package org.lht.boot.security.server.controller;
 
 import io.swagger.annotations.Api;
 import org.lht.boot.security.resource.entity.UserInfo;
