@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 /**
  * @author LiHaitao
- * @description RegisterController:
+ * @description RegisterController:用户注册
  * @date 2020/7/3 14:03
  **/
 @RestController
