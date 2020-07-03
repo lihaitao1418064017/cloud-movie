@@ -1,6 +1,5 @@
 package org.lht.boot.security.common.config;
 
-import org.apache.commons.lang3.StringUtils;
 import org.lht.boot.security.handler.SecAuthenticationFailureHandler;
 import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
 import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
@@ -115,8 +114,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        //静态资源
-        String[] anonResourcesUrl = StringUtils.split(secProperties.getAnonResourcesUrl(), ",");
+
         http.exceptionHandling()
                 // 权限不足处理器
                 .accessDeniedHandler(accessDeniedHandler)
@@ -125,15 +123,15 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 //过滤前验证
                 //.addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
                 // 表单方式
-                .formLogin().loginPage("/lll")
+                .formLogin().loginPage(secProperties.getLoginUrl())
                 .successHandler(secAuthenticationSuccessHandler)
                 // 处理登录失败
                 .failureHandler(secAuthenticationFailureHandler)
                 // 未认证跳转 URL
                 // 处理登录认证 URL
-                .loginProcessingUrl(secProperties.getAuthUrl())
+                .loginProcessingUrl(secProperties.getLoginUrl())
                 .and().exceptionHandling().accessDeniedPage(secProperties.getAccessDenyUrl())
-                .and().logout().logoutUrl("/aaa")
+                .and().logout().logoutUrl(secProperties.getLogoutUrl())
                 // 处理登录成功
                 .logoutSuccessHandler(secRestLogoutSuccessHandler)
                 .and()
@@ -173,26 +171,10 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 // 授权配置
                 .authorizeRequests()
-                // 免认证静态资源路径
-                .antMatchers(anonResourcesUrl).permitAll()
-                //免认证接口
-                .antMatchers().permitAll()
                 .antMatchers(
-                        // 登录路径
-                        secProperties.getLoginUrl(),
-                        "/oauth2/**",
-                        "/oauth/**",
-                        "/api/**",
-                        "/user/getLoginUser/**",
-                        // 用户注册 url
-                        secProperties.getAccessDenyUrl(),
-                        secProperties.getSwaggerUrl()
-                        //                        secProperties.getCode().getImage().getCreateUrl(), // 创建图片验证码路径
-                        //                        secProperties.getCode().getSms().getCreateUrl(), // 创建短信验证码路径
-                        //                        secProperties.getSocial().getSocialRedirectUrl(), // 重定向到社交账号注册（绑定）页面路径
-                        //                        secProperties.getSocial().getSocialBindUrl(), // 社交账号绑定 URL
-                        //                        secProperties.getSocial().getSocialRegistUrl() // 注册并绑定社交账号 URL
-                        // 配置免认证路径
+                        // 免认证路径
+
+                        secProperties.getPermitAll().toArray(new String[secProperties.getPermitAll().size()])
                 ).permitAll()
                 // 所有请求
                 .anyRequest()

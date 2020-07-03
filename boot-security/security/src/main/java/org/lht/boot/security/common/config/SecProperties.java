@@ -3,6 +3,8 @@ package org.lht.boot.security.common.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
+
 /**
  * @author LiHaitao
  * @description Security通用配置
@@ -12,15 +14,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class SecProperties {
 
-    /**
-     * 用户注册 URL
-     */
-    public String registerUrl = "/user/register";
+
+    private List<String> permitAll;
+
     /**
      * 权限不足 URL
      */
     public String accessDenyUrl = "/access/deny/403";
-
 
     /**
      * 登录 URL
@@ -29,10 +29,6 @@ public class SecProperties {
 
     private String swaggerUrl = "/swagger-ui.html/**";
 
-    /**
-     * 免认证静态资源路径
-     */
-    private String anonResourcesUrl = "/css";
     /**
      * 记住我超时时间
      */
@@ -46,10 +42,6 @@ public class SecProperties {
      */
     private String indexUrl = "/index";
 
-    /**
-     * 认证url
-     */
-    private String authUrl = "/auth/login";
 
     /**
      * session相关配置
