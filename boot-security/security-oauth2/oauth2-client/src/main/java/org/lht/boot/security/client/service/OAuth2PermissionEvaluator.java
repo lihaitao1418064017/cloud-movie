@@ -1,6 +1,7 @@
 package org.lht.boot.security.client.service;
 
 import org.lht.boot.security.client.entity.AuthUserDetails;
+import org.lht.boot.security.core.entity.AuthResource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;

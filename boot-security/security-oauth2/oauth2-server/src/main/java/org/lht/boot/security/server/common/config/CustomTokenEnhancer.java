@@ -13,6 +13,12 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * acessToken添加字段，并保存accessToken
+ * @date 2020-07-02
+ * @author lht
+ */
 @Slf4j
 @Component
 public class CustomTokenEnhancer implements TokenEnhancer {

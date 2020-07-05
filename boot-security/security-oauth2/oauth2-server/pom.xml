@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>org.lht.boot.security</groupId>
-        <artifactId>security-auth2</artifactId>
+        <artifactId>security-oauth2</artifactId>
         <version>0.0.1-SNAPSHOT</version> <!-- lookup parent from repository -->
     </parent>
     <artifactId>oauth2-server</artifactId>

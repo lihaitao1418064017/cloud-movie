@@ -9,7 +9,7 @@ import org.lht.boot.lang.util.RandomUtils;
 import org.lht.boot.security.resource.dao.UserInfoDao;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.vo.UserVO;
-import org.lht.boot.security.server.OAuth2ServerApplication;
+//import org.lht.boot.security.server.OAuth2ServerApplication;
 import org.lht.boot.web.api.param.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2020/6/23 15:53
  **/
 @Slf4j
-@SpringBootTest(classes = OAuth2ServerApplication.class)
+@SpringBootTest
 public class UserInfoDaoTest {
 
     @Autowired

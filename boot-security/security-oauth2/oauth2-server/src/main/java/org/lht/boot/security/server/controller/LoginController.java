@@ -15,8 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description LoginController: 登陆控制器
  * @date 2020/3/19 14:57
  **/
-@Controller
+@RestController
 @RequestMapping
 @Api(tags = "登陆相关接口", description = "提供登陆相关的 Rest API")
 public class LoginController {
@@ -43,8 +42,8 @@ public class LoginController {
     //    }
 
 
-    @RequestMapping("/auth/login")
-    public R showLogin(String username, String password, HttpServletResponse httpResponse) throws Exception {
+    @GetMapping("/auth/login")
+    public R showLogin(@RequestParam(name = "username") String username,@RequestParam(name = "password") String password) throws Exception {
         //通过用户名和密码创建一个 Authentication 认证对象，实现类为 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         //如果认证对象不为空

@@ -29,11 +29,11 @@ CREATE TABLE `permission` (
   `sign`        VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL     DEFAULT NULL,
   `pid`         BIGINT(11)   NOT NULL,
-  `update_time` BIGINT(20)   NULL     DEFAULT 0,
-  `create_time` BIGINT(20)   NULL     DEFAULT 0,
+  `update_time` BIGINT(20)   NULL     DEFAULT NULL,
+  `create_time` BIGINT(20)   NULL     DEFAULT NULL,
   `creator_id`  VARCHAR(30)  NULL     DEFAULT NULL,
   `update_id`   VARCHAR(30)  NULL     DEFAULT NULL,
-  `status`      INT(11)      NULL     DEFAULT 0,
+  `status`      INT(11)      NULL     DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB;
@@ -47,11 +47,11 @@ CREATE TABLE `role` (
   `name`        VARCHAR(255) NOT NULL,
   `sign`        VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL     DEFAULT NULL,
-  `update_time` BIGINT(20)   NULL     DEFAULT 0,
-  `create_time` BIGINT(20)   NULL     DEFAULT 0,
+  `update_time` BIGINT(20)   NULL     DEFAULT NULL,
+  `create_time` BIGINT(20)   NULL     DEFAULT NULL,
   `creator_id`  VARCHAR(30)  NULL     DEFAULT NULL,
   `update_id`   VARCHAR(30)  NULL     DEFAULT NULL,
-  `status`      INT(11)      NULL     DEFAULT 0,
+  `status`      INT(11)      NULL     DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB;
@@ -64,11 +64,11 @@ CREATE TABLE `role_permission` (
   `role_id`       BIGINT(11)  NOT NULL,
   `permission_id` BIGINT(11)  NOT NULL,
   `id`            BIGINT(11)  NOT NULL,
-  `update_time`   BIGINT(20)  NULL DEFAULT 0,
-  `create_time`   BIGINT(20)  NULL DEFAULT 0,
+  `update_time`   BIGINT(20)  NULL DEFAULT NULL,
+  `create_time`   BIGINT(20)  NULL DEFAULT NULL,
   `creator_id`    VARCHAR(30) NULL DEFAULT NULL,
   `update_id`     VARCHAR(30) NULL DEFAULT NULL,
-  `status`        INT(11)     NULL DEFAULT 0
+  `status`        INT(11)     NULL DEFAULT 1
 )
   ENGINE = InnoDB;
 
@@ -85,12 +85,12 @@ CREATE TABLE `user` (
   `email`       VARCHAR(255) NULL     DEFAULT NULL,
   `identify`    VARCHAR(255) NULL     DEFAULT NULL,
   `sex`         INT(11)      NULL     DEFAULT NULL,
-  `age`         INT(20)      NULL     DEFAULT 0,
-  `create_time` BIGINT(20)   NULL     DEFAULT 0,
-  `update_time` BIGINT(20)   NULL     DEFAULT 0,
+  `age`         INT(20)      NULL     DEFAULT NULL,
+  `create_time` BIGINT(20)   NULL     DEFAULT NULL,
+  `update_time` BIGINT(20)   NULL     DEFAULT NULL,
   `creator_id`  VARCHAR(30)  NULL     DEFAULT NULL,
   `update_id`   VARCHAR(30)  NULL     DEFAULT NULL,
-  `status`      INT(11)      NULL     DEFAULT 0,
+  `status`      INT(11)      NULL     DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB;
@@ -103,11 +103,11 @@ CREATE TABLE `user_role` (
   `user_id`     BIGINT(11)  NOT NULL,
   `role_id`     BIGINT(11)  NOT NULL,
   `id`          BIGINT(11)  NOT NULL,
-  `update_time` BIGINT(20)  NULL DEFAULT 0,
-  `create_time` BIGINT(20)  NULL DEFAULT 0,
+  `update_time` BIGINT(20)  NULL DEFAULT NULL,
+  `create_time` BIGINT(20)  NULL DEFAULT NULL,
   `creator_id`  VARCHAR(30) NULL DEFAULT NULL,
   `update_id`   VARCHAR(30) NULL DEFAULT NULL,
-  `status`      INT(11)     NULL DEFAULT 0,
+  `status`      INT(11)     NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB;
