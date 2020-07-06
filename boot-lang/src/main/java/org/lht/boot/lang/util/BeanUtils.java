@@ -10,7 +10,7 @@ import java.util.Map;
 import static cn.hutool.core.map.MapUtil.newHashMap;
 
 /**
- * Description:Map工具类
+ * Description:Bean工具类
  *
  * @Author lht
  * @Date 2020/1/11 6:40 PM

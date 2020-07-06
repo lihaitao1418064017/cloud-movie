@@ -7,5 +7,5 @@ package org.lht.boot.security.server.common.constant;
  **/
 public class OAuth2CommonConstant {
 
-    public static final String PUBLIC_KEY = "pubkey.txt";
+
 }

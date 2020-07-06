@@ -16,7 +16,9 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 /**
- * Http与Servlet工具类.
+ * @description: Http与Servlet工具类.
+ * @author: LiHaitao
+ * @date: 2020/7/6 13:38
  */
 public class ServletUtil extends cn.hutool.extra.servlet.ServletUtil {
 

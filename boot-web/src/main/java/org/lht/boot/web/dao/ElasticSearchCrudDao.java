@@ -367,14 +367,14 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
     }
 
     @Override
-    public int patch(UpdateParam<JSONObject> updateParam) {
+    public int patch(UpdateParam<E> updateParam) {
         String update;
         try {
             update = jsonBuilder()
                     .startObject()
                     .field("query", ParamEsUtil.buildSearchQueryBuilder(updateParam))
                     .startObject("script")
-                    .field("inline", JestUtil.buildScript(updateParam.getData(), false))
+                    .field("inline", JestUtil.buildScript(BeanUtils.beanToMap(updateParam.getData()), false))
                     .endObject()
                     .endObject()
                     .string();

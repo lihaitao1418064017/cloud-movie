@@ -1,4 +1,4 @@
-package org.lht.boot.security.core.entity;
+package org.lht.boot.security.core.vo;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2020/5/28 17:21
  **/
 @Data
-public class AuthRole {
+public class AuthRoleVO {
 
     private Integer id;
 

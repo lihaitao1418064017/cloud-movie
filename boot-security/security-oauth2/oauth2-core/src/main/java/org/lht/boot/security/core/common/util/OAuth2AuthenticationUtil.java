@@ -1,14 +1,14 @@
-package org.lht.boot.security.core.service;
+package org.lht.boot.security.core.common.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * @author LiHaitao
- * @description OAuth2Authentication:获取当前登录用户权限信息
+ * @description OAuth2AuthenticationUtil:获取当前登录用户权限信息
  * @date 2020/6/22 17:02
  **/
-public class OAuth2Authentication {
+public class OAuth2AuthenticationUtil {
 
 
     /**

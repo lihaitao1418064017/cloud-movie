@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author LiHaitao
- * @description UserServiceImpl:
+ * @description UserRoleServiceImpl:用户角色关联
  * @date 2020/3/19 14:50
  **/
 @Service

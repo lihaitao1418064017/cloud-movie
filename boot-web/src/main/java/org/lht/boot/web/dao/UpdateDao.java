@@ -1,6 +1,5 @@
 package org.lht.boot.web.dao;
 
-import com.alibaba.fastjson.JSONObject;
 import org.lht.boot.web.api.param.UpdateParam;
 
 import java.io.IOException;
@@ -52,5 +51,5 @@ public interface UpdateDao<E, PK> extends Dao {
     List<PK> patch(Collection<E> entities);
 
 
-    int patch(UpdateParam<JSONObject> updateParam) throws IOException;
+    int patch(UpdateParam<E> updateParam) throws IOException;
 }

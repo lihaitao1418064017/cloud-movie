@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,10 +82,9 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         OAuth2UserAuthentication authenticationByAccessToken = getAuthenticationByAccessToken(oAuth2Token);
         authenticationByAccessToken.setOAuth2Token(oAuth2Token);
         AuthUserDetails secUserDetails = new AuthUserDetails(authenticationByAccessToken);
-        PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(secUserDetails, oAuth2Token, secUserDetails.getAuthorities());
+        PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(secUserDetails.getUsername(), oAuth2Token, secUserDetails.getAuthorities());
+        authentication.setDetails(secUserDetails);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(expireTime);
     }
 
     @Override

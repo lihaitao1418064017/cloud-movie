@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Description:
+ * Description:用户接口
  *
  * @Author lht
  * @Date 2020/3/25 8:00 PM
@@ -26,9 +26,18 @@ import javax.servlet.http.HttpServletRequest;
 @Api(tags = "用户相关接口", description = "提供用户相关的 Rest API")
 public class UserInfoController extends AbstractController<UserInfo, Integer, UserVO, UserInfoService> {
 
+    /**
+     * 用户详情
+     *
+     * @param request
+     * @param queryParam
+     * @return
+     */
     @GetMapping("/detail")
     public R<PagerResult<UserVO>> page(HttpServletRequest request, QueryParam queryParam) {
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.page(queryParam));
     }
+
+
 }

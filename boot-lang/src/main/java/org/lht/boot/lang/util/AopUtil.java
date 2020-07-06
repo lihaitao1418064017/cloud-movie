@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * @author LiHaitao
- * @description AopUtil:
+ * @description AopUtil: aop工具类
  * @date 2019/7/30 18:14
  **/
 public class AopUtil {

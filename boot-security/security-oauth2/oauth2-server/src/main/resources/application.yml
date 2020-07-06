@@ -54,6 +54,8 @@ security:
       - "/auth/login"
       - "/access/deny/403"
       - "/register/**"
+      - "/user/checkUnique/**"
+      - "/password/forget/**"
        #    记住我超时时间
       rememberMeTimeout: 30000
             #    登出 URL

@@ -5,7 +5,7 @@ import org.lht.boot.web.service.BaseCrudService;
 
 /**
  * @author LiHaitao
- * @description UserInfoService:
+ * @description UserRoleService:用户角色关联
  * @date 2020/3/19 14:48
  **/
 public interface UserRoleService extends BaseCrudService<UserRole, Integer> {

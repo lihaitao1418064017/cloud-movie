@@ -18,7 +18,7 @@ import java.security.spec.RSAPublicKeySpec;
 
 /**
  * @author LiHaitao
- * @description SecureUtils:
+ * @description SecureUtils:加密算法工具类
  * @date 2019/8/30 10:51
  **/
 @Slf4j

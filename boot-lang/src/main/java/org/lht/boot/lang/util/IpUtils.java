@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * IP地址
+ * @description: IP工具类
+ * @author: LiHaitao
+ * @date: 2020/7/6 13:36
  */
 public class IpUtils {
     private static Logger logger = LoggerFactory.getLogger(IpUtils.class);

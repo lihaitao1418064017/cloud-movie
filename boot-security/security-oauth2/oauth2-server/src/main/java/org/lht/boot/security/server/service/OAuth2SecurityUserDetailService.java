@@ -5,14 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.security.common.SecUserDetails;
 import org.lht.boot.security.resource.entity.Role;
 import org.lht.boot.security.resource.entity.UserInfo;
-import org.lht.boot.security.resource.entity.UserRole;
 import org.lht.boot.security.resource.service.RoleService;
 import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.resource.service.UserRoleService;
 import org.lht.boot.security.server.common.constant.OAuth2UserConstant;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
-import org.lht.boot.web.api.param.TermEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -91,15 +89,8 @@ public class OAuth2SecurityUserDetailService implements UserDetailsService {
      * @return
      */
     private List<String> findRole(UserInfo userInfo) {
-        List<UserRole> userRoles = this.userRoleService.select(QueryParam.build("user_id", userInfo.getId()));
         return roleService
-                .select(QueryParam
-                        .build("id", TermEnum.in,
-                                userRoles
-                                        .stream()
-                                        .map(UserRole::getRoleId)
-                                        .collect(Collectors.toList())))
-                .stream()
+                .selectSignsByUser(userInfo.getUsername()).stream()
                 .map(Role::getSign)
                 .collect(Collectors.toList());
     }

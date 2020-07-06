@@ -5,7 +5,7 @@ import org.lht.boot.web.service.BaseCrudService;
 
 /**
  * @author LiHaitao
- * @description UserInfoService:
+ * @description RolePermissionService:角色和权限资源关联
  * @date 2020/3/19 14:48
  **/
 public interface RolePermissionService extends BaseCrudService<RolePermission, Integer> {

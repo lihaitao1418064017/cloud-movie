@@ -1,6 +1,7 @@
 package org.lht.boot.security.server.dao;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -8,23 +9,28 @@ import org.junit.jupiter.api.Test;
 import org.lht.boot.lang.util.RandomUtils;
 import org.lht.boot.security.resource.dao.UserInfoDao;
 import org.lht.boot.security.resource.entity.UserInfo;
+import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.resource.vo.UserVO;
-//import org.lht.boot.security.server.OAuth2ServerApplication;
 import org.lht.boot.web.api.param.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+//import org.lht.boot.security.server.OAuth2ServerApplication;
+
 /**
  * @author LiHaitao
- * @description UserInfoDaoTest:
+ * @description UserInfoTest:
  * @date 2020/6/23 15:53
  **/
 @Slf4j
 @SpringBootTest
-public class UserInfoDaoTest {
+public class UserInfoTest {
 
     @Autowired
     private UserInfoDao userInfoDao;
+
+    @Autowired
+    private UserInfoService userInfoService;
 
 
     @Test
@@ -55,4 +61,25 @@ public class UserInfoDaoTest {
         IPage<UserVO> userInfoDtos = userInfoDao.page(page, queryParam.getTerms());
         log.info("userInfoDtos:{}", userInfoDtos.getRecords());
     }
+
+    @Test
+    public void test02() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName("lihaitao");
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("username", "17809269791");
+        userInfoDao.update(userInfo, queryWrapper);
+    }
+
+
+    @Test
+    public void test03() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName("lihaitao1");
+        UpdateParam updateParam = new UpdateParam();
+        updateParam.setData(userInfo);
+        updateParam.addTerm(Term.build("username", "17809269791"));
+        userInfoService.patch(updateParam);
+    }
+
 }

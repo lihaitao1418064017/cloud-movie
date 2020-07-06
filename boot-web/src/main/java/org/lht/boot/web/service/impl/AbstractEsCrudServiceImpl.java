@@ -1,6 +1,5 @@
 package org.lht.boot.web.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import org.lht.boot.web.api.param.AggregationParam;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
@@ -113,7 +112,7 @@ public class AbstractEsCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends 
     }
 
     @Override
-    public int patch(UpdateParam<JSONObject> param) {
+    public int patch(UpdateParam<E> param) {
         return dao.patch(param);
     }
 
