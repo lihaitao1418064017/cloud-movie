@@ -1,5 +1,6 @@
 package org.lht.boot.lang.util;
 
+import cn.hutool.core.util.StrUtil;
 import org.apache.commons.lang3.Validate;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -171,7 +172,7 @@ public class ServletUtil extends cn.hutool.extra.servlet.ServletUtil {
                 if (values == null || values.length == 0) {
                 } else if (values.length > 1) {
                     params.put(unprefixed, values);
-                } else {
+                } else if (StrUtil.isNotBlank(values[0])){
                     params.put(unprefixed, values[0]);
                 }
             }

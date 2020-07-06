@@ -37,10 +37,18 @@ public class UserVO extends AbstractVO<UserInfo, Integer> {
     private String identify;
 
     @ApiModelProperty("性别")
-    private Integer sex;
+    private String sex;
 
     @ApiModelProperty("年龄")
     private Integer age;
+
+    /**
+     * 转换中文前端展示
+     * @param sex
+     */
+    private void setSex(Integer sex) {
+        this.sex = sex == 1 ? "男" : "女";
+    }
 
     /**
      * 角色信息

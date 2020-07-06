@@ -42,7 +42,7 @@
     role_id = role.id
     <if test="terms !=null and terms.size() > 0  ">
     WHERE
-    <foreach collection="terms" open="" separator="," close="" item="term">
+    <foreach collection="terms" open="" separator="and" close="" item="term">
     <if test="term.termType.toString() == 'eq'.toString() ">
     ${term.column} = #{term.value}
     </if>
