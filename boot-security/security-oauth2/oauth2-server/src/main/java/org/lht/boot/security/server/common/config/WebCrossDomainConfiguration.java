@@ -7,6 +7,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * 配置跨域
@@ -15,19 +16,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * @date 2020-07-02
  */
 @Configuration
-public class WebCrossDomainConfiguration extends WebMvcConfigurationSupport {
+public class WebCrossDomainConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowCredentials(true)//ajax请求sessionId一致问题
-                .allowedHeaders("*")
-                .allowedMethods("*")
-                .allowedOrigins("*");
+                .allowedOrigins("*")
+                .allowCredentials(true)
+                .allowedMethods("GET", "POST", "DELETE", "PUT")
+                .maxAge(3600);
     }
 
     @Override
-    protected void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
         configurer.setTaskExecutor(new ConcurrentTaskExecutor(threadPoolTaskExecutor()));
         configurer.setDefaultTimeout(30000);
     }

@@ -23,6 +23,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.sql.DataSource;
 
@@ -118,7 +119,9 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.exceptionHandling()
+        http.cors().and().csrf().disable().authorizeRequests()
+                //处理跨域请求中的Preflight请求
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll().and().exceptionHandling()
                 // 权限不足处理器
                 .accessDeniedHandler(accessDeniedHandler)
                 .and()
@@ -184,9 +187,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // 所有请求
                 .anyRequest()
                 // 都需要认证
-                .authenticated()
-                .and()
-                .csrf().disable();
+                .authenticated();
 
     }
 
