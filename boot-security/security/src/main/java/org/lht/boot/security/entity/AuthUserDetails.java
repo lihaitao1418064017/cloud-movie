@@ -1,8 +1,6 @@
-package org.lht.boot.security.client.entity;
+package org.lht.boot.security.entity;
 
 import lombok.Getter;
-import org.lht.boot.security.core.entity.AuthRole;
-import org.lht.boot.security.core.entity.OAuth2UserAuthentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,27 +15,27 @@ import java.util.Set;
 public class AuthUserDetails implements UserDetails {
 
 
-    private String defaultRolePrefix = "ROLE_";
+    private String defaultRolePrefix;
 
     @Getter
-    private OAuth2UserAuthentication authentication;
+    private Authentication authentication;
 
-    public AuthUserDetails(OAuth2UserAuthentication authentication) {
+    public AuthUserDetails(Authentication authentication) {
         this.authentication = authentication;
     }
 
-    public AuthUserDetails(OAuth2UserAuthentication authentication, String defaultRolePrefix) {
+    public AuthUserDetails(Authentication authentication, String defaultRolePrefix) {
         this.authentication = authentication;
         this.defaultRolePrefix = defaultRolePrefix;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authentication.getPermissions();
+        return authentication.getRoles();
     }
 
-    public Set<AuthRole> getRoles() {
-        return authentication.getRoles();
+    public Set<AuthPermission> getPermissions() {
+        return authentication.getPermissions();
     }
 
 

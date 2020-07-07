@@ -4,11 +4,11 @@ import cn.hutool.core.util.ObjectUtil;
 import org.lht.boot.lang.util.RestTemplateUtil;
 import org.lht.boot.security.client.common.config.OAuth2ClientConfigProperties;
 import org.lht.boot.security.client.common.util.OAuth2RequestUtil;
-import org.lht.boot.security.client.entity.AuthUserDetails;
 import org.lht.boot.security.client.service.OAuth2Service;
 import org.lht.boot.security.client.service.OAuth2UserService;
 import org.lht.boot.security.core.entity.OAuth2Token;
 import org.lht.boot.security.core.entity.OAuth2UserAuthentication;
+import org.lht.boot.security.entity.AuthUserDetails;
 import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,8 +82,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         OAuth2UserAuthentication authenticationByAccessToken = getAuthenticationByAccessToken(oAuth2Token);
         authenticationByAccessToken.setOAuth2Token(oAuth2Token);
         AuthUserDetails secUserDetails = new AuthUserDetails(authenticationByAccessToken);
-        PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(secUserDetails.getUsername(), oAuth2Token, secUserDetails.getAuthorities());
-        authentication.setDetails(secUserDetails);
+        PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(secUserDetails, oAuth2Token, secUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

@@ -1,7 +1,7 @@
 package org.lht.boot.security.client.service;
 
-import org.lht.boot.security.client.entity.AuthUserDetails;
-import org.lht.boot.security.core.entity.AuthResource;
+import org.lht.boot.security.entity.AuthPermission;
+import org.lht.boot.security.entity.AuthUserDetails;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
@@ -20,9 +20,9 @@ public class OAuth2PermissionEvaluator implements PermissionEvaluator {
 
     @Override
     public boolean hasPermission(Authentication authentication, Object url, Object per) {
-        AuthUserDetails userDetail = (AuthUserDetails) authentication.getPrincipal();
-        Set<AuthResource> authResources = (Set<AuthResource>) userDetail.getAuthorities();
-        for (AuthResource authResource : authResources) {
+        AuthUserDetails userDetail = (AuthUserDetails) authentication.getDetails();
+        Set<AuthPermission> authResources = userDetail.getAuthentication().getPermissions();
+        for (AuthPermission authResource : authResources) {
             String resource = authResource.getAuthority();
             if (url.equals(authResource.getUrl()) && per.equals(resource)) {
                 return true;

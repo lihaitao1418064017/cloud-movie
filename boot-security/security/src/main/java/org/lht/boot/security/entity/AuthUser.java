@@ -1,4 +1,4 @@
-package org.lht.boot.security.core.entity;
+package org.lht.boot.security.entity;
 
 import lombok.Data;
 
@@ -16,11 +16,11 @@ public class AuthUser {
 
     private String password;
 
-    private boolean accountNonExpired = false;
+    private boolean accountNonExpired = true;
 
-    private boolean accountNonLocked = false;
+    private boolean accountNonLocked = true;
 
-    private boolean credentialsNonExpired = false;
+    private boolean credentialsNonExpired = true;
 
     private boolean enabled = true;
 }

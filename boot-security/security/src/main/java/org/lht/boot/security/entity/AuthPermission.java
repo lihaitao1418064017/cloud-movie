@@ -1,10 +1,7 @@
-package org.lht.boot.security.core.entity;
+package org.lht.boot.security.entity;
 
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,9 +12,7 @@ import java.util.List;
  * @date: 2020/5/28 17:18
  */
 @Data
-@NoArgsConstructor
-@EqualsAndHashCode(of = "id")
-public class AuthResource implements Serializable, GrantedAuthority {
+public class AuthPermission implements Serializable {
 
     /**
      * 主键id ，自增长
@@ -63,12 +58,7 @@ public class AuthResource implements Serializable, GrantedAuthority {
 
     private String parentId;
 
-    private List<AuthResource> children;
+    private List<AuthPermission> children;
 
-
-    @Override
-    public String getAuthority() {
-        return sign;
-    }
 
 }

@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
+import org.lht.boot.security.server.service.OAuth2SecurityUserDetailService;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.api.param.Term;
@@ -14,10 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author LiHaitao
@@ -36,20 +34,19 @@ public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    //    @GetMapping("/")
-    //    public void success(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //        redirectStrategy.sendRedirect(request, response, secProperties.getIndexUrl());
-    //    }
+    @Autowired
+    private OAuth2SecurityUserDetailService oAuth2SecurityUserDetailService;
 
 
     @GetMapping("/auth/login")
-    public R showLogin(@RequestParam(name = "username") String username,@RequestParam(name = "password") String password) throws Exception {
+    public R showLogin(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) throws Exception {
         //通过用户名和密码创建一个 Authentication 认证对象，实现类为 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         //如果认证对象不为空
         UserInfo userInfo = userInfoService.selectSingle(QueryParam.build(Term.build("username", username)));
         ValidatorUtil.notNull(userInfo, "用户不存在");
         try {
+            authenticationToken.setDetails(oAuth2SecurityUserDetailService.loadUserByUsername(username));
             //通过 AuthenticationManager（默认实现为ProviderManager）的authenticate方法验证 Authentication 对象
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             //将 Authentication 绑定到 SecurityContext

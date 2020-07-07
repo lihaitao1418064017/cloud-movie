@@ -2,12 +2,9 @@ package org.lht.boot.security.core.vo;
 
 import com.google.common.collect.Sets;
 import lombok.Data;
-import org.lht.boot.security.core.entity.AuthResource;
-import org.lht.boot.security.core.entity.AuthUser;
-import org.springframework.util.CollectionUtils;
 
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @description: 权限信息
@@ -19,7 +16,7 @@ public class AuthenticationVO {
     /**
      * 用户信息
      */
-    private AuthUser user;
+    private AuthUserVO user;
     /**
      * 角色信息
      */
@@ -27,35 +24,35 @@ public class AuthenticationVO {
     /**
      * 权限资源信息
      */
-    private Set<String> resourceSigns;
+    private Set<String> permissionSigns;
     /**
      * 权限资源信息
      */
-    private List<AuthResource> resources;
+    private Set<AuthPermissionVO> permissionVOS;
 
 
-    public Set<String> getResourceSigns() {
-        if (this.resourceSigns == null) {
+    public Set<String> getPermissionSigns() {
+        if (this.permissionSigns == null) {
             synchronized (this) {
-                if (this.resourceSigns == null) {
+                if (this.permissionSigns == null) {
                     Set<String> resourceSigns = Sets.newHashSet();
-                    this.fill(resourceSigns, this.resources);
-                    this.resourceSigns = resourceSigns;
+                    //                    this.fill(resourceSigns, this.resources);
+                    this.permissionSigns = permissionVOS.stream().map(AuthPermissionVO::getSign).collect(Collectors.toSet());
                 }
             }
         }
 
-        return this.resourceSigns;
+        return this.permissionSigns;
     }
 
-    private void fill(Set<String> resourceSigns, List<AuthResource> resources) {
-        if (!CollectionUtils.isEmpty(resources)) {
-            resources.stream().forEach((resource) -> {
-                resourceSigns.add(resource.getSign());
-                this.fill(resourceSigns, resource.getChildren());
-            });
-        }
-    }
+    //    private void fill(Set<String> resourceSigns, List<AuthPermissionVO> resources) {
+    //        if (!CollectionUtils.isEmpty(resources)) {
+    //            resources.stream().forEach((resource) -> {
+    //                resourceSigns.add(resource.getSign());
+    //                this.fill(resourceSigns, resource.getChildren());
+    //            });
+    //        }
+    //    }
 
 
 }
