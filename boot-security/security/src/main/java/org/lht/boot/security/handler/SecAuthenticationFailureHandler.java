@@ -1,6 +1,7 @@
 package org.lht.boot.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.security.common.constant.SecurityConstant;
 import org.lht.boot.security.common.exception.SecException;
 import org.lht.boot.security.common.exception.ValidateCodeException;
@@ -21,6 +22,7 @@ import java.io.IOException;
  * @description 登陆失败处理器
  * @date 2020/3/25 19:50
  **/
+@Slf4j
 @Component
 public class SecAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
@@ -31,6 +33,7 @@ public class SecAuthenticationFailureHandler implements AuthenticationFailureHan
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
         String message;
+        log.info("登录发生异常：{}", exception.getMessage());
         if (exception instanceof UsernameNotFoundException) {
             message = "用户不存在！";
         } else if (exception instanceof BadCredentialsException) {

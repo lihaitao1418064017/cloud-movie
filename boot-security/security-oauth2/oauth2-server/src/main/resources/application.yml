@@ -51,7 +51,6 @@ security:
       permitAll:
       - "/css"
       - "/api/**"
-      - "/auth/login"
       - "/access/deny/403"
       - "/register/**"
       - "/user/checkUnique/**"

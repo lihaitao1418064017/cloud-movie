@@ -49,7 +49,7 @@ public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHan
         Object principal = authentication.getPrincipal();
         if (principal instanceof SecUserDetails) {
             SecUserDetails userDetails = (SecUserDetails) principal;
-            userDetails.setRemoteAddress(remoteAddress);
+            //            userDetails.setRemoteAddress(remoteAddress);
             loginType = userDetails.getLoginType();
         }
 

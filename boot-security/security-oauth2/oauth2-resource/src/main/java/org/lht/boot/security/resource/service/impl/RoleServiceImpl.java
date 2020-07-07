@@ -27,7 +27,7 @@ public class RoleServiceImpl extends BaseMybatisCrudServiceImpl<Role, Integer, R
 
 
     @Override
-    public List<Role> selectSignsByUser(String userId) {
+    public List<Role> select(Integer userId) {
         List<UserRole> userRoles = this.userRoleService
                 .select(QueryParam.build("user_id", userId));
         return this.select(QueryParam.build(

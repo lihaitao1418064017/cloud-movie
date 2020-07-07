@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -52,6 +53,8 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
 
     @Autowired
@@ -89,7 +92,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
-        jdbcTokenRepository.setCreateTableOnStartup(false);
+        jdbcTokenRepository.setCreateTableOnStartup(false);// 启动创建表，创建成功后注释掉
         return jdbcTokenRepository;
     }
 
@@ -123,7 +126,8 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 //过滤前验证
                 //.addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
                 // 表单方式
-                .formLogin().loginPage(secProperties.getLoginUrl())
+                .formLogin()
+                .loginPage(secProperties.getLoginUrl())
                 .successHandler(secAuthenticationSuccessHandler)
                 // 处理登录失败
                 .failureHandler(secAuthenticationFailureHandler)
@@ -132,11 +136,12 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl(secProperties.getLoginUrl())
                 .and().exceptionHandling().accessDeniedPage(secProperties.getAccessDenyUrl())
                 .and().logout().logoutUrl(secProperties.getLogoutUrl())
-                // 处理登录成功
+                // 处理登出成功
                 .logoutSuccessHandler(secRestLogoutSuccessHandler)
                 .and()
-                // 添加记住我功能
+                // 添加记住我功能,登录添加remember-me=true条件
                 .rememberMe()
+                .userDetailsService(userDetailsService)
                 // 配置 token 持久化仓库
                 .tokenRepository(persistentTokenRepository())
                 // rememberMe 过期时间，单为秒

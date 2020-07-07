@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.cache.redis.RedisUtil;
 import org.lht.boot.security.common.exception.SecException;
 import org.lht.boot.security.resource.entity.UserInfo;
-import org.lht.boot.security.resource.service.*;
+import org.lht.boot.security.resource.service.PermissionService;
+import org.lht.boot.security.resource.service.RoleService;
+import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.server.domain.OAuth2UserInfoAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -34,11 +36,6 @@ public class OAuth2UserService {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private UserRoleService userRoleService;
-
-    @Autowired
-    private RolePermissionService rolePermissionService;
 
     @Autowired
     private PermissionService permissionService;
@@ -83,7 +80,7 @@ public class OAuth2UserService {
         }
         OAuth2UserInfoAuthentication oAuth2UserAuthentication = new OAuth2UserInfoAuthentication();
         oAuth2UserAuthentication.setPermissions(new HashSet<>(permissionService.select(userInfo.getId())));
-        oAuth2UserAuthentication.setRoles(new HashSet<>(roleService.selectSignsByUser(userInfo.getUsername())));
+        oAuth2UserAuthentication.setRoles(new HashSet<>(roleService.select(userInfo.getId())));
         oAuth2UserAuthentication.setUser(userInfo);
         return oAuth2UserAuthentication;
     }

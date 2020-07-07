@@ -18,5 +18,5 @@ public interface RoleService extends BaseCrudService<Role, Integer> {
      * @param userId
      * @return
      */
-    List<Role> selectSignsByUser(String userId);
+    List<Role> select(Integer userId);
 }

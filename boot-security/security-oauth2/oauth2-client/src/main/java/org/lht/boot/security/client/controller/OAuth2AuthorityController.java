@@ -1,6 +1,5 @@
 package org.lht.boot.security.client.controller;
 
-import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.security.core.common.util.OAuth2AuthenticationUtil;
 import org.lht.boot.security.core.vo.AuthPermissionVO;
 import org.lht.boot.security.core.vo.AuthUserVO;
@@ -35,11 +34,17 @@ public class OAuth2AuthorityController {
         AuthenticationVO authenticationVO = new AuthenticationVO();
         AuthUser user = details.getAuthentication().getUser();
         AuthUserVO authUserVO = new AuthUserVO();
-        BeanUtils.copyProperties(user, authUserVO);
+        org.springframework.beans.BeanUtils.copyProperties(user, authUserVO);
         authenticationVO.setUser(authUserVO);
         Set<AuthPermissionVO> authPermissions = new HashSet<>();
-        BeanUtils.copyProperties(details.getAuthentication().getPermissions(), authPermissions);
-        authenticationVO.setPermissionVOS(authPermissions);
+        org.springframework.beans.BeanUtils.copyProperties(details.getAuthentication().getPermissions(), authPermissions);
+        details.getAuthentication().getPermissions();
+        Set<AuthPermissionVO> authPermissionVOS = details.getAuthentication().getPermissions().stream().map(permission -> {
+            AuthPermissionVO authPermissionVO = new AuthPermissionVO();
+            org.springframework.beans.BeanUtils.copyProperties(permission, authPermissionVO);
+            return authPermissionVO;
+        }).collect(Collectors.toSet());
+        authenticationVO.setPermissionVOS(authPermissionVOS);
         Set<AuthRole> roles = details.getAuthentication().getRoles();
         authenticationVO.setRoleSigns(roles.stream().map(AuthRole::getSign).collect(Collectors.toSet()));
         return R.ok(authenticationVO);

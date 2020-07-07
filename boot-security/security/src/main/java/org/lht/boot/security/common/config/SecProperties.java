@@ -25,7 +25,7 @@ public class SecProperties {
     /**
      * 登录 URL
      */
-    private String loginUrl = "/auth/login";
+    private String loginUrl = "/login";
 
     private String swaggerUrl = "/swagger-ui.html/**";
 

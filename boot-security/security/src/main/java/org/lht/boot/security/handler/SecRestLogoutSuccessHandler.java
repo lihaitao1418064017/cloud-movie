@@ -32,8 +32,10 @@ public class SecRestLogoutSuccessHandler implements LogoutSuccessHandler {
         response.setCharacterEncoding("UTF-8");
 
         // TODO: 2020/3/26 something
-
-        R<Object> ok = R.ok();
+        if (authentication == null || authentication.isAuthenticated() == false) {
+            response.sendRedirect("/");
+        }
+        R<Object> ok = R.ok("登出成功");
         response.getWriter().println(JSONObject.toJSON(ok));
     }
 }

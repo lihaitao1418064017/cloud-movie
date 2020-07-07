@@ -14,13 +14,4 @@ public class AuthUserVO {
 
     private String username;
 
-    private String password;
-
-    private boolean accountNonExpired = false;
-
-    private boolean accountNonLocked = false;
-
-    private boolean credentialsNonExpired = false;
-
-    private boolean enabled = true;
 }
