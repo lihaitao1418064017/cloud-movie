@@ -20,7 +20,7 @@ public class SecProperties {
     /**
      * 权限不足 URL
      */
-    public String accessDenyUrl = "/access/deny/403";
+    public String accessDenyUrl = "/403";
 
     /**
      * 登录 URL

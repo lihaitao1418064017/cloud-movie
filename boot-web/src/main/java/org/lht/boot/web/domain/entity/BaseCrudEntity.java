@@ -7,7 +7,7 @@ import lombok.Data;
 
 /**
  * @author LiHaitao
- * @description BaseCrudEntity:
+ * @description BaseCrudEntity: 抽象实体类，mybatis和es公用
  * @date 2020/1/2 15:42
  **/
 @Data

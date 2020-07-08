@@ -7,6 +7,7 @@ import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.api.param.util.ParamServletUtil;
 import org.lht.boot.web.service.DeleteService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,7 @@ public interface DeleteController<PK> {
     })
     @DeleteMapping("/{pk}")
     @ResponseBody
+    @PreAuthorize("hasPermission('*','DELETE')")
     default R delete(@PathVariable PK pk) {
         int result = getService().delete(pk);
         Validate.notNull(result, "data not exist");
@@ -62,7 +64,7 @@ public interface DeleteController<PK> {
             @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", dataType = "Object", name = "param", value = "条件对象", required = true)
-            ,            @ApiImplicitParam(paramType = "path", dataType = "Object", name = "request", value = "条件urk", required = true)
+            , @ApiImplicitParam(paramType = "path", dataType = "Object", name = "request", value = "条件urk", required = true)
 
     })
     @DeleteMapping("/deleteByParam")

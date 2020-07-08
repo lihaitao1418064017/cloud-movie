@@ -107,8 +107,8 @@ public class TeacherDaoTest {
     @Test
     public void selectPage() {
         QueryParam queryParam = new QueryParam();
-        queryParam.setPageSize(500);
-        queryParam.setPageNo(100);
+        queryParam.setPageSize(9999);
+        queryParam.setPageNo(0);
         //        queryParam.and(Term.build("age", 76));
         queryParam.addTerm(Term.build("sex", 1));
         //        queryParam.excludes("age", "sex");

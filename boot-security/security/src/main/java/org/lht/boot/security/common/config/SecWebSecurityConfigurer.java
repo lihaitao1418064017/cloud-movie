@@ -1,9 +1,6 @@
 package org.lht.boot.security.common.config;
 
-import org.lht.boot.security.handler.SecAuthenticationFailureHandler;
-import org.lht.boot.security.handler.SecAuthenticationLogoutHandler;
-import org.lht.boot.security.handler.SecAuthenticationSuccessHandler;
-import org.lht.boot.security.handler.SecRestLogoutSuccessHandler;
+import org.lht.boot.security.handler.*;
 import org.lht.boot.security.session.SecExpiredSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,7 +16,6 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -54,6 +50,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -68,7 +65,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     private SessionRegistry sessionRegistry;
 
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    private SecAuthenticationAccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     private SecRestLogoutSuccessHandler secRestLogoutSuccessHandler;
@@ -121,9 +118,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable().authorizeRequests()
                 //处理跨域请求中的Preflight请求
-                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll().and().exceptionHandling()
-                // 权限不足处理器
-                .accessDeniedHandler(accessDeniedHandler)
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .and()
                 //                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class) // 短信验证码校验
                 //过滤前验证
@@ -136,8 +131,11 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .failureHandler(secAuthenticationFailureHandler)
                 // 未认证跳转 URL
                 // 处理登录认证 URL
-                .loginProcessingUrl(secProperties.getLoginUrl())
-                .and().exceptionHandling().accessDeniedPage(secProperties.getAccessDenyUrl())
+                .loginProcessingUrl(secProperties.getAccessDenyUrl())
+                .and().exceptionHandling()
+                // 权限不足处理器
+                .accessDeniedHandler(accessDeniedHandler)
+                //                .accessDeniedPage(secProperties.getAccessDenyUrl())
                 .and().logout().logoutUrl(secProperties.getLogoutUrl())
                 // 处理登出成功
                 .logoutSuccessHandler(secRestLogoutSuccessHandler)

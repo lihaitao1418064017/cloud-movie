@@ -10,6 +10,7 @@ import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.api.param.util.ParamServletUtil;
 import org.lht.boot.web.service.QueryService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +45,7 @@ public interface QueryController<E, PK, VO, Q extends Param> {
     })
     @GetMapping("/{pk}")
     @ResponseBody
+    @PreAuthorize("hasPermission('*','QUERY')")
     default R<VO> selectById(@PathVariable PK pk) {
         E result = getService().get(pk);
         Validate.notNull(result, "data not exist");
@@ -65,11 +67,12 @@ public interface QueryController<E, PK, VO, Q extends Param> {
             @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "Object", name = "request", value = "查询条件", required = true)
-            ,            @ApiImplicitParam(paramType = "body", dataType = "Object", name = "param", value = "查询条件对象", required = true)
+            , @ApiImplicitParam(paramType = "body", dataType = "Object", name = "param", value = "查询条件对象", required = true)
 
     })
     @GetMapping("/list")
     @ResponseBody
+    @PreAuthorize("hasPermission('*','QUERY')")
     default R<List> select(Q param, HttpServletRequest request) {
         ParamServletUtil.paddingTerms(param, request);
         List<E> list = getService().select(param);
@@ -94,11 +97,12 @@ public interface QueryController<E, PK, VO, Q extends Param> {
             @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "Object", name = "request", value = "查询条件url", required = true)
-            ,            @ApiImplicitParam(paramType = "body", dataType = "Object", name = "param", value = "查询条件对象", required = true)
+            , @ApiImplicitParam(paramType = "body", dataType = "Object", name = "param", value = "查询条件对象", required = true)
 
     })
     @GetMapping("/page")
     @ResponseBody
+    @PreAuthorize("hasPermission('*','QUERY')")
     default R<PagerResult<VO>> selectPage(Q param, HttpServletRequest request) {
         ParamServletUtil.paddingTerms(param, request);
         PagerResult<E> pagerResult = getService().selectPager(param);

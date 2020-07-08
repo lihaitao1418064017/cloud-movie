@@ -1,4 +1,4 @@
-package org.lht.boot.security.client.service;
+package org.lht.boot.security.server.service;
 
 import org.lht.boot.security.entity.AuthPermission;
 import org.lht.boot.security.entity.AuthUserDetails;
@@ -24,7 +24,7 @@ public class OAuth2PermissionEvaluator implements PermissionEvaluator {
         Set<AuthPermission> authResources = userDetail.getAuthentication().getPermissions();
         for (AuthPermission authResource : authResources) {
             String resource = authResource.getSign();
-            if ((url.equals(authResource.getUrl()) || url.equals("*")) && per.equals(resource)) {
+            if (url.equals(authResource.getUrl()) && per.equals(resource)) {
                 return true;
             }
 

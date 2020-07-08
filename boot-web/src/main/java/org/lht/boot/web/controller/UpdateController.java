@@ -5,6 +5,7 @@ import io.swagger.annotations.*;
 import org.apache.commons.lang3.Validate;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.service.UpdateService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -39,6 +40,7 @@ public interface UpdateController<E, PK, VO> {
     })
     @PutMapping("/update")
     @ResponseBody
+    @PreAuthorize("hasPermission('*','UPDTE')")
     default R update(@RequestBody VO vo) {
         PK pk = getService().update(voToEntity(vo));
         return R.ok(pk);
@@ -64,6 +66,7 @@ public interface UpdateController<E, PK, VO> {
 
     })
     @PatchMapping(path = "/{id}")
+    @PreAuthorize("hasPermission('*','UPDTE')")
     default R<PK> patchByPrimaryKey(@PathVariable PK id, @RequestBody(required = false) VO data) {
         Validate.notNull(data, "patch data cannot be null.");
         return R.ok(getService().patch(id, voToEntity(data)));
@@ -86,6 +89,7 @@ public interface UpdateController<E, PK, VO> {
 
     })
     @PutMapping
+    @PreAuthorize("hasPermission('*','UPDTE')")
     default R<PK> saveOrUpdate(@RequestBody VO data) {
         return R.ok(getService().upsert(voToEntity(data)));
     }

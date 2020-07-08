@@ -1,9 +1,12 @@
 package org.lht.boot.web.controller;
 
 import cn.hutool.http.HttpStatus;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.service.InsertService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -32,6 +35,7 @@ public interface InsertController<E, PK, VO> {
             @ApiResponse(code = HttpStatus.HTTP_FORBIDDEN, message = "权限不足"),
             @ApiResponse(code = HttpStatus.HTTP_UNAUTHORIZED, message = "无权限")})
     @PostMapping
+    @PreAuthorize("hasPermission('*','SAVE')")
     default R<PK> add(@RequestBody VO data) {
         return ok(getService().insert(voToEntity(data)));
     }
