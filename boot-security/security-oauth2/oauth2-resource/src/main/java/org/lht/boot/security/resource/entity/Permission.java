@@ -51,4 +51,9 @@ public class Permission extends BaseCrudEntity<Integer> {
      */
     private String path;
 
+    /**
+     * 类型 10 菜单 20 操作 30 权限等
+     */
+    private String type;
+
 }

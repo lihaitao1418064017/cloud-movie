@@ -32,5 +32,9 @@ public class PermissionVO extends AbstractVO<Permission, Integer> {
     @ApiModelProperty("权限标识")
     private String sign;
 
+    @ApiModelProperty("路径")
+    private String path;
 
+    @ApiModelProperty("类型：{类型 10 菜单 20 操作 30 权限}")
+    private String type;
 }

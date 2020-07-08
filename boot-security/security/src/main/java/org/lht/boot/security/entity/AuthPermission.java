@@ -56,7 +56,7 @@ public class AuthPermission implements Serializable {
 
     private Integer level;
 
-    private String parentId;
+    private String pid;
 
     private List<AuthPermission> children;
 

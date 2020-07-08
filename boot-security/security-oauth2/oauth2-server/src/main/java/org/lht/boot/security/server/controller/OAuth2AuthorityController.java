@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,8 +48,6 @@ public class OAuth2AuthorityController {
         AuthUserVO authUserVO = new AuthUserVO();
         BeanUtils.copyProperties(user, authUserVO);
         authenticationVO.setUser(authUserVO);
-        Set<AuthPermissionVO> authPermissions = new HashSet<>();
-        BeanUtils.copyProperties(details.getAuthentication().getPermissions(), authPermissions);
         details.getAuthentication().getPermissions();
         Set<AuthPermissionVO> authPermissionVOS = details.getAuthentication().getPermissions().stream().map(permission -> {
             AuthPermissionVO authPermissionVO = new AuthPermissionVO();

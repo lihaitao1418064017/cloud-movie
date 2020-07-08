@@ -26,6 +26,7 @@ CREATE TABLE `permission` (
   `url`         VARCHAR(255) NOT NULL,
   `name`        VARCHAR(255) NOT NULL,
   `path`        VARCHAR(255) NOT NULL,
+  `type`        VARCHAR(255) NOT NULL,
   `sign`        VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL     DEFAULT NULL,
   `pid`         BIGINT(11)   NOT NULL,
