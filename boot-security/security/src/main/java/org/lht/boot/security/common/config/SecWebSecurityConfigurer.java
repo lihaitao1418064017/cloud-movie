@@ -119,6 +119,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 //处理跨域请求中的Preflight请求
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .and().exceptionHandling()
                 .and()
                 //                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class) // 短信验证码校验
                 //过滤前验证
@@ -131,7 +132,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .failureHandler(secAuthenticationFailureHandler)
                 // 未认证跳转 URL
                 // 处理登录认证 URL
-                .loginProcessingUrl(secProperties.getAccessDenyUrl())
+                .loginProcessingUrl(secProperties.getLoginUrl())
                 .and().exceptionHandling()
                 // 权限不足处理器
                 .accessDeniedHandler(accessDeniedHandler)

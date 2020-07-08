@@ -12,6 +12,7 @@
         <result column="sex" property="sex" javaType="Integer"/>
         <result column="age" property="age" javaType="Integer"/>
         <result column="identify" property="identify"/>
+        <result column="avatar" property="avatar"/>
         <result column="status" property="status"/>
         <result column="creator_id" property="creatorId"/>
         <result column="update_id" property="updaterId"/>

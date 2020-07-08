@@ -42,6 +42,10 @@ public class UserVO extends AbstractVO<UserInfo, Integer> {
     @ApiModelProperty("年龄")
     private Integer age;
 
+    @ApiModelProperty("头像")
+    private String avatar;
+
+
     /**
      * 转换中文前端展示
      * @param sex

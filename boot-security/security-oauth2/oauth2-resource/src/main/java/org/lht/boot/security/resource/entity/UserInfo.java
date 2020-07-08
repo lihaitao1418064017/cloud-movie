@@ -60,4 +60,8 @@ public class UserInfo extends BaseCrudEntity<Integer> {
      */
     private String password;
 
+    /**
+     * 头像
+     */
+    private String avatar;
 }
