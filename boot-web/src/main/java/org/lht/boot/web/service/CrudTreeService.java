@@ -3,34 +3,33 @@ package org.lht.boot.web.service;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
-import org.lht.boot.web.domain.entity.TreeEntity;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 树形结构service，提供关于树型结构的一些查询
  * @date 2020/7/8 17:39
  **/
-public interface CrudTreeService<E extends TreeEntity, PK extends Serializable> extends BaseCrudService<BaseCrudEntity<PK>, PK> {
+public interface CrudTreeService<E extends BaseCrudEntity, PK> extends BaseCrudService<BaseCrudEntity<Serializable>, Serializable> {
 
 
-    List<E> selectAllChildNode(QueryParam var1, PK... var2);
+    List<E> selectAllChildNode(QueryParam queryParam, PK... pk);
 
-    List<E> selectChildNode(PK var1);
+    List<E> selectChildNode(PK pk);
 
-    List<E> selectAllChildNode(PK var1, QueryParam var2);
+    List<E> selectAllChildNode(PK pk, QueryParam queryParam);
 
-    List<E> convertToTree(List<E> var1);
+    List<E> convertToTree(List<E> entities);
 
-    PagerResult<E> selectAllChildNodePager(PK var1, QueryParam var2);
+    PagerResult<E> selectAllChildNodePager(PK pk, QueryParam queryParam);
 
-    boolean isParentPresent(E var1);
+    boolean isParentPresent(E e);
 
-    List<E> selectAsTree(PK var1, QueryParam var2);
+    List<E> selectAsTree(PK pk, QueryParam queryParam);
 
-    List<E> selectAsTree(QueryParam var1);
+    List<E> selectAsTree(QueryParam queryParam);
 
-    E traceToTop(PK var1, QueryParam var2);
+    E traceToTop(PK pk, QueryParam queryParam);
 }
