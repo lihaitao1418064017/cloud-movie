@@ -1,5 +1,8 @@
 package org.lht.boot.web.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
@@ -14,6 +17,7 @@ import org.lht.boot.web.service.CrudTreeService;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author LiHaitao
@@ -24,9 +28,8 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
 
 
     @Override
-    public List<E> selectAllChildNode(QueryParam queryParam, PK... pks) {
-        if (pks != null) {
-            List<PK> ids = Arrays.asList(pks);
+    public List<E> selectAllChildNode(QueryParam queryParam, List<PK> ids) {
+        if (ids != null) {
             if (CollectionUtils.isNotEmpty(ids)) {
                 List<E> entities = dao.selectBatchIds(ids);
                 entities.forEach((E d) -> {
@@ -63,9 +66,28 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
 
     @Override
     public List<E> convertToTree(List<E> entities) {
-
-
-        return null;
+        if (CollectionUtil.isNotEmpty(entities)) {
+            List<E> result = Lists.newArrayList();
+            for (E parent : entities) {
+                List<E> parentList = entities
+                        .stream()
+                        .filter(e -> ObjectUtil.isNotNull(parent.getPid()) && parent.getPid().equals(e.getId()))
+                        .collect(Collectors.toList());
+                if (parent.getPid() == null || CollectionUtil.isEmpty(parentList)) {
+                    result.add(parent);
+                }
+                for (E children : entities) {
+                    if (children.getPid() != null && children.getPid().equals(parent.getId())) {
+                        if (children.getChildren() == null) {
+                            children.setChildren(Lists.newArrayList());
+                        }
+                        children.getChildren().add(children);
+                    }
+                }
+            }
+            return result;
+        }
+        return Lists.newArrayList();
     }
 
     @Override
@@ -96,8 +118,4 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
         return convertToTree(select(queryParam));
     }
 
-    @Override
-    public E traceToTop(PK pk, QueryParam queryParam) {
-        return null;
-    }
 }

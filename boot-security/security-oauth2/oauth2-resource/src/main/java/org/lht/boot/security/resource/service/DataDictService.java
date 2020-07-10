@@ -1,6 +1,7 @@
-package org.lht.boot.web.service;
+package org.lht.boot.security.resource.service;
 
-import org.lht.boot.web.domain.entity.DataDict;
+import org.lht.boot.security.resource.entity.DataDict;
+import org.lht.boot.web.service.CrudTreeService;
 
 /**
  * @author LiHaitao

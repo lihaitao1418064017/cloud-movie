@@ -9,7 +9,7 @@ import org.lht.boot.web.service.CrudService;
 
 /**
  * @author LiHaitao
- * @description AbstractCrudController:
+ * @description
  * @date 2020/1/15 14:11
  **/
 public abstract class AbstractCrudController<E, PK, VO extends CrudVO<E, PK>, Q extends Param> implements CrudController<E, PK, VO, Q> {

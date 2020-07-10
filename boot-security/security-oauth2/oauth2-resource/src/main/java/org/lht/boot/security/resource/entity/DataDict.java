@@ -1,9 +1,10 @@
-package org.lht.boot.web.domain.entity;
+package org.lht.boot.security.resource.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.lht.boot.web.domain.entity.TreeEntity;
 
 /**
  * @author LiHaitao
