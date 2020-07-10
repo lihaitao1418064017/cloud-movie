@@ -12,7 +12,7 @@ import java.util.List;
  * @description 树形结构service，提供关于树型结构的一些查询
  * @date 2020/7/8 17:39
  **/
-public interface CrudTreeService<E extends BaseCrudEntity, PK> extends BaseCrudService<BaseCrudEntity<Serializable>, Serializable> {
+public interface CrudTreeService<E extends BaseCrudEntity<PK>, PK extends Serializable> extends BaseCrudService<E, PK> {
 
 
     List<E> selectAllChildNode(QueryParam queryParam, PK... pk);
