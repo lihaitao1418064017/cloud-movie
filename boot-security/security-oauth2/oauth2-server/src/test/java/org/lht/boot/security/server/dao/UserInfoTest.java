@@ -15,6 +15,8 @@ import org.lht.boot.web.api.param.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 //import org.lht.boot.security.server.OAuth2ServerApplication;
 
 /**
@@ -58,8 +60,8 @@ public class UserInfoTest {
         Param queryParam = new Param();
         queryParam.addTerm(Term.build("age", TermEnum.nin, Lists.newArrayList(23, 24, 25)));
         log.info("term:{}", queryParam.getTerms().get(0).getTermType().getValue());
-        IPage<UserVO> userInfoDtos = userInfoDao.page(page, queryParam.getTerms());
-        log.info("userInfoDtos:{}", userInfoDtos.getRecords());
+        List<UserVO> userInfoDtos = userInfoDao.page(queryParam.getTerms(), page.getCurrent(),page.getSize());
+        log.info("userInfoDtos:{}", userInfoDtos);
     }
 
     @Test

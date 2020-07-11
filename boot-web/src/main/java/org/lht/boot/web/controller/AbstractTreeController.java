@@ -10,6 +10,8 @@ import org.lht.boot.web.service.CrudTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,7 @@ import java.util.List;
 
 /**
  * @author LiHaitao
- * @description AbstractController:
+ * @description AbstractTreeController
  * @date 2020/7/10 17:18
  **/
 public abstract class AbstractTreeController<E extends TreeEntity<PK, E>, PK extends Serializable, VO extends AbstractTreeVO<E, VO, PK>, S extends CrudTreeService<E, PK>> extends AbstractCrudController<E, PK, VO, QueryParam> {
@@ -57,6 +59,7 @@ public abstract class AbstractTreeController<E extends TreeEntity<PK, E>, PK ext
     public R<Boolean> isParentPresent(E e){
         return R.ok(service.isParentPresent(e));
     }
+
     @GetMapping("/tree/{id}")
     public R<List<E>> selectAsTree(PK pk, QueryParam queryParam,HttpServletRequest request, HttpServletResponse response){
         ParamServletUtil.paddingTerms(queryParam, request);
@@ -68,6 +71,5 @@ public abstract class AbstractTreeController<E extends TreeEntity<PK, E>, PK ext
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.selectAsTree(queryParam ));
     }
-
 
 }

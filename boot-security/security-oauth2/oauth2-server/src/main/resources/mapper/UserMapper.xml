@@ -29,15 +29,15 @@
     <!--分页查询-->
     <select id="page" resultType="org.lht.boot.security.resource.vo.UserVO" resultMap="PageUserVO">
         SELECT
-        `user`.*,
+        u.*,
         role.id AS role_id,
         role.name AS role_name,
         role.sign AS role_sign
         FROM
-        `user`
+        (select * from user limit ${start}, ${size}) u
         LEFT JOIN user_role
         ON
-        user_role.user_id = `user`.id
+        user_role.user_id = u.id
         LEFT JOIN role
         ON
         role_id = role.id

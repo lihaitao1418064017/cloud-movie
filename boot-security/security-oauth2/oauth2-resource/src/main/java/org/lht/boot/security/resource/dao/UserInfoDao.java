@@ -21,8 +21,8 @@ public interface UserInfoDao extends BaseMybatisPlusDao<UserInfo> {
     /**
      * 分页查询，带角色信息
      *
-     * @param page
+     * @param  start=current*size;
      * @return
      */
-    PagerResult<UserVO> page(@Param("page") PagerResult<UserVO> page, @Param("terms") List<Term> terms);
+    List<UserVO> page(@Param("terms") List<Term> terms, @Param("start") Long start,@Param("size")Long size);
 }

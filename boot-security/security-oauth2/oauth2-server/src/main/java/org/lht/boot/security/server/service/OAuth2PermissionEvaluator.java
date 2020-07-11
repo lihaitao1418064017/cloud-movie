@@ -21,6 +21,9 @@ public class OAuth2PermissionEvaluator implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication authentication, Object url, Object per) {
         AuthUserDetails userDetail = (AuthUserDetails) authentication.getPrincipal();
+        if (userDetail.getAuthentication().getRoleSigns().contains("super_admin")) {
+            return true;
+        }
         Set<AuthPermission> authResources = userDetail.getAuthentication().getPermissions();
         for (AuthPermission authResource : authResources) {
             String resource = authResource.getSign();

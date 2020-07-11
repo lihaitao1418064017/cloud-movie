@@ -64,4 +64,6 @@ public class UserInfo extends BaseCrudEntity<Integer> {
      * 头像
      */
     private String avatar;
+
+
 }

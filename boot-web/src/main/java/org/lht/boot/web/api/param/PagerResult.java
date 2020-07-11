@@ -25,7 +25,7 @@ public class PagerResult<E> extends Page<E> {
         super();
     }
 
-    public void totalPages() {
+    public void calTotalPages() {
         if (getSize() > 0) {
             this.totalPages = this.getTotal() % this.getSize() == 0 ? this.getTotal() / this.getSize() : this.getTotal() / this.getSize() + 1;
         }
