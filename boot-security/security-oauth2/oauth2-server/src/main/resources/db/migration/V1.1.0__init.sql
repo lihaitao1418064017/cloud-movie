@@ -127,19 +127,19 @@ CREATE TABLE `oauth_refresh_token` (
 -- ----------------------------
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
-  `id`          BIGINT(11)   NOT NULL AUTO_INCREMENT,
-  `url`         VARCHAR(255) NULL     DEFAULT NULL,
-  `name`        VARCHAR(255) NULL     DEFAULT NULL,
-  `sign`        VARCHAR(255) NULL     DEFAULT NULL,
-  `description` VARCHAR(255) NULL     DEFAULT NULL,
-  `pid`         BIGINT(11)   NULL     DEFAULT NULL,
-  `update_time` BIGINT(20)   NULL     DEFAULT 0,
-  `create_time` BIGINT(20)   NULL     DEFAULT 0,
-  `creator_id`  VARCHAR(30)  NULL     DEFAULT NULL,
-  `update_id`   VARCHAR(30)  NULL     DEFAULT NULL,
-  `status`      INT(11)      NULL     DEFAULT 0,
-  `path`        VARCHAR(255) NULL     DEFAULT NULL,
-  `type`        VARCHAR(255) NULL     DEFAULT NULL,
+  `id`           BIGINT(11)   NOT NULL AUTO_INCREMENT,
+  `url`          VARCHAR(255) NULL     DEFAULT NULL,
+  `name`         VARCHAR(255) NULL     DEFAULT NULL,
+  `sign`         VARCHAR(255) NULL     DEFAULT NULL,
+  `description`  VARCHAR(255) NULL     DEFAULT NULL,
+  `pid`          BIGINT(11)   NULL     DEFAULT NULL,
+  `update_time`  BIGINT(20)   NULL     DEFAULT 0,
+  `create_time`  BIGINT(20)   NULL     DEFAULT 0,
+  `creator_user` VARCHAR(30)  NULL     DEFAULT NULL,
+  `update_user`  VARCHAR(30)  NULL     DEFAULT NULL,
+  `status`       INT(11)      NULL     DEFAULT 0,
+  `path`         VARCHAR(255) NULL     DEFAULT NULL,
+  `type`         VARCHAR(255) NULL     DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB;
@@ -162,15 +162,15 @@ CREATE TABLE `persistent_logins` (
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-  `id`          BIGINT(11)   NOT NULL AUTO_INCREMENT,
-  `name`        VARCHAR(255) NULL     DEFAULT NULL,
-  `sign`        VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NULL     DEFAULT NULL,
-  `update_time` BIGINT(20)   NULL     DEFAULT 0,
-  `create_time` BIGINT(20)   NULL     DEFAULT 0,
-  `creator_id`  VARCHAR(30)  NULL     DEFAULT NULL,
-  `update_id`   VARCHAR(30)  NULL     DEFAULT NULL,
-  `status`      INT(11)      NULL     DEFAULT 0,
+  `id`           BIGINT(11)   NOT NULL AUTO_INCREMENT,
+  `name`         VARCHAR(255) NULL     DEFAULT NULL,
+  `sign`         VARCHAR(255) NOT NULL,
+  `description`  VARCHAR(255) NULL     DEFAULT NULL,
+  `update_time`  BIGINT(20)   NULL     DEFAULT 0,
+  `create_time`  BIGINT(20)   NULL     DEFAULT 0,
+  `creator_user` VARCHAR(30)  NULL     DEFAULT NULL,
+  `update_user`  VARCHAR(30)  NULL     DEFAULT NULL,
+  `status`       INT(11)      NULL     DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB;
@@ -185,8 +185,8 @@ CREATE TABLE `role_permission` (
   `id`            BIGINT(11)  NOT NULL,
   `update_time`   BIGINT(20)  NULL DEFAULT 0,
   `create_time`   BIGINT(20)  NULL DEFAULT 0,
-  `creator_id`    VARCHAR(30) NULL DEFAULT NULL,
-  `update_id`     VARCHAR(30) NULL DEFAULT NULL,
+  `creator_user`  VARCHAR(30) NULL DEFAULT NULL,
+  `update_user`   VARCHAR(30) NULL DEFAULT NULL,
   `status`        INT(11)     NULL DEFAULT 0
 )
   ENGINE = InnoDB;
@@ -196,20 +196,20 @@ CREATE TABLE `role_permission` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id`          BIGINT(11)   NOT NULL AUTO_INCREMENT,
-  `username`    VARCHAR(255) NOT NULL,
-  `name`        VARCHAR(255) NULL     DEFAULT NULL,
-  `password`    VARCHAR(255) NOT NULL,
-  `phone`       VARCHAR(255) NOT NULL,
-  `email`       VARCHAR(255) NULL     DEFAULT NULL,
-  `identify`    VARCHAR(255) NULL     DEFAULT NULL,
-  `sex`         INT(11)      NULL     DEFAULT NULL,
-  `age`         INT(20)      NULL     DEFAULT 0,
-  `create_time` BIGINT(20)   NULL     DEFAULT 0,
-  `update_time` BIGINT(20)   NULL     DEFAULT 0,
-  `creator_id`  VARCHAR(30)  NULL     DEFAULT NULL,
-  `update_id`   VARCHAR(30)  NULL     DEFAULT NULL,
-  `status`      INT(11)      NULL     DEFAULT 0,
+  `id`           BIGINT(11)   NOT NULL AUTO_INCREMENT,
+  `username`     VARCHAR(255) NOT NULL,
+  `name`         VARCHAR(255) NULL     DEFAULT NULL,
+  `password`     VARCHAR(255) NOT NULL,
+  `phone`        VARCHAR(255) NOT NULL,
+  `email`        VARCHAR(255) NULL     DEFAULT NULL,
+  `identify`     VARCHAR(255) NULL     DEFAULT NULL,
+  `sex`          INT(11)      NULL     DEFAULT NULL,
+  `age`          INT(20)      NULL     DEFAULT 0,
+  `create_time`  BIGINT(20)   NULL     DEFAULT 0,
+  `update_time`  BIGINT(20)   NULL     DEFAULT 0,
+  `creator_user` VARCHAR(30)  NULL     DEFAULT NULL,
+  `update_user`  VARCHAR(30)  NULL     DEFAULT NULL,
+  `status`       INT(11)      NULL     DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB
@@ -220,14 +220,14 @@ CREATE TABLE `user` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
-  `user_id`     BIGINT(11)  NOT NULL,
-  `role_id`     BIGINT(11)  NOT NULL,
-  `id`          BIGINT(11)  NOT NULL,
-  `update_time` BIGINT(20)  NULL DEFAULT 0,
-  `create_time` BIGINT(20)  NULL DEFAULT 0,
-  `creator_id`  VARCHAR(30) NULL DEFAULT NULL,
-  `update_id`   VARCHAR(30) NULL DEFAULT NULL,
-  `status`      INT(11)     NULL DEFAULT 0,
+  `user_id`      BIGINT(11)  NOT NULL,
+  `role_id`      BIGINT(11)  NOT NULL,
+  `id`           BIGINT(11)  NOT NULL,
+  `update_time`  BIGINT(20)  NULL DEFAULT 0,
+  `create_time`  BIGINT(20)  NULL DEFAULT 0,
+  `creator_user` VARCHAR(30) NULL DEFAULT NULL,
+  `update_user`  VARCHAR(30) NULL DEFAULT NULL,
+  `status`       INT(11)     NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
 )
   ENGINE = InnoDB;

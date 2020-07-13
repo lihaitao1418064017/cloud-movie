@@ -4,14 +4,13 @@ import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.api.param.util.ParamServletUtil;
+import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.domain.entity.TreeEntity;
 import org.lht.boot.web.domain.vo.AbstractTreeVO;
 import org.lht.boot.web.service.CrudTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,25 +50,27 @@ public abstract class AbstractTreeController<E extends TreeEntity<PK, E>, PK ext
     }
 
     @GetMapping("/page/{id}")
-    public R<PagerResult<E>> selectAllChildNodePager(@PathVariable PK pk, QueryParam queryParam,HttpServletRequest request, HttpServletResponse response) {
+    public R<PagerResult<E>> selectAllChildNodePager(@PathVariable PK pk, QueryParam queryParam, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
-        return R.ok(service.selectAllChildNodePager(pk,queryParam));
+        return R.ok(service.selectAllChildNodePager(pk, queryParam));
     }
+
     @GetMapping("/isParentPresent")
-    public R<Boolean> isParentPresent(E e){
+    public R<Boolean> isParentPresent(E e) {
         return R.ok(service.isParentPresent(e));
     }
 
     @GetMapping("/tree/{id}")
-    public R<List<E>> selectAsTree(PK pk, QueryParam queryParam,HttpServletRequest request, HttpServletResponse response){
+    public R<List<E>> selectAsTree(PK pk, QueryParam queryParam, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
-        return R.ok(service.selectAsTree(pk,queryParam));
+        return R.ok(service.selectAsTree(pk, queryParam));
     }
 
     @GetMapping("/param/tree")
-    public R<List<E>> selectAsTree(QueryParam queryParam,HttpServletRequest request, HttpServletResponse response){
+    @AccessLogger("查询")
+    public R<List<E>> selectAsTree(QueryParam queryParam, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
-        return R.ok(service.selectAsTree(queryParam ));
+        return R.ok(service.selectAsTree(queryParam));
     }
 
 }

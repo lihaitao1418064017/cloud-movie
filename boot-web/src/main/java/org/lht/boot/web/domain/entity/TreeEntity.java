@@ -1,5 +1,6 @@
 package org.lht.boot.web.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public abstract class TreeEntity<PK, E> extends BaseCrudEntity<PK> {
 
     private Integer level;
 
+    /**
+     * 数据库不存在字段
+     */
+    @TableField(exist = false)
     private List<E> children;
 
 

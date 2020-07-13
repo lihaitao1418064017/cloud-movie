@@ -2,7 +2,6 @@ package org.lht.boot.web.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.collect.Lists;
@@ -15,7 +14,6 @@ import org.lht.boot.web.domain.entity.TreeEntity;
 import org.lht.boot.web.service.CrudTreeService;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,10 +76,10 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
                 }
                 for (E children : entities) {
                     if (children.getPid() != null && children.getPid().equals(parent.getId())) {
-                        if (children.getChildren() == null) {
-                            children.setChildren(Lists.newArrayList());
+                        if (parent.getChildren() == null) {
+                            parent.setChildren(Lists.newArrayList());
                         }
-                        children.getChildren().add(children);
+                        parent.getChildren().add(children);
                     }
                 }
             }

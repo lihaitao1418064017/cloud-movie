@@ -2,6 +2,11 @@ package org.lht.boot.web.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Optional;
 
 /**
  * @author LiHaitao
@@ -11,18 +16,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MetaHandler implements MetaObjectHandler {
 
-    // TODO: 2020/3/18 此处creatorCode和updaterCode通过权限去添加
 
     @Override
     public void insertFill(org.apache.ibatis.reflection.MetaObject metaObject) {
-
+        //获取当前用户
+        Optional<Authentication> auth = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
+        String name = null;
+        if (auth.isPresent()) {
+            Authentication authentication = auth.get();
+            UserDetails userDetails = (UserDetails) auth.get();
+            name = authentication.getName();
+        }
         Object createTime = getFieldValByName("createTime", metaObject);
-        Object createCode = getFieldValByName("creatorId", metaObject);
+        Object createCode = getFieldValByName("creatorUser", metaObject);
         Object status = getFieldValByName("status", metaObject);
 
 
         if (createCode == null) {
-            setFieldValByName("creatorId", "1111", metaObject);
+            setFieldValByName("creatorUser", name, metaObject);
         }
         if (createTime == null) {
             setFieldValByName("createTime", System.currentTimeMillis(), metaObject);
@@ -34,13 +45,20 @@ public class MetaHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(org.apache.ibatis.reflection.MetaObject metaObject) {
+        //获取当前用户
+        Optional<Authentication> auth = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
+        String name = null;
+        if (auth.isPresent()) {
+            Authentication authentication = auth.get();
+            name = authentication.getName();
+        }
         Object updateTime = getFieldValByName("updateTime", metaObject);
-        Object updateCode = getFieldValByName("updateId", metaObject);
+        Object updateCode = getFieldValByName("updateUser", metaObject);
         if (updateTime == null) {
             setFieldValByName("updateTime", System.currentTimeMillis(), metaObject);
         }
         if (updateCode == null) {
-            setFieldValByName("updateId", "ll", metaObject);
+            setFieldValByName("updateUser", name, metaObject);
         }
     }
 

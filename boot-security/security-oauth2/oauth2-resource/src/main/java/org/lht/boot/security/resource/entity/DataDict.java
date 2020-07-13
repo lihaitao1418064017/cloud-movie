@@ -33,6 +33,4 @@ public class DataDict extends TreeEntity<String, DataDict> {
      */
     private String description;
 
-
-    private DataDict parent;
 }
