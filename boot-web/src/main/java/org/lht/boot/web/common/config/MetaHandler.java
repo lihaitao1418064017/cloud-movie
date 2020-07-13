@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -24,7 +23,6 @@ public class MetaHandler implements MetaObjectHandler {
         String name = null;
         if (auth.isPresent()) {
             Authentication authentication = auth.get();
-            UserDetails userDetails = (UserDetails) auth.get();
             name = authentication.getName();
         }
         Object createTime = getFieldValByName("createTime", metaObject);
