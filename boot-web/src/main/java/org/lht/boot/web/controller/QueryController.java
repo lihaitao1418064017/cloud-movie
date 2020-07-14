@@ -9,6 +9,7 @@ import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.api.param.util.ParamServletUtil;
+import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.service.QueryService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,7 @@ public interface QueryController<E, PK, VO, Q extends Param> {
     @GetMapping("/{pk}")
     @ResponseBody
     @PreAuthorize("hasPermission('*','QUERY')")
+    @AccessLogger("根据id查询")
     default R<VO> selectById(@PathVariable PK pk) {
         E result = getService().get(pk);
         Validate.notNull(result, "data not exist");
@@ -73,6 +75,7 @@ public interface QueryController<E, PK, VO, Q extends Param> {
     @GetMapping("/list")
     @ResponseBody
     @PreAuthorize("hasPermission('*','QUERY')")
+    @AccessLogger("条件查询")
     default R<List> select(Q param, HttpServletRequest request) {
         ParamServletUtil.paddingTerms(param, request);
         List<E> list = getService().select(param);
@@ -103,6 +106,7 @@ public interface QueryController<E, PK, VO, Q extends Param> {
     @GetMapping("/page")
     @ResponseBody
     @PreAuthorize("hasPermission('*','QUERY')")
+    @AccessLogger("分页查询")
     default R<PagerResult<VO>> selectPage(Q param, HttpServletRequest request) {
         ParamServletUtil.paddingTerms(param, request);
         PagerResult<E> pagerResult = getService().selectPager(param);

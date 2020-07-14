@@ -8,6 +8,7 @@ import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.api.param.util.ParamServletUtil;
+import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.controller.AbstractController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/user")
 @Api(tags = "用户相关接口", description = "提供用户相关的 Rest API")
+@AccessLogger("用户模块")
 public class UserInfoController extends AbstractController<UserInfo, Integer, UserVO, UserInfoService> {
 
     /**
@@ -34,6 +36,7 @@ public class UserInfoController extends AbstractController<UserInfo, Integer, Us
      * @return
      */
     @GetMapping("/detail")
+    @AccessLogger("用户详情查询")
     public R<PagerResult<UserVO>> page(HttpServletRequest request, QueryParam queryParam) {
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.page(queryParam));

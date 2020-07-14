@@ -9,6 +9,7 @@ import org.lht.boot.web.domain.entity.TreeEntity;
 import org.lht.boot.web.domain.vo.AbstractTreeVO;
 import org.lht.boot.web.service.CrudTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -33,41 +34,54 @@ public abstract class AbstractTreeController<E extends TreeEntity<PK, E>, PK ext
     }
 
     @GetMapping("/allChildNode")
+    @AccessLogger("批量根据id查询所有子节点数据")
+    @PreAuthorize("hasPermission('*','QUERY')")
     public R<List<E>> selectAllChildNode(QueryParam queryParam, List<PK> ids, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.selectAllChildNode(queryParam, ids));
     }
 
     @GetMapping("/{id}")
+    @AccessLogger("根据id查询子节点数据")
+    @PreAuthorize("hasPermission('*','QUERY')")
     public R<List<E>> selectChildNode(@PathVariable PK pk) {
         return R.ok(service.selectChildNode(pk));
     }
 
     @GetMapping("/param/{id}")
+    @AccessLogger("根据条件查询")
+    @PreAuthorize("hasPermission('*','QUERY')")
     public R<List<E>> selectAllChildNode(@PathVariable PK pk, QueryParam queryParam, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.selectAllChildNode(pk, queryParam));
     }
 
     @GetMapping("/page/{id}")
+    @AccessLogger("分页查询")
+    @PreAuthorize("hasPermission('*','QUERY')")
     public R<PagerResult<E>> selectAllChildNodePager(@PathVariable PK pk, QueryParam queryParam, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.selectAllChildNodePager(pk, queryParam));
     }
 
     @GetMapping("/isParentPresent")
+    @AccessLogger("判断腹肌是否存在")
+    @PreAuthorize("hasPermission('*','QUERY')")
     public R<Boolean> isParentPresent(E e) {
         return R.ok(service.isParentPresent(e));
     }
 
     @GetMapping("/tree/{id}")
+    @AccessLogger("根据id获取树形结果")
+    @PreAuthorize("hasPermission('*','QUERY')")
     public R<List<E>> selectAsTree(PK pk, QueryParam queryParam, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.selectAsTree(pk, queryParam));
     }
 
     @GetMapping("/param/tree")
-    @AccessLogger("查询")
+    @AccessLogger("根据条件获取树形结果")
+    @PreAuthorize("hasPermission('*','QUERY')")
     public R<List<E>> selectAsTree(QueryParam queryParam, HttpServletRequest request, HttpServletResponse response) {
         ParamServletUtil.paddingTerms(queryParam, request);
         return R.ok(service.selectAsTree(queryParam));

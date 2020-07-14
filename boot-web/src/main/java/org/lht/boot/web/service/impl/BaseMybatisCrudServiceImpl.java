@@ -30,6 +30,10 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     @Autowired
     protected Dao dao;
 
+    public Dao getDao() {
+        return this.dao;
+    }
+
     @Override
     @Transactional
     public int delete(PK pk) {

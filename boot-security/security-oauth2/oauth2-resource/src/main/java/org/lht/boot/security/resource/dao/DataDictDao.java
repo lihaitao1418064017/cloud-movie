@@ -1,7 +1,7 @@
 package org.lht.boot.security.resource.dao;
 
-import org.lht.boot.web.dao.CrudTreeDao;
 import org.lht.boot.security.resource.entity.DataDict;
+import org.lht.boot.web.dao.CrudTreeDao;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -36,7 +36,7 @@ public class UserInfoServiceImpl extends BaseMybatisCrudServiceImpl<UserInfo, In
         page.setPage(queryParam);
         long count = this.count(queryParam);
         page.setTotal(count);
-        page.setRecords(dao.page(queryParam.getTerms(), (page.getCurrent()-1) * page.getSize(), page.getSize()));
+        page.setRecords(dao.page(queryParam.getTerms(), (page.getCurrent() - 1) * page.getSize(), page.getSize()));
         page.calTotalPages();
         return page;
     }

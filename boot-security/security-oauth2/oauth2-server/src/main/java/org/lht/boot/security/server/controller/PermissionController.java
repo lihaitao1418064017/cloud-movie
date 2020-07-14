@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import org.lht.boot.security.resource.entity.Permission;
 import org.lht.boot.security.resource.service.PermissionService;
 import org.lht.boot.security.resource.vo.PermissionVO;
+import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.controller.AbstractController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,5 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/permission")
 @Api(tags = "权限相关接口", description = "提供权限相关的 Rest API")
+@AccessLogger("权限模块")
 public class PermissionController extends AbstractController<Permission, Integer, PermissionVO, PermissionService> {
 }

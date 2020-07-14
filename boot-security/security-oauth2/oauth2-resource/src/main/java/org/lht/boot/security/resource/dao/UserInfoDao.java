@@ -3,7 +3,6 @@ package org.lht.boot.security.resource.dao;
 import org.apache.ibatis.annotations.Param;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.vo.UserVO;
-import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.springframework.stereotype.Repository;

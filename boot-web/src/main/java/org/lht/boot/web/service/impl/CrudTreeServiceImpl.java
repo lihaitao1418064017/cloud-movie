@@ -29,7 +29,7 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
     public List<E> selectAllChildNode(QueryParam queryParam, List<PK> ids) {
         if (ids != null) {
             if (CollectionUtils.isNotEmpty(ids)) {
-                List<E> entities = dao.selectBatchIds(ids);
+                List<E> entities = getDao().selectBatchIds(ids);
                 entities.forEach((E d) -> {
                     queryParam.or("path", TermEnum.like, d.getPath());
                 });
@@ -42,10 +42,10 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
     @Override
     public List<E> selectChildNode(PK pk) {
         if (pk != null) {
-            E e = dao.selectById(pk);
+            E e = getDao().selectById(pk);
             if (e != null) {
                 QueryWrapper<E> queryWrapper = new QueryWrapper<E>();
-                return dao.selectList(queryWrapper.like("path", e.getPath()));
+                return getDao().selectList(queryWrapper.like("path", e.getPath()));
             }
         }
         return Lists.newArrayList();
@@ -54,7 +54,7 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
     @Override
     public List<E> selectAllChildNode(PK pk, QueryParam queryParam) {
         if (pk != null) {
-            E e = dao.selectById(pk);
+            E e = getDao().selectById(pk);
             if (e != null) {
                 return select(queryParam.addTerm(Term.build("path", TermEnum.like, e.getPath())));
             }
@@ -91,7 +91,7 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
     @Override
     public PagerResult<E> selectAllChildNodePager(PK pk, QueryParam queryParam) {
         if (pk != null) {
-            E e = dao.selectById(pk);
+            E e = getDao().selectById(pk);
             if (e != null) {
                 return selectPager(queryParam.addTerm(Term.build("path", TermEnum.like, e.getPath())));
             }
@@ -101,7 +101,7 @@ public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extend
 
     @Override
     public boolean isParentPresent(E e) {
-        return dao.selectById(e.getPid()) != null;
+        return getDao().selectById(e.getPid()) != null;
     }
 
     @Override

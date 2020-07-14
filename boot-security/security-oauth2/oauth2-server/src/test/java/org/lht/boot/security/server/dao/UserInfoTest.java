@@ -2,7 +2,6 @@ package org.lht.boot.security.server.dao;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -60,7 +59,7 @@ public class UserInfoTest {
         Param queryParam = new Param();
         queryParam.addTerm(Term.build("age", TermEnum.nin, Lists.newArrayList(23, 24, 25)));
         log.info("term:{}", queryParam.getTerms().get(0).getTermType().getValue());
-        List<UserVO> userInfoDtos = userInfoDao.page(queryParam.getTerms(), page.getCurrent(),page.getSize());
+        List<UserVO> userInfoDtos = userInfoDao.page(queryParam.getTerms(), page.getCurrent(), page.getSize());
         log.info("userInfoDtos:{}", userInfoDtos);
     }
 
