@@ -1,7 +1,7 @@
 package org.lht.boot.security.resource.dao;
 
 import org.lht.boot.security.resource.entity.DataDict;
-import org.lht.boot.web.dao.CrudTreeDao;
+import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @date 2020/7/10 14:35
  **/
 @Repository
-public interface DataDictDao extends CrudTreeDao<DataDict> {
+public interface DataDictDao extends BaseMybatisPlusDao<DataDict> {
 }

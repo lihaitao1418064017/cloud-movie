@@ -11,6 +11,7 @@ import org.lht.boot.web.api.param.util.ParamMybatisUtil;
 import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.service.BaseCrudService;
+import org.lht.boot.web.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,9 @@ import java.util.stream.Collectors;
 
 public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends Serializable, Dao extends BaseMybatisPlusDao<E>> implements BaseCrudService<E, PK> {
 
+
+
+
     @Autowired
     protected Dao dao;
 
@@ -35,13 +39,13 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int delete(PK pk) {
         return dao.deleteById(pk);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public <Q extends Param> int delete(Q param) {
         return dao.delete(param);
     }
@@ -52,6 +56,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
         dao.insert(data);
         return data.getId();
     }
+
 
     @Override
     public E get(PK id) {
@@ -102,7 +107,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public PK update(PK id, E data) {
         Validate.notNull(data);
         data.setId(id);
@@ -111,7 +116,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public PK update(E data) {
         Validate.notNull(data.getId());
         dao.updateById(data);
@@ -119,7 +124,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public PK upsert(E entity) {
         Validate.notNull(entity);
         E e = dao.selectById(entity.getId());
@@ -131,7 +136,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public List<PK> upsert(Collection<E> entities) {
         entities.forEach(this::upsert);
         return entities.stream().map(E::getId).collect(Collectors.toList());
@@ -139,7 +144,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public PK patch(PK id, E data) {
         data.setId(id);
         dao.updateById(data);
@@ -147,7 +152,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public PK patch(E data) {
         Validate.notNull(data.getId());
         dao.updateById(data);
@@ -156,7 +161,7 @@ public class BaseMybatisCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int patch(UpdateParam<E> param) {
         return dao.update((E) param.getData(), ParamMybatisUtil.toQueryWrapper(param));
     }

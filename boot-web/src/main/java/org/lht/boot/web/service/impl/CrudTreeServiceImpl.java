@@ -9,7 +9,7 @@ import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.api.param.TermEnum;
-import org.lht.boot.web.dao.CrudTreeDao;
+import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.lht.boot.web.domain.entity.TreeEntity;
 import org.lht.boot.web.service.CrudTreeService;
 
@@ -22,7 +22,8 @@ import java.util.stream.Collectors;
  * @description
  * @date 2020/7/9 9:56
  **/
-public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extends Serializable, Dao extends CrudTreeDao<E>> extends BaseMybatisCrudServiceImpl<E, PK, Dao> implements CrudTreeService<E, PK> {
+public abstract class CrudTreeServiceImpl<E extends TreeEntity<PK, E>, PK extends Serializable, Dao extends BaseMybatisPlusDao<E>> extends BaseMybatisCrudServiceImpl<E, PK, Dao> implements CrudTreeService<E, PK> {
+
 
 
     @Override

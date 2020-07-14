@@ -15,6 +15,7 @@ import java.util.List;
 public interface CrudTreeService<E extends BaseCrudEntity<PK>, PK extends Serializable> extends BaseCrudService<E, PK> {
 
 
+
     List<E> selectAllChildNode(QueryParam queryParam, List<PK> pks);
 
     List<E> selectChildNode(PK pk);

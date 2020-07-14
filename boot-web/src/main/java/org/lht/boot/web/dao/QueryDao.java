@@ -14,6 +14,8 @@ import java.util.List;
  **/
 public interface QueryDao<E extends BaseCrudEntity, PK> extends Dao {
 
+
+
     /**
      * 根据id查询
      *
