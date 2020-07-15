@@ -1,4 +1,4 @@
-package org.lht.boot.security.resource.entity;
+package org.lht.boot.security.server.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

@@ -1,0 +1,9 @@
+ALTER TABLE user_role
+  CHANGE id id BIGINT(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE role_permission
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE role_permission
+  CHANGE id id BIGINT(11) NOT NULL AUTO_INCREMENT;
+

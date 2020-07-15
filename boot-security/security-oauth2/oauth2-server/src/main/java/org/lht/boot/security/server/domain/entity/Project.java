@@ -12,7 +12,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
  * @date 2020/7/14 16:46
  **/
 @Data
-@TableName("user")
+@TableName("oauth_client_details")
 public class Project extends BaseCrudEntity<Integer> {
 
     @TableId(type = IdType.AUTO)

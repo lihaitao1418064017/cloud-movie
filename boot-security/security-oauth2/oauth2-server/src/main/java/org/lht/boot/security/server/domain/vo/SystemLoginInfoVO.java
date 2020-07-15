@@ -1,8 +1,8 @@
-package org.lht.boot.security.resource.vo;
+package org.lht.boot.security.server.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.lht.boot.security.resource.entity.SystemLoginInfo;
+import org.lht.boot.security.server.domain.entity.SystemLoginInfo;
 import org.lht.boot.web.domain.vo.AbstractVO;
 
 import java.util.Date;

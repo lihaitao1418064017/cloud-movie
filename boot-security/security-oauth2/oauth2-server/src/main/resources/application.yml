@@ -19,8 +19,8 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: org.lht.boot.web.domain.entity
-  typeEnumsPackage: org.lht.boot.web.domain.entity
+  typeAliasesPackage: org.lht.boot.web.domain.entity,org.lht.boot.security.server.domain.entity
+  typeEnumsPackage: org.lht.boot.web.domain.entity,org.lht.boot.security.server.domain.entity
   global-config:
     # 数据库相关配置
     db-config:
@@ -59,6 +59,8 @@ security:
       - "/register/**"
       - "/user/checkUnique/**"
       - "/password/forget/**"
+      - "/actuator/**"
+      - "/**"
        #    记住我超时时间
       rememberMeTimeout: 30000
             #    登出 URL

@@ -1,15 +1,15 @@
 DROP TABLE IF EXISTS `system_login_info`;
 CREATE TABLE `system_login_info` (
-  `id`          VARCHAR(255) NOT NULL,
-  `username`    VARCHAR(255) DEFAULT NULL,
-  `ip_address`  VARCHAR(255) DEFAULT NULL,
-  `msg`         VARCHAR(255) DEFAULT NULL,
-  `access_time` DATETIME(0)  DEFAULT NULL,
-  `status`      INT(10)      DEFAULT NULL,
-  `creator_id`  VARCHAR(255) DEFAULT NULL,
-  `create_time` BIGINT(20)   DEFAULT NULL,
-  `update_id`   VARCHAR(255) DEFAULT NULL,
-  `update_time` BIGINT(20)   DEFAULT NULL,
+  `id`           BIGINT(11) NOT NULL AUTO_INCREMENT,
+  `username`     VARCHAR(255)        DEFAULT NULL,
+  `ip_address`   VARCHAR(255)        DEFAULT NULL,
+  `msg`          VARCHAR(255)        DEFAULT NULL,
+  `access_time`  DATETIME(0)         DEFAULT NULL,
+  `status`       INT(10)             DEFAULT NULL,
+  `creator_user` VARCHAR(255)        DEFAULT NULL,
+  `create_time`  BIGINT(20)          DEFAULT NULL,
+  `update_user`  VARCHAR(255)        DEFAULT NULL,
+  `update_time`  BIGINT(20)          DEFAULT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB

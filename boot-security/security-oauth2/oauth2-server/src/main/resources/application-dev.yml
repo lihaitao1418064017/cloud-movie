@@ -1,27 +1,22 @@
-#spring
-spring:
-  application:
-    name: boot-oauth2-server
-  datasource:
-    url: jdbc:mysql://47.99.216.57:3306/boot-rbac?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
-    username: root
-    password: root
-    type: com.alibaba.druid.pool.DruidDataSource
-  redis:
-    host: 47.99.216.57
-    port: 6379
-  elasticsearch:
-    rest:
-       uris: http://47.99.216.57:9200
-       connection-timeout: 3s
-
-
-
-
-
-
-# eureka相关配置
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8088/eureka/
+##spring
+#spring:
+#  application:
+#    name: boot-oauth2-server
+#  datasource:
+#    url: jdbc:mysql://47.99.216.57:3306/boot-rbac?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+#    username: root
+#    password: root
+#    type: com.alibaba.druid.pool.DruidDataSource
+#  redis:
+#    host: 47.99.216.57
+#    port: 6379
+#  elasticsearch:
+#    rest:
+#       uris: http://47.99.216.57:9200
+#       connection-timeout: 3s
+#
+#
+#
+#
+#
+#
