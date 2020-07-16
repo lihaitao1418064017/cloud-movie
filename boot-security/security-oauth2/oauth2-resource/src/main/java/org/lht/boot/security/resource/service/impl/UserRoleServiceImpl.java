@@ -14,4 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRoleServiceImpl extends BaseMybatisCrudServiceImpl<UserRole, Integer, UserRoleDao> implements UserRoleService {
 
+    @Override
+    public Integer saveOrUpdate(UserRole role) {
+        return dao.saveOrUpdate(role.getUserId(), role.getRoleId());
+    }
 }

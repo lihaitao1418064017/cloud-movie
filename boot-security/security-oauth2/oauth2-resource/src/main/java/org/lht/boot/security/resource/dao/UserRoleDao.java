@@ -1,5 +1,6 @@
 package org.lht.boot.security.resource.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.lht.boot.security.resource.entity.UserRole;
 import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRoleDao extends BaseMybatisPlusDao<UserRole> {
 
+    /**
+     * 更新或添加，根据user_id和role_id联合唯一索引
+     *
+     * @param
+     * @return
+     */
+    Integer saveOrUpdate(@Param("userId") Integer userId, @Param("roleId") Integer roleId);
 }
