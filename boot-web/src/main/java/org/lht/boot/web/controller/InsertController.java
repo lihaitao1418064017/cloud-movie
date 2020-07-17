@@ -4,14 +4,14 @@ import cn.hutool.http.HttpStatus;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.service.InsertService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import static org.lht.boot.web.api.param.R.ok;
+import static org.lht.boot.lang.util.R.ok;
 
 /**
  * @author LiHaitao

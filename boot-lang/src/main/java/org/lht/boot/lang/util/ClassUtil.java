@@ -10,6 +10,8 @@ import com.google.common.collect.Sets;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.web.method.HandlerMethod;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
@@ -35,9 +37,6 @@ public class ClassUtil extends cn.hutool.core.util.ClassUtil {
     private static final char PATH_SEPARATOR = '/';
     private static final char INNER_CLASS_SEPARATOR = '$';
 
-    public ClassUtil() {
-    }
-
     public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> annotation) {
         if (clazz == null) {
             return null;
@@ -49,6 +48,25 @@ public class ClassUtil extends cn.hutool.core.util.ClassUtil {
                 return clazz.getSuperclass() != Object.class ? getAnnotation(clazz.getSuperclass(), annotation) : ann;
             }
         }
+    }
+
+    /**
+     * 获取Annotation
+     *
+     * @param handlerMethod  HandlerMethod
+     * @param annotationType 注解类
+     * @param <A>            泛型标记
+     * @return {Annotation}
+     */
+    public static <A extends Annotation> A getAnnotation(HandlerMethod handlerMethod, Class<A> annotationType) {
+        // 先找方法，再找方法上的类
+        A annotation = handlerMethod.getMethodAnnotation(annotationType);
+        if (null != annotation) {
+            return annotation;
+        }
+        // 获取类上面的Annotation，可能包含组合注解，故采用spring的工具类
+        Class<?> beanType = handlerMethod.getBeanType();
+        return AnnotatedElementUtils.findMergedAnnotation(beanType, annotationType);
     }
 
     public static <T extends Annotation> T getAnnotation(Method method, Class<T> annotation) {

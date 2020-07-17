@@ -16,7 +16,7 @@
  *
  */
 
-package org.lht.boot.web.api.param;
+package org.lht.boot.lang.util;
 
 
 import com.alibaba.fastjson.JSON;

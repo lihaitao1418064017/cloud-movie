@@ -1,7 +1,7 @@
 package org.lht.boot.web.controller;
 
 import org.lht.boot.web.api.param.Param;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.web.service.CrudService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

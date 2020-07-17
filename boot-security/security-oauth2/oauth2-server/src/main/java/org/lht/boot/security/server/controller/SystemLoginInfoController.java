@@ -5,7 +5,7 @@ import org.lht.boot.lang.util.ServletUtil;
 import org.lht.boot.security.server.domain.entity.SystemLoginInfo;
 import org.lht.boot.security.server.domain.vo.SystemLoginInfoVO;
 import org.lht.boot.security.server.service.SystemLoginInfoService;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.controller.AbstractController;
 import org.springframework.web.bind.annotation.RequestBody;

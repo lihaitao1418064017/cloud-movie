@@ -3,9 +3,9 @@ package org.lht.boot.security.handler;
 
 import cn.hutool.http.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.constant.SecurityConstant;
-import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.DefaultRedirectStrategy;

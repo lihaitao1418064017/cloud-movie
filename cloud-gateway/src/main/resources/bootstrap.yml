@@ -14,6 +14,7 @@ spring:
            server-addr: 47.99.216.57:8848
            # 配置文件格式
            file-extension: yml
+           name: cloud-config.yml
   boot:
       admin:
         client:

@@ -1,10 +1,10 @@
 package org.lht.boot.security.server.controller;
 
 import io.swagger.annotations.Api;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.security.resource.entity.RolePermission;
 import org.lht.boot.security.resource.service.RolePermissionService;
 import org.lht.boot.security.resource.vo.RolePermissionVO;
-import org.lht.boot.web.api.param.R;
 import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.controller.AbstractController;
 import org.springframework.web.bind.annotation.PutMapping;

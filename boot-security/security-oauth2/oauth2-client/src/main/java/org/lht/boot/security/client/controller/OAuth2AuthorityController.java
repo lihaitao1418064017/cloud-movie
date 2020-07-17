@@ -7,7 +7,7 @@ import org.lht.boot.security.core.vo.AuthenticationVO;
 import org.lht.boot.security.entity.AuthRole;
 import org.lht.boot.security.entity.AuthUser;
 import org.lht.boot.security.entity.AuthUserDetails;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;

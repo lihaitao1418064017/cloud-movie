@@ -1,5 +1,8 @@
 package org.lht.boot.cloud.gateway.common.config;
 
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import reactor.core.publisher.Mono;
@@ -30,6 +33,15 @@ public class RouteConfig {
     //                        .uri(httpUri))
     //                .build();
     //    }
+
+
+    @Bean
+    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+        return builder.routes()
+                .route("blog_route", r -> r.path("/blog")
+                        .uri("https://blog.csdn.net/weixin_38019299"))
+                .build();
+    }
 
 
     // tag::fallback[]

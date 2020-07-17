@@ -3,7 +3,7 @@ package org.lht.boot.security.server.controller;
 
 import org.lht.boot.security.server.domain.OAuth2UserInfoAuthentication;
 import org.lht.boot.security.server.service.OAuth2UserService;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

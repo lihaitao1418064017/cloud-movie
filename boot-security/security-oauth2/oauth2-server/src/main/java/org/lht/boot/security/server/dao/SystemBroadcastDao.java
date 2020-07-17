@@ -5,7 +5,7 @@ import org.lht.boot.web.dao.ElasticSearchCrudDao;
 import org.springframework.stereotype.Repository;
 
 /**
- * @description:
+ * @description: 广告墙
  * @author: LiHaitao
  * @date: 2020/7/14 14:34
  */

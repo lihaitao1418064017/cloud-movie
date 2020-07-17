@@ -6,7 +6,7 @@ import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.resource.vo.UserVO;
 import org.lht.boot.web.api.param.PagerResult;
 import org.lht.boot.web.api.param.QueryParam;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.web.api.param.util.ParamServletUtil;
 import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.controller.AbstractController;

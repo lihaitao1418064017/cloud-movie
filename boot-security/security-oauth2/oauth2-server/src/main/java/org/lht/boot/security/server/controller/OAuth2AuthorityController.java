@@ -10,7 +10,7 @@ import org.lht.boot.security.entity.AuthUserDetails;
 import org.lht.boot.security.resource.service.PermissionService;
 import org.lht.boot.security.resource.service.RoleService;
 import org.lht.boot.security.resource.service.UserInfoService;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,7 @@
 package org.lht.boot.security.client.controller;
 
 import org.lht.boot.security.client.service.OAuth2UserService;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

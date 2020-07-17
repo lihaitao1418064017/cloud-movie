@@ -2,7 +2,7 @@ package org.lht.boot.security.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.lht.boot.security.common.constant.SecurityConstant;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 

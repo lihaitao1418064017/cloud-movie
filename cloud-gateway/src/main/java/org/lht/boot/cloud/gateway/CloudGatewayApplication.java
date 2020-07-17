@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan("org.lht.boot.cloud")
+@ComponentScan({"org.lht.boot"})
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class CloudGatewayApplication {
 

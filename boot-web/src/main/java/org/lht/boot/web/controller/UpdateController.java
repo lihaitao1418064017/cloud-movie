@@ -3,7 +3,7 @@ package org.lht.boot.web.controller;
 import cn.hutool.http.HttpStatus;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.Validate;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.service.UpdateService;
 import org.springframework.security.access.prepost.PreAuthorize;

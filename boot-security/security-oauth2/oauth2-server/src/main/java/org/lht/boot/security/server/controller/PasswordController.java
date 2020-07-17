@@ -5,7 +5,7 @@ import org.lht.boot.cache.redis.RedisUtil;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.resource.vo.ForgetPasswordVO;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.web.api.param.Term;
 import org.lht.boot.web.api.param.UpdateParam;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,7 +6,7 @@ import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.server.service.OAuth2SecurityUserDetailService;
 import org.lht.boot.web.api.param.QueryParam;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.web.api.param.Term;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

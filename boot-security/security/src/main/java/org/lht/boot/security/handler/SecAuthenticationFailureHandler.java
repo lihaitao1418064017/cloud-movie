@@ -2,10 +2,10 @@ package org.lht.boot.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.security.common.constant.SecurityConstant;
 import org.lht.boot.security.common.exception.SecException;
 import org.lht.boot.security.common.exception.ValidateCodeException;
-import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;

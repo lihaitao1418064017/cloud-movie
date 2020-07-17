@@ -2,7 +2,7 @@ package org.lht.boot.security.client.service;
 
 import org.lht.boot.security.client.service.fallback.OAuth2UserServiceHystrixFallBack;
 import org.lht.boot.security.core.entity.OAuth2UserAuthentication;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

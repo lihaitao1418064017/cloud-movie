@@ -1,17 +1,15 @@
 package org.lht.boot.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.security.common.LoginType;
 import org.lht.boot.security.common.SecUserDetails;
 import org.lht.boot.security.common.config.SecProperties;
 import org.lht.boot.security.common.constant.SecurityConstant;
-import org.lht.boot.web.api.param.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//import org.lht.boot.security.resource.entity.SecUserDetails;
 
 /**
  * @author LiHaitao
@@ -32,7 +29,6 @@ public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     private SessionRegistry sessionRegistry;
 
@@ -43,7 +39,6 @@ public class SecAuthenticationSuccessHandler implements AuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
-        String remoteAddress = details.getRemoteAddress();
 
         LoginType loginType = LoginType.NORMAL;
         Object principal = authentication.getPrincipal();

@@ -9,7 +9,7 @@ import org.lht.boot.security.client.service.OAuth2UserService;
 import org.lht.boot.security.core.entity.OAuth2Token;
 import org.lht.boot.security.core.entity.OAuth2UserAuthentication;
 import org.lht.boot.security.entity.AuthUserDetails;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;

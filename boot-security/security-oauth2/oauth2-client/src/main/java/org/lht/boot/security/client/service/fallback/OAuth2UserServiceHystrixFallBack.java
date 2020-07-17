@@ -2,7 +2,7 @@ package org.lht.boot.security.client.service.fallback;
 
 import org.lht.boot.security.client.service.OAuth2UserService;
 import org.lht.boot.security.core.entity.OAuth2UserAuthentication;
-import org.lht.boot.web.api.param.R;
+import org.lht.boot.lang.util.R;
 import org.springframework.stereotype.Component;
 
 /**
