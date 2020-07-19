@@ -21,5 +21,14 @@ public interface PermissionDao extends BaseMybatisPlusDao<Permission> {
      * @param userId
      * @return
      */
-    List<Permission> selectByUsername(@Param("userId") Integer userId);
+    List<Permission> selectByUserId(@Param("userId") Integer userId);
+
+
+    /**
+     * 根据角色id获取权限资源信息
+     *
+     * @param roleId
+     * @return
+     */
+    List<Permission> selectByRoleId(@Param("roleId") Integer roleId);
 }

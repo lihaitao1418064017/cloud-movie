@@ -5,6 +5,8 @@ import org.lht.boot.security.resource.entity.UserRole;
 import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author LiHaitao
  * @description UserRoleDao:
@@ -19,5 +21,5 @@ public interface UserRoleDao extends BaseMybatisPlusDao<UserRole> {
      * @param
      * @return
      */
-    Integer saveOrUpdate(@Param("userId") Integer userId, @Param("roleId") Integer roleId);
+    Integer saveOrUpdate(@Param("userRoles") List<UserRole> userRoles);
 }

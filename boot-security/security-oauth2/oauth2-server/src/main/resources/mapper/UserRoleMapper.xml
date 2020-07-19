@@ -6,7 +6,9 @@
     <insert id="saveOrUpdate">
         INSERT INTO user_role (user_id, role_id)
         VALUES
-            (${userId}, ${roleId})
+        <foreach collection="userRoles" open="" separator="," close="" item="userRole">
+            (#{userRole.userId},#{userRole.roleId})
+        </foreach>
         ON DUPLICATE KEY UPDATE
             user_id = VALUES(user_id),
             role_id = VALUES(role_id)

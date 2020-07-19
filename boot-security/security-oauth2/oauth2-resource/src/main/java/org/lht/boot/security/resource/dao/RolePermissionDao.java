@@ -2,8 +2,11 @@ package org.lht.boot.security.resource.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.lht.boot.security.resource.entity.RolePermission;
+import org.lht.boot.security.resource.service.RolePermissionService;
 import org.lht.boot.web.dao.BaseMybatisPlusDao;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author LiHaitao
@@ -19,5 +22,5 @@ public interface RolePermissionDao extends BaseMybatisPlusDao<RolePermission> {
      * @param
      * @return
      */
-    Integer saveOrUpdate(@Param("permissionId") Integer permissionId, @Param("roleId") Integer roleId);
+    Integer saveOrUpdate(@Param("rolePermissions")List<RolePermission> rolePermissions);
 }

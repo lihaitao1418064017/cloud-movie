@@ -3,6 +3,8 @@ package org.lht.boot.security.resource.service;
 import org.lht.boot.security.resource.entity.UserRole;
 import org.lht.boot.web.service.BaseCrudService;
 
+import java.util.List;
+
 /**
  * @author LiHaitao
  * @description UserRoleService:用户角色关联
@@ -13,8 +15,8 @@ public interface UserRoleService extends BaseCrudService<UserRole, Integer> {
     /**
      * 更新或添加，根据user_id和role_id联合唯一索引
      *
-     * @param role
+     * @param userRoles
      * @return
      */
-    Integer saveOrUpdate(UserRole role);
+    Integer saveOrUpdate(List<UserRole> userRoles);
 }

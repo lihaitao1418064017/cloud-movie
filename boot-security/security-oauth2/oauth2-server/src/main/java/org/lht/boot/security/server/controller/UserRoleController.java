@@ -1,5 +1,6 @@
 package org.lht.boot.security.server.controller;
 
+import cn.hutool.core.collection.CollectionUtil;
 import io.swagger.annotations.Api;
 import org.lht.boot.lang.util.R;
 import org.lht.boot.security.resource.entity.UserRole;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Description:
@@ -26,7 +30,10 @@ public class UserRoleController extends AbstractController<UserRole, Integer, Us
 
 
     @PutMapping("/saveOrUpdate")
-    public R<Integer> saveOrUpdate(@RequestBody UserRoleVO vo) {
-        return R.ok(service.saveOrUpdate(voToEntity(vo)));
+    public R<Integer> saveOrUpdate( @RequestBody  List<UserRoleVO> vos) {
+        if (CollectionUtil.isEmpty(vos)){
+            return R.ok();
+        }
+        return R.ok(service.saveOrUpdate(vosToEntities(vos)));
     }
 }

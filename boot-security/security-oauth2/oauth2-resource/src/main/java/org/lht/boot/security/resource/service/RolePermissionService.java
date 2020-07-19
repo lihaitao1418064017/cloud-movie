@@ -3,6 +3,8 @@ package org.lht.boot.security.resource.service;
 import org.lht.boot.security.resource.entity.RolePermission;
 import org.lht.boot.web.service.BaseCrudService;
 
+import java.util.List;
+
 /**
  * @author LiHaitao
  * @description RolePermissionService:角色和权限资源关联
@@ -13,8 +15,8 @@ public interface RolePermissionService extends BaseCrudService<RolePermission, I
     /**
      * 更新或添加，根据permission_id和role_id联合唯一索引
      *
-     * @param role
+     * @param rolePermissions
      * @return
      */
-    Integer saveOrUpdate(RolePermission rolePermission);
+    Integer saveOrUpdate(List<RolePermission> rolePermissions);
 }

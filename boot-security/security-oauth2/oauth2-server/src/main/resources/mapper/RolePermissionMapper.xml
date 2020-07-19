@@ -6,7 +6,9 @@
     <insert id="saveOrUpdate">
         INSERT INTO role_permission (permission_id, role_id)
         VALUES
-            (${permissionId}, ${roleId})
+        <foreach collection="rolePermissions" open="" separator="," close="" item="rolePermission">
+            (${rolePermission.permissionId}, ${rolePermission.roleId})
+        </foreach>
         ON DUPLICATE KEY UPDATE
             permission_id = VALUES(permission_id),
             role_id       = VALUES(role_id)

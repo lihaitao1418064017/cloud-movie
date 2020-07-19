@@ -1,9 +1,6 @@
 package org.lht.boot.web.service.impl;
 
-import org.lht.boot.web.api.param.AggregationParam;
-import org.lht.boot.web.api.param.PagerResult;
-import org.lht.boot.web.api.param.Param;
-import org.lht.boot.web.api.param.UpdateParam;
+import org.lht.boot.web.api.param.*;
 import org.lht.boot.web.dao.ElasticSearchCrudDao;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.service.AbstractEsCrudService;
@@ -114,6 +111,15 @@ public class AbstractEsCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends 
     @Override
     public int patch(UpdateParam<E> param) {
         return dao.patch(param);
+    }
+
+    @Override
+    public boolean editCheckUnique(PK pk, String name, Object value) {
+        E e = this.selectSingle(QueryParam.build(Term.build(name, value)));
+        if (e==null||e.getId().equals(pk)){
+            return false;
+        }
+        return true;
     }
 
 

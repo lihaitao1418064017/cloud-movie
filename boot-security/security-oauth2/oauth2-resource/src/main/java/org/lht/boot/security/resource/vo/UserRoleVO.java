@@ -8,6 +8,9 @@ import lombok.Data;
 import org.lht.boot.security.resource.entity.UserRole;
 import org.lht.boot.web.domain.vo.AbstractVO;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * Description:
  *

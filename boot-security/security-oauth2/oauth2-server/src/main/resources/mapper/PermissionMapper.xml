@@ -3,7 +3,7 @@
 <mapper namespace="org.lht.boot.security.resource.dao.PermissionDao">
 
 
-    <select id="selectByUsername" resultType="org.lht.boot.security.resource.entity.Permission">
+    <select id="selectByUserId" resultType="org.lht.boot.security.resource.entity.Permission">
         SELECT *
         FROM
             permission
@@ -16,5 +16,17 @@
                     role_id IN (SELECT role_id
                                 FROM user_role
                                 WHERE user_id = #{userId}));
+    </select>
+    <select id="selectByRoleId" resultType="org.lht.boot.security.resource.entity.Permission">
+        SELECT *
+        FROM
+            permission
+        WHERE
+            id IN (
+                SELECT permission_id
+                FROM
+                    role_permission
+                WHERE
+                    role_id =#{roleId});
     </select>
 </mapper>

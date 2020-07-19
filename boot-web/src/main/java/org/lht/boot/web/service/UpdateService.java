@@ -113,5 +113,12 @@ public interface UpdateService<E, PK> extends Service {
      */
     int patch(UpdateParam<E> param);
 
-
+    /**
+     * 编辑时校验唯一性
+     * @param pk
+     * @param name
+     * @param value
+     * @return
+     */
+    boolean editCheckUnique(PK pk,String name,Object value);
 }

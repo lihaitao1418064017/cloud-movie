@@ -6,6 +6,8 @@ import org.lht.boot.security.resource.service.RolePermissionService;
 import org.lht.boot.web.service.impl.BaseMybatisCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author LiHaitao
  * @description RolePermissionServiceImpl:
@@ -16,7 +18,7 @@ public class RolePermissionServiceImpl extends BaseMybatisCrudServiceImpl<RolePe
 
 
     @Override
-    public Integer saveOrUpdate(RolePermission rolePermission) {
-        return dao.saveOrUpdate(rolePermission.getPermissionId(), rolePermission.getRoleId());
+    public Integer saveOrUpdate(List<RolePermission> rolePermissions) {
+        return dao.saveOrUpdate(rolePermissions);
     }
 }

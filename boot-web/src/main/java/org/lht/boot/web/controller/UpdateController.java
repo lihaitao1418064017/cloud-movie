@@ -116,4 +116,16 @@ public interface UpdateController<E, PK, VO> {
         return vos.stream().map(this::voToEntity).collect(Collectors.toList());
     }
 
+    /**
+     * 添加唯一性校验
+     *
+     * @param name
+     * @param value
+     * @return
+     */
+    @GetMapping("add/checkUnique")
+    default R addCheckUnique(@RequestParam PK id, @RequestParam String name, @RequestParam String value) {
+        return R.ok(getService().editCheckUnique(id,name,value));
+    }
+
 }
