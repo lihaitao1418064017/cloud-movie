@@ -1,6 +1,5 @@
 package org.lht.boot.security.server.domain.vo;
 
-import cn.hutool.core.util.RandomUtil;
 import lombok.Data;
 import org.lht.boot.security.server.domain.entity.AccessLog;
 import org.lht.boot.web.common.annotation.AccessLogger;
@@ -17,7 +16,7 @@ import java.util.Date;
 public class AccessLogVO extends AbstractVO<AccessLog, String> {
 
 
-    private String id = RandomUtil.simpleUUID();
+    private String id;
 
     /**
      * 访问的操作

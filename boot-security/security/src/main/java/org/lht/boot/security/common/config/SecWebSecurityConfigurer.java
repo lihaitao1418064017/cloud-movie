@@ -126,7 +126,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 //.addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
                 // 表单方式
                 .formLogin()
-                .loginPage(secProperties.getLoginUrl())
+                .loginPage("/login")
                 .successHandler(secAuthenticationSuccessHandler)
                 // 处理登录失败
                 .failureHandler(secAuthenticationFailureHandler)
@@ -162,7 +162,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .expiredSessionStrategy(new SecExpiredSessionStrategy())
                 // 配置 session注册中心
                 .sessionRegistry(sessionRegistry)
-                .expiredUrl(secProperties.getLoginUrl())
+                .expiredUrl("/login")
                 .and()
                 .and()
                 // 配置登出
@@ -172,7 +172,7 @@ public class SecWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 //                // 处理登出 url
                 //                .logoutUrl(secProperties.getLogoutUrl())
                 // 登出后跳转到 /
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
                 // 删除 JSESSIONID
                 .deleteCookies("JSESSIONID")
                 .and()

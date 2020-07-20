@@ -1,5 +1,6 @@
 package org.lht.boot.web.api.param.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.lang.util.ClassUtil;
@@ -32,6 +33,13 @@ public class ParamMybatisUtil {
         buildFieldsWrapper(queryParam, queryWrapper);
         buildSort(queryParam, queryWrapper);
         terms.forEach((Term term) -> {
+            /**
+             * todo：
+             * QueryWrapper只支持数据库字段写法（数据库字段为下划线），不支持实体类字段名写法（驼峰写法）
+             * 这里临时做一层转化，将驼峰转化成下划线。
+             */
+            String column = term.getColumn();
+            term.setColumn(StrUtil.toUnderlineCase(column));
             termToQueryWrapper(term, queryWrapper);
         });
         return queryWrapper;
@@ -102,7 +110,7 @@ public class ParamMybatisUtil {
                 queryWrapper.and(obj -> obj.eq(field, value));
                 break;
             case in:
-                queryWrapper.and(obj -> obj.in(field, (Collection)value));
+                queryWrapper.and(obj -> obj.in(field, (Collection) value));
                 break;
             case like:
                 queryWrapper.and(obj -> obj.like(field, value));

@@ -83,4 +83,13 @@ public class UserInfoTest {
         userInfoService.patch(updateParam);
     }
 
+
+    @Test
+    public void test04() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("creatorUser", "1112");
+        UserInfo userInfo = userInfoDao.selectOne(queryWrapper);
+        log.info("info:{}", userInfo);
+    }
+
 }

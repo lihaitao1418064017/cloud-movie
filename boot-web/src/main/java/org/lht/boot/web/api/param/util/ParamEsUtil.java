@@ -117,8 +117,9 @@ public class ParamEsUtil {
      */
     public static void buildPageableSearchBuilder(QueryParam queryParam, SearchSourceBuilder searchSourceBuilder) {
         if (queryParam != null) {
+
             searchSourceBuilder
-                    .from(queryParam.getPageNo() * queryParam.getPageSize())
+                    .from((queryParam.getPageNo() - 1) * queryParam.getPageSize())
                     .size(queryParam.getPageSize());
         }
     }

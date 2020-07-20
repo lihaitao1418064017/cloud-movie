@@ -1,11 +1,11 @@
 package org.lht.boot.security.server.controller;
 
 import org.lht.boot.lang.util.IpUtils;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.lang.util.ServletUtil;
 import org.lht.boot.security.server.domain.entity.SystemLoginInfo;
 import org.lht.boot.security.server.domain.vo.SystemLoginInfoVO;
 import org.lht.boot.security.server.service.SystemLoginInfoService;
-import org.lht.boot.lang.util.R;
 import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.controller.AbstractController;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,10 +22,10 @@ import java.util.Date;
 @RestController
 @RequestMapping("/system_login")
 @AccessLogger("系统访问记录")
-public class SystemLoginInfoController extends AbstractController<SystemLoginInfo, Integer, SystemLoginInfoVO, SystemLoginInfoService> {
+public class SystemLoginInfoController extends AbstractController<SystemLoginInfo, String, SystemLoginInfoVO, SystemLoginInfoService> {
 
     @Override
-    public R<Integer> add(@RequestBody SystemLoginInfoVO data) {
+    public R<String> add(@RequestBody SystemLoginInfoVO data) {
         data.setAccessTime(new Date());
         data.setIpAddress(IpUtils.getIpAddr(ServletUtil.getServletRequest()));
         return R.ok(service.insert(voToEntity(data)));

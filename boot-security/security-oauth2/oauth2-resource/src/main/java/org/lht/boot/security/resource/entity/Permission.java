@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.domain.entity.TreeEntity;
 
 /**
@@ -16,7 +15,7 @@ import org.lht.boot.web.domain.entity.TreeEntity;
 @Data
 @TableName("permission")
 @ApiModel("权限实体")
-public class Permission extends TreeEntity<Integer,Permission> {
+public class Permission extends TreeEntity<Integer, Permission> {
 
 
     @TableId(type = IdType.AUTO)

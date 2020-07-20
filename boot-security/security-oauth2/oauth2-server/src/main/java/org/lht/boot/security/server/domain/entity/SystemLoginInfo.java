@@ -1,11 +1,10 @@
 package org.lht.boot.security.server.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.searchbox.annotations.JestId;
 import lombok.Data;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
+import org.lht.boot.web.domain.entity.EsEntity;
 
 import java.util.Date;
 
@@ -15,12 +14,12 @@ import java.util.Date;
  * @date: 2020/7/14 17:25
  */
 @Data
-@TableName("system_login_info")
-public class SystemLoginInfo extends BaseCrudEntity<Integer> {
+@EsEntity(index = "system_login_info", type = "system_login_info", alias = "system_login_info")
+public class SystemLoginInfo extends BaseCrudEntity<String> {
 
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @JestId
+    private String id;
     /**
      * 用户账号
      */

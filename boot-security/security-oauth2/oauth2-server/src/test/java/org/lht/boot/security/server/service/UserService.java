@@ -2,6 +2,7 @@ package org.lht.boot.security.server.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.resource.vo.UserVO;
 import org.lht.boot.web.api.param.PagerResult;
@@ -28,6 +29,14 @@ public class UserService {
         QueryParam queryParam = new QueryParam();
         queryParam.addTerm(Term.build("age", 23));
         PagerResult<UserVO> page = userInfoService.page(queryParam);
+        log.info("userinfos:{}", page.getRecords());
+    }
+
+    @Test
+    public void test02() {
+        QueryParam queryParam = new QueryParam();
+        queryParam.addTerm(Term.build("creatorUser", 23));
+        PagerResult<UserInfo> page = userInfoService.selectPager(queryParam);
         log.info("userinfos:{}", page.getRecords());
     }
 }

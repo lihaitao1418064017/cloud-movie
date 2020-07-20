@@ -13,10 +13,10 @@ import java.util.Date;
  * @date 2020/7/14 17:31
  **/
 @Data
-public class SystemLoginInfoVO extends AbstractVO<SystemLoginInfo, Integer> {
+public class SystemLoginInfoVO extends AbstractVO<SystemLoginInfo, String> {
 
 
-    private Integer id;
+    private String id;
     /**
      * 用户账号
      */
