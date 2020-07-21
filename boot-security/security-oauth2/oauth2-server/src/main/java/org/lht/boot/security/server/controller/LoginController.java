@@ -1,12 +1,12 @@
 package org.lht.boot.security.server.controller;
 
 import io.swagger.annotations.Api;
+import org.lht.boot.lang.util.R;
 import org.lht.boot.lang.util.ValidatorUtil;
 import org.lht.boot.security.resource.entity.UserInfo;
 import org.lht.boot.security.resource.service.UserInfoService;
 import org.lht.boot.security.server.service.OAuth2SecurityUserDetailService;
 import org.lht.boot.web.api.param.QueryParam;
-import org.lht.boot.lang.util.R;
 import org.lht.boot.web.api.param.Term;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -65,11 +65,11 @@ public class LoginController {
         return "如果你看见这句话，说明你有ROLE_ADMIN角色";
     }
 
-    @RequestMapping("/user")
-    @ResponseBody
-    @PreAuthorize("hasPermission('/user','user')")
-    public String printUser() {
-        return "如果你看见这句话，说明你有ROLE_USER角色";
-    }
+    //    @RequestMapping("/user")
+    //    @ResponseBody
+    //    @PreAuthorize("hasPermission('/user','user')")
+    //    public String printUser() {
+    //        return "如果你看见这句话，说明你有ROLE_USER角色";
+    //    }
 
 }

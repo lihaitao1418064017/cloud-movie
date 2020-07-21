@@ -123,9 +123,9 @@ public interface UpdateController<E, PK, VO> {
      * @param value
      * @return
      */
-    @GetMapping("add/checkUnique")
+    @GetMapping("edit/checkUnique")
     default R addCheckUnique(@RequestParam PK id, @RequestParam String name, @RequestParam String value) {
-        return R.ok(getService().editCheckUnique(id,name,value));
+        return R.ok(getService().editCheckUnique(id, name, value));
     }
 
 }

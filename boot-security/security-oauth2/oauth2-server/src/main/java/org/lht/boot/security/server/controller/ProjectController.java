@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author LiHaitao
- * @description       项目
+ * @description 项目
  * @date 2020/7/14 18:44
  **/
 @RestController
-@RequestMapping
+@RequestMapping("/project")
 public class ProjectController extends AbstractController<Project, Integer, ProjectVO, ProjectService> {
 }

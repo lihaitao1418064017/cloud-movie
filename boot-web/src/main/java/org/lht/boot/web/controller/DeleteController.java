@@ -3,13 +3,16 @@ package org.lht.boot.web.controller;
 import cn.hutool.http.HttpStatus;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.Validate;
-import org.lht.boot.web.api.param.Param;
 import org.lht.boot.lang.util.R;
+import org.lht.boot.web.api.param.Param;
 import org.lht.boot.web.api.param.util.ParamServletUtil;
 import org.lht.boot.web.common.annotation.AccessLogger;
 import org.lht.boot.web.service.DeleteService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -96,7 +99,7 @@ public interface DeleteController<PK> {
     @DeleteMapping("/deleteByIds")
     @ResponseBody
     @AccessLogger("根据id批量删除")
-    default R delete(@RequestParam List<PK> ids) {
+    default R delete(@RequestBody List<PK> ids) {
         int result = getService().delete(ids);
         return R.ok(result);
     }

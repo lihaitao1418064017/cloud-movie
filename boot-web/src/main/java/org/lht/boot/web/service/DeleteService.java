@@ -47,7 +47,7 @@ public interface DeleteService<PK> extends Service {
      */
     default int delete(Collection<PK> ids) {
         if (CollectionUtil.isNotEmpty(ids)) {
-            ids.stream().map(this::delete);
+            ids.stream().forEach(this::delete);
         } else {
             return 0;
         }

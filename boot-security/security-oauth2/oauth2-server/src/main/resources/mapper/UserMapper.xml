@@ -34,13 +34,8 @@
         role.name AS role_name,
         role.sign AS role_sign
         FROM
-        (select * from user limit ${start}, ${size}) u
-        LEFT JOIN user_role
-        ON
-        user_role.user_id = u.id
-        LEFT JOIN role
-        ON
-        role_id = role.id
+        (select * from user
+
         <if test="terms !=null and terms.size() > 0  ">
             WHERE
             <foreach collection="terms" open="" separator="and" close="" item="term">
@@ -77,6 +72,14 @@
                 </if>
             </foreach>
         </if>
+        limit ${start}, ${size}) u
+        LEFT JOIN user_role
+        ON
+        user_role.user_id = u.id
+        LEFT JOIN role
+        ON
+        role_id = role.id
+
     </select>
 
 
