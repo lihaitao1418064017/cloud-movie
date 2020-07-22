@@ -13,6 +13,9 @@ import lombok.Data;
 @Data
 public abstract class BaseCrudEntity<PK> implements Entity<PK> {
 
+    /**
+     * 状态码，0无效，1有效
+     */
     @TableField(value = "status", fill = FieldFill.INSERT)
     private Integer status;
 

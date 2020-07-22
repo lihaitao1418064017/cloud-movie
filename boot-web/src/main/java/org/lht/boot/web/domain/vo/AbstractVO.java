@@ -15,13 +15,27 @@ import java.io.Serializable;
 public abstract class AbstractVO<E, PK extends Serializable> implements CrudVO<E, PK> {
 
 
+    /**
+     * 状态码，0无效，1有效
+     */
     private Integer status;
+    /**
+     * 创建用户
+     */
+    private String creatorUser;
 
-    private String creatorId;
-
+    /**
+     * 创建时间
+     */
     private Long createTime;
 
-    private String updaterId;
+    /**
+     * 更新用户
+     */
+    private String updateUser;
 
+    /**
+     * 更新时间
+     */
     private Long updateTime;
 }

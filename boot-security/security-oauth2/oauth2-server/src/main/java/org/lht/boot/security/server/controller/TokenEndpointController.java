@@ -29,9 +29,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author lengleng
- * @date 2019/2/1
- * 删除token端点
+ * @description:
+ * @author: LiHaitao
+ * @date: 2020/7/22 11:00
  */
 @RestController
 @AllArgsConstructor

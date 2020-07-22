@@ -13,7 +13,7 @@ import java.util.List;
  **/
 @Getter
 @Setter
-public abstract class AbstractTreeVO<E,VO extends AbstractTreeVO, PK extends Serializable> implements CrudVO<E, PK> {
+public abstract class AbstractTreeVO<E, VO extends AbstractTreeVO, PK extends Serializable> extends AbstractVO<E, PK> {
 
     private PK pid;
 
