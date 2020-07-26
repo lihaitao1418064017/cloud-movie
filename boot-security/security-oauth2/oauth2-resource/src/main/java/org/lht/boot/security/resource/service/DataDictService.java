@@ -1,6 +1,8 @@
 package org.lht.boot.security.resource.service;
 
 import org.lht.boot.security.resource.entity.DataDict;
+import org.lht.boot.web.api.param.PagerResult;
+import org.lht.boot.web.api.param.QueryParam;
 import org.lht.boot.web.service.CrudTreeService;
 
 /**
@@ -10,4 +12,10 @@ import org.lht.boot.web.service.CrudTreeService;
  **/
 public interface DataDictService extends CrudTreeService<DataDict, String> {
 
+    /**
+     * 获取字典类型
+     * @param queryParam
+     * @return
+     */
+    PagerResult<DataDict> typePage(QueryParam queryParam);
 }

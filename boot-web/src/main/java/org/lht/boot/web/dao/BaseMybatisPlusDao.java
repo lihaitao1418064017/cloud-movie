@@ -1,5 +1,6 @@
 package org.lht.boot.web.dao;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.lht.boot.web.api.param.PagerResult;
@@ -23,15 +24,15 @@ public interface BaseMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper
      * @return
      */
     default PagerResult<E> selectPage(QueryParam queryParam) {
-        PagerResult<E> page = new PagerResult<E>();
-        page.setCurrent(queryParam.getPageNo());
-        page.setSize(queryParam.getPageSize());
+        PagerResult<E> page = ParamMybatisUtil.buildPage(queryParam);
         IPage<E> iPage = selectPage(page, ParamMybatisUtil.toQueryWrapper(queryParam));
         page.setTotalPages(iPage.getPages());
         page.setTotal(iPage.getTotal());
         page.setRecords(iPage.getRecords());
         return page;
     }
+
+
 
 
     default <Q extends Param> int delete(Q param) {

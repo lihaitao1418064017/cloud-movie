@@ -2,6 +2,7 @@ package org.lht.boot.web.api.param.util;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.lht.boot.lang.util.ClassUtil;
 import org.lht.boot.web.api.param.*;
@@ -43,6 +44,14 @@ public class ParamMybatisUtil {
             termToQueryWrapper(term, queryWrapper);
         });
         return queryWrapper;
+    }
+
+
+    public static  PagerResult buildPage(QueryParam queryParam) {
+        PagerResult page = new PagerResult();
+        page.setCurrent(queryParam.getPageNo());
+        page.setSize(queryParam.getPageSize());
+        return page;
     }
 
     private static <E> void buildFieldsWrapper(Param queryParam, QueryWrapper<E> queryWrapper) {
