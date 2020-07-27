@@ -5,8 +5,10 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.lht.boot.lang.util.BeanUtils;
 import org.lht.boot.lang.util.ReflectionUtil;
+import org.lht.boot.web.domain.entity.Teacher;
 import org.lht.boot.web.domain.entity.User;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -46,5 +48,15 @@ public class UtilTest {
         user.setAge(34);
         Map map = BeanUtils.objectToMap(user, false);
         log.info("map:{}", map);
+    }
+
+    @Test
+    public void test02() throws NoSuchFieldException, IllegalAccessException {
+        Teacher teacher = new Teacher();
+        teacher.setName("lihaitao");
+        Class<? extends Teacher> aClass = teacher.getClass();
+        Field name = aClass.getDeclaredField("name");
+        name.setAccessible(true);
+        System.out.println(name.get(teacher));
     }
 }

@@ -116,7 +116,7 @@ public class AbstractEsCrudServiceImpl<E extends BaseCrudEntity<PK>, PK extends 
     @Override
     public boolean editCheckUnique(PK pk, String name, Object value) {
         E e = this.selectSingle(QueryParam.build(Term.build(name, value)));
-        if (e==null||e.getId().equals(pk)){
+        if (e == null || e.getId().equals(pk)) {
             return false;
         }
         return true;
