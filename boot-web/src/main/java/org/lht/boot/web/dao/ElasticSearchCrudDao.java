@@ -12,7 +12,6 @@ import io.searchbox.client.JestResult;
 import io.searchbox.core.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;
-import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
@@ -40,6 +39,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+//import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
  * @author LiHaitao
@@ -269,15 +269,15 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
         try {
             Map map = BeanUtils.objectToMap(e, true);
             map.remove("id");
-            String update = XContentFactory
-                    .jsonBuilder()
-                    .startObject()
-                    .field("query", queryBuilder)
-                    .startObject("script")
-                    .field("inline", JestUtil.buildScript(map, true))
-                    .endObject()
-                    .endObject()
-                    .string();
+            String update =
+                    jsonBuilder()
+                            .startObject()
+                            .field("query", queryBuilder)
+                            .startObject("script")
+                            .field("inline", JestUtil.buildScript(null, true))
+                            .endObject()
+                            .endObject()
+                            .string();
             UpdateByQuery.Builder builder = new UpdateByQuery
                     .Builder(update)
                     .refresh(refresh)
@@ -376,8 +376,7 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
                     .startObject("script")
                     .field("inline", JestUtil.buildScript(BeanUtils.beanToMap(updateParam.getData()), false))
                     .endObject()
-                    .endObject()
-                    .string();
+                    .endObject().string();
         } catch (IOException e) {
             throw new CommonException(e.getMessage());
         }

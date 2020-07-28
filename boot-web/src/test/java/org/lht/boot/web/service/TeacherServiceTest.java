@@ -52,7 +52,8 @@ public class TeacherServiceTest {
         Teacher teacher = new Teacher();
         teacher.setName("Yuanchun");
         teacher.setAge(100);
-        teacher.setId("eba7494105d041bfa3629b10308d88d3");
+        teacher.setId("d24d1f4b97ed4c3eb2d3a108cd94003c");
+        teacher.setCreateTime(10000000000000000L);
         teacherService.update(teacher);
     }
 

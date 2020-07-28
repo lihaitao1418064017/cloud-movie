@@ -11,6 +11,7 @@ import org.lht.boot.web.domain.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,8 +90,15 @@ public class TeacherDaoTest {
     }
 
     @Test
-    public void getAll() {
-
+    public void getAll() throws IOException {
+        //        jsonBuilder()
+        //                .startObject()
+        //                .field("query", queryBuilder)
+        //                .startObject("script")
+        //                .field("inline", JestUtil.buildScript(null, true))
+        //                .endObject()
+        //                .endObject()
+        //                .string();
     }
 
     @Test

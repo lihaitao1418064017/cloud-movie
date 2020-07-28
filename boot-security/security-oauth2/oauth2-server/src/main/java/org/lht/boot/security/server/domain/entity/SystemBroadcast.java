@@ -1,5 +1,6 @@
 package org.lht.boot.security.server.domain.entity;
 
+import io.searchbox.annotations.JestId;
 import lombok.Data;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.domain.entity.EsEntity;
@@ -13,6 +14,7 @@ import org.lht.boot.web.domain.entity.EsEntity;
 @EsEntity(index = "system_broadcast", type = "system_broadcast", alias = "system_broadcast")
 public class SystemBroadcast extends BaseCrudEntity<String> {
 
+    @JestId
     private String id;
 
     /**
