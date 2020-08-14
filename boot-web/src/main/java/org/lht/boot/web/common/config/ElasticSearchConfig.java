@@ -1,5 +1,7 @@
 package org.lht.boot.web.common.config;
 
+//import org.elasticsearch.client.RestHighLevelClient;
+
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -16,6 +18,13 @@ public class ElasticSearchConfig {
     //                .registerTypeAdapter(Double.class, new DoubleTypeConverter())
     //                .create();
     //        return gson;
+    //    }
+
+    //    @Autowired
+    //    RestHighLevelClient restHighLevelClient;
+    //
+    //    public void getClient() {
+    //        restHighLevelClient.dele
     //    }
 
 }

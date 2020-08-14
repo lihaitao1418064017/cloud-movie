@@ -32,8 +32,6 @@ public class AopAuthorizeAdvisor {
 
     @Around("controller()")
     public Object process(ProceedingJoinPoint pjp) throws Throwable {
-
-
         Object[] arguments = pjp.getArgs();
         Method method = null;
         Signature signature = pjp.getSignature();
@@ -53,12 +51,14 @@ public class AopAuthorizeAdvisor {
                     Authentication authentication = auth.get();
                     name = authentication.getName();
                 }
+                // TODO: 2020/8/14 临时解决方案，es对公共字段填充策略目前先按如下方法
                 if (method.getName().equals("add") && abstractVO.getCreateTime() == null && abstractVO.getCreatorUser() == null) {
                     abstractVO.setCreateTime(SystemClock.now());
                     abstractVO.setCreatorUser(name);
                 }
                 abstractVO.setUpdateUser(name);
                 abstractVO.setUpdateTime(SystemClock.now());
+                //如果是添加方法，设置create字段
             }
         }
         return pjp.proceed(arguments);

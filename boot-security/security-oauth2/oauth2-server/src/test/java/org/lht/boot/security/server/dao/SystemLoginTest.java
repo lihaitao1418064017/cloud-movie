@@ -1,9 +1,6 @@
 package org.lht.boot.security.server.dao;
 
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.jupiter.api.Test;
 import org.lht.boot.security.server.domain.entity.SystemLoginInfo;
 import org.lht.boot.web.api.param.QueryParam;
@@ -11,7 +8,6 @@ import org.lht.boot.web.api.param.Term;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -30,33 +26,24 @@ public class SystemLoginTest {
     @Test
     public void test01() {
         QueryParam queryParam = new QueryParam();
-        queryParam.addTerms(Lists.newArrayList(Term.build("msg", "登出成功")));
-        queryParam.addTerm(Term.build("username", "123456"));
+        queryParam.addTerm(Term.build("id", "4d865ca25fc54305a07db6c3052123"));
         List<SystemLoginInfo> select = dao.select(queryParam);
     }
 
     @Test
     public void test02() {
         SystemLoginInfo systemLoginInfo = new SystemLoginInfo();
-        systemLoginInfo.setId("123123123");
+        systemLoginInfo.setId("4d865ca25fc54305a07db6c3052123");
         systemLoginInfo.setCreateTime(10000000000000000L);
-        dao.update(systemLoginInfo);
+        dao.patch(systemLoginInfo);
     }
 
-
     @Test
-    public void test03() throws IOException {
-        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-        queryBuilder.should(QueryBuilders.termQuery("_id", "123123123"));
-
-        //        XContentFactory.jsonBuilder()
-        //                .startObject()
-        //                .field("query", queryBuilder)
-        //                .startObject("script")
-        //                .field("inline", JestUtil.buildScript(null, true))
-        //                .endObject()
-        //                .endObject()
-        //                .string();
+    public void test04() {
+        SystemLoginInfo systemLoginInfo = new SystemLoginInfo();
+        systemLoginInfo.setId("4d865ca25fc54305a07db6c3052123");
+        systemLoginInfo.setCreateTime(10000000000000000L);
+        dao.add(systemLoginInfo);
     }
 
 

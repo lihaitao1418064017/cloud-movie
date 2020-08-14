@@ -267,14 +267,14 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
         queryBuilder.should(QueryBuilders.termQuery("_id", e.getId()));
         try {
-            Map map = BeanUtils.objectToMap(e, true);
+            Map map = BeanUtils.objectToMap(e, false);
             map.remove("id");
             String update =
                     jsonBuilder()
                             .startObject()
                             .field("query", queryBuilder)
                             .startObject("script")
-                            .field("inline", JestUtil.buildScript(null, true))
+                            .field("inline", JestUtil.buildScript(map, true))
                             .endObject()
                             .endObject()
                             .string();
@@ -353,6 +353,7 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
     @Override
     public PK patch(E e) {
         Map map = BeanUtils.objectToMap(e, false);
+        map.remove("id");
         String idOrCode = JestUtil.buildScript(map, false);
         return update(idOrCode, Maps.newHashMap(), e, true);
     }

@@ -9,6 +9,7 @@ import org.lht.boot.web.common.event.AccessLoggerEvent;
 import org.lht.boot.web.domain.entity.AccessLoggerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class AccessLogListener implements ApplicationListener<AccessLoggerEvent>
     @Autowired
     private AccessLogService accessLogService;
 
+    @Async
     @Override
     public void onApplicationEvent(AccessLoggerEvent accessLoggerEvent) {
         AccessLoggerInfo source = accessLoggerEvent.getSource();

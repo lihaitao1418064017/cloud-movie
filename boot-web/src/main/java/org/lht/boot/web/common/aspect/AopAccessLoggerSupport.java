@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 
 /**
- * @description: 使用AOP记录访问日志, 并触发{@link org.lht.boot.web.common.event.AccessLoggerEvent}
+ * @description:
  * @author: LiHaitao
  * @date: 2020/7/13 13:08
  */

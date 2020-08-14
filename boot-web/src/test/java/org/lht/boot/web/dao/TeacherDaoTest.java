@@ -61,6 +61,7 @@ public class TeacherDaoTest {
         teacher.setGrade("高一（2）班");
         teacher.setId("d24d1f4b97ed4c3eb2d3a108cd94003c");
         teacherEsDao.update(teacher);
+        //        teacherEsDao.patch()
     }
 
     @Test
