@@ -19,7 +19,7 @@ public class KafkaClusterProperties {
 
     private Integer concurrency;
 
-    private List<String> bootstrapServers = Lists.newArrayList("localhost:9092");
+    private List<String> bootstrapServers = Lists.newArrayList("47.99.216.57:9092");
 
     private String sessionTimeoutMs = "60000";
 

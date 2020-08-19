@@ -15,8 +15,23 @@ import org.springframework.stereotype.Component;
 public class KafkaConsumer {
 
 
-    @KafkaListener(topics = {"${cvf.viid.kafka.topic:Notify}"}, containerFactory = "basicKafkaListenerContainerFactory")
+    @KafkaListener(topics = {"order"}, containerFactory = "basicKafkaListenerContainerFactory")
     public void listener(KafkaMessage<String> message) {
         log.info("message:{}", message);
+        System.err.println("333333333333333333333333");
+
+    }
+
+    @KafkaListener(topics = "order")
+    public void listener1(String message) {
+        log.info("message1:{}", message);
+        System.err.println("222222222222222222222");
+
+    }
+
+    @KafkaListener(topics = {"order"})
+    public void listener2(String message) {
+        log.info("message2:{}", message);
+        System.err.println("111111111111111111111111111");
     }
 }

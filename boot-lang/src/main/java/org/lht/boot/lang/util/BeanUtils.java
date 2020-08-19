@@ -3,6 +3,7 @@ package org.lht.boot.lang.util;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -50,4 +51,22 @@ public class BeanUtils extends BeanUtil {
         return objectToMap(object, true);
     }
 
+
+    /**
+     * 对象深度克隆
+     *
+     * @param t
+     * @param <T>
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static <T> T clone(T t) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bout);
+        oos.writeObject(t);
+        ByteArrayInputStream bin = new ByteArrayInputStream(bout.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bin);
+        return (T) ois.readObject();
+    }
 }

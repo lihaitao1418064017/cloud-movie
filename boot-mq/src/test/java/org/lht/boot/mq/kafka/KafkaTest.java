@@ -60,4 +60,12 @@ public class KafkaTest {
         kafkaSender.send("cvf_caseEventData", caseEvent);
 
     }
+
+
+    @Test
+    public void test01() {
+        String topic = "order";
+
+        kafkaSender.send(topic, "nihao");
+    }
 }

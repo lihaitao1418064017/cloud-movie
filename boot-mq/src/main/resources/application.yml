@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: 10.68.7.131:19092
+    bootstrap-servers: 47.99.216.57:9092
     consumer:
       group-id: test1
       auto-offset-reset: earliest
@@ -26,7 +26,8 @@ spring:
 # **********************kafka自定义配置***********************
 kafka:
   cluster:
-    bootstrap-servers: 10.65.3.17:29092
+    bootstrap-servers: 47.99.216.57:9092
+
 
 #*********************自定义连接的activemq消费配置*************
 activemq:

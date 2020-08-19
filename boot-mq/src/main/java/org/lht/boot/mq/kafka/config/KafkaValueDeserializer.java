@@ -18,11 +18,9 @@ public class KafkaValueDeserializer implements Deserializer<KafkaMessage> {
         String data = new String(bytes);
         KafkaMessage kafkaMessage = new KafkaMessage();
         kafkaMessage.setTopic(topic);
-        JSONObject dataObject;
         try {
             JSONObject jsonObject = JSONObject.parseObject(data);
-            dataObject = jsonObject.getJSONObject("data");
-            kafkaMessage.setData(dataObject);
+            kafkaMessage.setData(jsonObject);
         } catch (JSONException e) {
             kafkaMessage.setData(data);
             return kafkaMessage;
