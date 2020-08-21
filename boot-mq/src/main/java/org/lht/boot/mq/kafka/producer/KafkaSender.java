@@ -20,8 +20,7 @@ public class KafkaSender<K, V> extends KafkaTemplate<K, V> {
 
     public KafkaSender(ProducerFactory<K, V> producerFactory, KafkaProducerListener<K, V> kvKafkaProducerListener) {
         super(producerFactory);
-        KafkaProducerListener<K, V> kafkaProducerListener = kvKafkaProducerListener;
-        setProducerListener(kafkaProducerListener);
+        setProducerListener(kvKafkaProducerListener);
     }
 
     public KafkaSender(ProducerFactory<K, V> producerFactory) {

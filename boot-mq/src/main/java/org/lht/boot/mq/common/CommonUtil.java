@@ -29,7 +29,7 @@ public class CommonUtil {
             jsonObject.put("timestamp", System.currentTimeMillis());
             return jsonObject.toJSONString();
         } catch (Exception e) {
-            return null;
+            return String.valueOf(data);
         }
     }
 }

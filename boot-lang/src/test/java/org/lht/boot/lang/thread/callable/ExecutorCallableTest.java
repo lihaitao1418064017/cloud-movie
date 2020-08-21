@@ -61,6 +61,7 @@ public class ExecutorCallableTest {
             return "callable--02";
         };
 
+
         Future<String> callableFuture1 = executorService.submit(callable1);
 
         Future<String> callableFuture2 = executorService.submit(callable2);
@@ -92,7 +93,7 @@ public class ExecutorCallableTest {
             };
             Future<String> submit = executorService.submit(callable1);
             queue.add(submit);
-//            objects.add(submit.get());
+            //            objects.add(submit.get());
         }
         while (CollectionUtil.isNotEmpty(queue)) {
             Future poll = queue.poll();
@@ -113,12 +114,12 @@ public class ExecutorCallableTest {
             @Override
             public void run() {
                 for (int i = 0; i < 10; i++) {
-                    int j=i;
+                    int j = i;
                     executorService.execute(() -> {
                         try {
                             Thread.sleep(1000);
 
-                            log.info("i:{}",j);
+                            log.info("i:{}", j);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -132,7 +133,7 @@ public class ExecutorCallableTest {
                 }
             }
         };
-//        runnable.run();
+        //        runnable.run();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

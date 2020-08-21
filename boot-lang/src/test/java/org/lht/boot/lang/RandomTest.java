@@ -76,7 +76,7 @@ public class RandomTest {
         pairs
                 .stream()
                 .forEach(i -> {
-                    Arrays.stream(i).forEach(System.out::println);
+                    Arrays.stream(i).forEach(System.out::print);
                 });
     }
 
