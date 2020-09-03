@@ -66,6 +66,9 @@ public class IpUtils {
     }
 
     public static void main(String[] args) {
+
+
+
         String v4IP = getV4IP();
         System.out.println(v4IP);
     }
@@ -78,7 +81,6 @@ public class IpUtils {
     public static String getV4IP() {
         String chinaz = "http://ip.chinaz.com";
 
-        String s = RestTemplateUtil.exchangeHandle(chinaz, HttpMethod.GET, String.class);
         String ip = "";
 
         StringBuilder inputLine = new StringBuilder();
