@@ -28,6 +28,8 @@ public class SystemLoginInfoController extends AbstractController<SystemLoginInf
     public R<String> add(@RequestBody SystemLoginInfoVO data) {
         data.setAccessTime(new Date());
         data.setIpAddress(IpUtils.getIpAddr(ServletUtil.getServletRequest()));
+
+        data.setAddress("");
         return R.ok(service.insert(voToEntity(data)));
     }
 }

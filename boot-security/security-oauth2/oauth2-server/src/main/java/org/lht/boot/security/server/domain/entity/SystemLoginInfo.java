@@ -37,6 +37,11 @@ public class SystemLoginInfo extends BaseCrudEntity<String> {
     private String msg;
 
     /**
+     * 登录地点
+     */
+    private String address;
+
+    /**
      * 访问时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

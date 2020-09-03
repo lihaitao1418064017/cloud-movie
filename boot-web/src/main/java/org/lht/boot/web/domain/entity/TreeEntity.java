@@ -14,10 +14,19 @@ import java.util.List;
 @Data
 public abstract class TreeEntity<PK, E> extends BaseCrudEntity<PK> {
 
+    /**
+     * 父id
+     */
     private PK pid;
 
+    /**
+     * path
+     */
     private String path;
 
+    /**
+     * 等级
+     */
     private Integer level;
 
     /**

@@ -29,6 +29,11 @@ public class SystemLoginInfoVO extends AbstractVO<SystemLoginInfo, String> {
     private String ipAddress;
 
     /**
+     * 登录地址
+     */
+    private String address;
+
+    /**
      * 描述
      */
     private String msg;
