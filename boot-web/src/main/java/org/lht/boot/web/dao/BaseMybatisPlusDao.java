@@ -1,6 +1,5 @@
 package org.lht.boot.web.dao;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.lht.boot.web.api.param.PagerResult;
@@ -21,7 +20,7 @@ public interface BaseMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper
      * 分页查询
      *
      * @param queryParam
-     * @return
+     * @return 分页结果
      */
     default PagerResult<E> selectPage(QueryParam queryParam) {
         PagerResult<E> page = ParamMybatisUtil.buildPage(queryParam);
@@ -33,8 +32,13 @@ public interface BaseMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper
     }
 
 
-
-
+    /**
+     * 删除
+     *
+     * @param param 查询参数
+     * @param <Q>   泛型继承
+     * @return 删除数量
+     */
     default <Q extends Param> int delete(Q param) {
         return delete(ParamMybatisUtil.toQueryWrapper(param));
     }

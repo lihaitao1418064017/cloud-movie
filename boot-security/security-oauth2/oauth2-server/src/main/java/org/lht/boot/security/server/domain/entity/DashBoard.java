@@ -23,12 +23,12 @@ public class DashBoard {
     /**
      * 用户访问量次
      */
-    private String loginNumber;
+    private Long loginNumber;
 
     /**
      * 系统消息总数
      */
-    private String totalMessage;
+    private Long totalMessage;
 
     /**
      * 用户总数

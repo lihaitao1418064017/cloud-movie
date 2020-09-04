@@ -6,14 +6,12 @@ import org.lht.boot.web.domain.vo.AbstractVO;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 项目
  * @date 2020/7/14 17:31
  **/
 @Data
 public class ProjectVO extends AbstractVO<Project, Integer> {
 
-
-    private Integer id;
 
     private String clientId;
 

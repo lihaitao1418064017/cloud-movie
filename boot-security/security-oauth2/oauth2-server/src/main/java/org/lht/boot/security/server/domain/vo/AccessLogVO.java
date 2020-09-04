@@ -9,14 +9,12 @@ import java.util.Date;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 访问日志
  * @date 2020/7/13 17:31
  **/
 @Data
 public class AccessLogVO extends AbstractVO<AccessLog, String> {
 
-
-    private String id;
 
     /**
      * 访问的操作

@@ -8,6 +8,8 @@ import org.springframework.security.authentication.event.LogoutSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import static org.lht.boot.security.server.common.constant.OAuth2CommonConstant.LOGOUT_SUCCESS;
+
 /**
  * @description: 登出成功事件
  * @author: LiHaitao
@@ -26,7 +28,7 @@ public class LogoutSuccessEventHandler implements ApplicationListener<LogoutSucc
         String username = authentication.getName();
         SystemLoginInfo info = new SystemLoginInfo();
         info.setUsername(username);
-        info.setMsg("登出成功");
+        info.setMsg(LOGOUT_SUCCESS);
         systemLoginInfoService.add(info);
 
     }

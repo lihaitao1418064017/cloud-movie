@@ -5,7 +5,7 @@ import org.lht.boot.security.server.domain.entity.SystemBroadcast;
 import org.lht.boot.web.service.AbstractEsCrudService;
 
 /**
- * @description:
+ * @description: 系统广播
  * @author: LiHaitao
  * @date: 2020/7/14 14:34
  */

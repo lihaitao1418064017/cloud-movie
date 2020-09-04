@@ -7,7 +7,7 @@ import org.lht.boot.web.service.AbstractEsCrudService;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 系统登录信息
  * @date 2020/7/14 17:08
  **/
 public interface SystemLoginInfoService extends AbstractEsCrudService<SystemLoginInfo, String, SystemLoginInfoDao> {

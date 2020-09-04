@@ -5,7 +5,7 @@ import org.lht.boot.web.service.BaseCrudService;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 项目管理
  * @date 2020/7/14 17:08
  **/
 public interface ProjectService extends BaseCrudService<Project, Integer> {

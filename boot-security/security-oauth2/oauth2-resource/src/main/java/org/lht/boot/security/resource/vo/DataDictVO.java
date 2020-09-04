@@ -5,7 +5,7 @@ import org.lht.boot.security.resource.entity.DataDict;
 import org.lht.boot.web.domain.vo.AbstractTreeVO;
 
 /**
- * Description:
+ * Description: 数据字典VO
  *
  * @Author lht
  * @Date 2020/7/10 下午9:25
@@ -13,7 +13,6 @@ import org.lht.boot.web.domain.vo.AbstractTreeVO;
 @Data
 public class DataDictVO extends AbstractTreeVO<DataDict, DataDictVO, String> {
 
-    private String id;
 
     /**
      * 参数名称

@@ -7,5 +7,13 @@ package org.lht.boot.security.server.common.constant;
  **/
 public class OAuth2CommonConstant {
 
+    /**
+     * 系统访问记录，登录成功
+     */
+    public static final String LOGIN_SUCCESS = "登录成功";
 
+    /**
+     * 系统访问记录，登出成功
+     */
+    public static final String LOGOUT_SUCCESS = "登出成功";
 }

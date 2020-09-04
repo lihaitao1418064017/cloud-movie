@@ -7,7 +7,7 @@ import org.lht.boot.web.service.impl.AbstractEsCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
- * @description:
+ * @description: 系统公告
  * @author: LiHaitao
  * @date: 2020/7/14 14:35
  */

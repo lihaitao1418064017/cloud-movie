@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 主页
  * @date 2020/9/3 16:06
  **/
 @RestController

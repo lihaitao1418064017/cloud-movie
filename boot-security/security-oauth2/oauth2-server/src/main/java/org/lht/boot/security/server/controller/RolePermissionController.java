@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Description:
+ * Description:角色和权限关联接口
  *
  * @Author lht
  * @Date 2020/3/25 8:07 PM
@@ -27,9 +27,15 @@ import java.util.List;
 @AccessLogger("角色权限关联模块")
 public class RolePermissionController extends AbstractController<RolePermission, Integer, RolePermissionVO, RolePermissionService> {
 
+    /**
+     * 更新或者添加
+     *
+     * @param vos 角色和权限id的vo
+     * @return 保存结果
+     */
     @PutMapping("/saveOrUpdate")
     public R<Integer> saveOrUpdate(@RequestBody List<RolePermissionVO> vos) {
-        if (CollectionUtil.isEmpty(vos)){
+        if (CollectionUtil.isEmpty(vos)) {
             return R.ok();
         }
         return R.ok(service.saveOrUpdate(vosToEntities(vos)));

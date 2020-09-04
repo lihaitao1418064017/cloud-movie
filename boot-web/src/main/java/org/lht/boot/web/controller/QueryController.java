@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author LiHaitao
- * @description QueryController:
+ * @description QueryController:查询
  * @date 2020/1/14 18:38
  **/
 public interface QueryController<E, PK, VO, Q extends Param> {

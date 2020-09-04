@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author LiHaitao
- * @description UpdateController:
+ * @description UpdateController:更新
  * @date 2020/1/14 20:11
  **/
 public interface UpdateController<E, PK, VO> {

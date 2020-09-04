@@ -11,6 +11,8 @@ import org.springframework.http.HttpMethod;
  **/
 public class LoginAddressUtil {
 
+    private static final String uri = "http://whois.pconline.com.cn/ipJson.jsp?ip=223.104.145.125&json=true";
+
     /**
      * 通过IP获取城市地址
      *
@@ -40,7 +42,7 @@ public class LoginAddressUtil {
      * @return
      */
     public static JSONObject getAddressInfo(String ip) {
-        String result = RestTemplateUtil.exchangeHandle("http://whois.pconline.com.cn/ipJson.jsp?ip=223.104.145.125&json=true", HttpMethod.GET, String.class);
+        String result = RestTemplateUtil.exchangeHandle(uri, HttpMethod.GET, String.class);
         return JSONObject.parseObject(result);
     }
 

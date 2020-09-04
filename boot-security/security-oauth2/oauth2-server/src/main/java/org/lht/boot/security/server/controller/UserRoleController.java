@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Description:
+ * Description:用户和角色相关接口
  *
  * @Author lht
  * @Date 2020/3/25 8:00 PM
@@ -29,9 +28,15 @@ import java.util.List;
 public class UserRoleController extends AbstractController<UserRole, Integer, UserRoleVO, UserRoleService> {
 
 
+    /**
+     * 添加或更新
+     *
+     * @param vos 角色和用户id关联vo
+     * @return 保存结果
+     */
     @PutMapping("/saveOrUpdate")
-    public R<Integer> saveOrUpdate( @RequestBody  List<UserRoleVO> vos) {
-        if (CollectionUtil.isEmpty(vos)){
+    public R<Integer> saveOrUpdate(@RequestBody List<UserRoleVO> vos) {
+        if (CollectionUtil.isEmpty(vos)) {
             return R.ok();
         }
         return R.ok(service.saveOrUpdate(vosToEntities(vos)));

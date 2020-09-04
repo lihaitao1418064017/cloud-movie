@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 
 /**
  * @author LiHaitao
- * @description CovertToVO:
+ * @description CovertToVO: entity转换vo
  * @date 2020/1/15 14:51
  **/
 public interface CovertToVO<E> {

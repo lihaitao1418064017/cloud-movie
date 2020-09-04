@@ -9,7 +9,7 @@ import org.lht.boot.web.domain.entity.User;
  * @date 2020/1/15 14:22
  **/
 @Data
-public class UserVO implements CrudVO<User, String> {
+public class UserVO implements CrudVO<User> {
 
     private String id;
 

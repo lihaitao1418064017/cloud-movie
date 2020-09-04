@@ -39,7 +39,6 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-//import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
  * @author LiHaitao
@@ -140,9 +139,6 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
         return (PK) result.getId();
     }
 
-    private String getIndex() {
-        return this.esEntity.index();
-    }
 
     private String buildPk(E e) {
         String id = (String) e.getId();
@@ -175,6 +171,12 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
     }
 
 
+    /**
+     * 构造update对象
+     *
+     * @param data
+     * @return
+     */
     private Update build(E data) {
         String payload;
         JSONObject jsonObject = new JSONObject();
@@ -291,6 +293,15 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
     }
 
 
+    /**
+     * 部分更新
+     *
+     * @param idOrCode
+     * @param params
+     * @param entity
+     * @param refresh
+     * @return
+     */
     public PK update(String idOrCode, Map<String, Object> params, E entity, boolean refresh) {
         Script script = new Script(Script.DEFAULT_SCRIPT_TYPE, Script.DEFAULT_SCRIPT_LANG, idOrCode, params);
         Update.Builder builder = new Update
@@ -367,6 +378,7 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public int patch(UpdateParam<E> updateParam) {
         String update;
@@ -391,34 +403,68 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
     }
 
 
+    /**
+     * 获取索引别名
+     *
+     * @return 索引
+     */
     private String getAlias() {
         return this.esEntity.alias() == null ? esEntity.index() : this.esEntity.alias();
     }
 
+    /**
+     * 获取索引类型
+     *
+     * @return 类型
+     */
     public String getType() {
         return this.esEntity.type();
     }
 
+    /**
+     * 设置es刷新
+     *
+     * @param refresh 是否刷新
+     */
     public void setRefresh(Boolean refresh) {
         this.refresh = refresh;
     }
 
+    /**
+     * 获取查询的最大数
+     *
+     * @return 结果
+     */
     public Integer getSearchMaxSize() {
         return searchMaxSize;
     }
 
+    /**
+     * 设置最大查询数
+     *
+     * @param searchMaxSize 设置的数量
+     */
     public void setSearchMaxSize(Integer searchMaxSize) {
         this.searchMaxSize = searchMaxSize;
     }
 
 
     /**
+     * 获取索引
+     *
+     * @return 索引
+     */
+    private String getIndex() {
+        return this.esEntity.index();
+    }
+
+    /**
      * 聚合查询
      *
      * @param aggregationParam
-     * @param clazz
+     * @param clazz            聚合后的类型
      * @param <T>
-     * @return
+     * @return 聚合结果
      */
     public <T> List<T> select(AggregationParam aggregationParam, Class<T> clazz) {
         Search.Builder builder = ParamEsUtil
@@ -435,10 +481,10 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
 
 
     /**
-     * 嵌套查询
+     * 嵌套分页查询
      *
      * @param param
-     * @return
+     * @return 分页结果
      */
     public <Q extends Param> PagerResult<E> nestedSelectPage(Q param) {
         if (param instanceof QueryParam) {
@@ -449,6 +495,13 @@ public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Seria
         return new PagerResult<>();
     }
 
+    /**
+     * 获取分页结果
+     *
+     * @param queryParam
+     * @param builder
+     * @return 分页结果
+     */
     private PagerResult<E> getPagerResult(QueryParam queryParam, Search.Builder builder) {
         builder.addIndex(getAlias()).addType(getType());
         SearchResult result = JestUtil.execute(jestClient, gson, builder.build());

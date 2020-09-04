@@ -10,10 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 /**
  * @author LiHaitao
- * @description OAuth2ServerWebSecurityConfig:
+ * @description OAuth2ServerWebSecurityConfig:security配置
  * @date 2020/5/6 15:12
  **/
-
 @Configuration
 @Order(90)
 @SuppressWarnings("all")

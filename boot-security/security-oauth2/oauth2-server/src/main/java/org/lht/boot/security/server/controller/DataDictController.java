@@ -1,8 +1,6 @@
 package org.lht.boot.security.server.controller;
 
-import com.alibaba.nacos.client.utils.ParamUtil;
 import org.lht.boot.lang.util.R;
-import org.lht.boot.lang.util.ServletUtil;
 import org.lht.boot.security.resource.entity.DataDict;
 import org.lht.boot.security.resource.service.DataDictService;
 import org.lht.boot.security.resource.vo.DataDictVO;
@@ -29,10 +27,16 @@ import javax.servlet.http.HttpServletRequest;
 public class DataDictController extends AbstractTreeController<DataDict, String, DataDictVO, DataDictService> {
 
 
-
+    /**
+     * 获取所有字典类型
+     *
+     * @param param
+     * @param request
+     * @return
+     */
     @GetMapping("/page/type")
     public R<PagerResult<DataDictVO>> typePage(QueryParam param, HttpServletRequest request) {
-        ParamServletUtil.paddingTerms(param,request);
+        ParamServletUtil.paddingTerms(param, request);
         return R.ok(service.typePage(param).convertTo(this::entityToVo));
     }
 }

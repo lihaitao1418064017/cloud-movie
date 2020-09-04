@@ -3,8 +3,6 @@ package org.lht.boot.web.domain.vo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 /**
  * @author LiHaitao
  * @description AbstractVO:
@@ -12,8 +10,12 @@ import java.io.Serializable;
  **/
 @Getter
 @Setter
-public abstract class AbstractVO<E, PK extends Serializable> implements CrudVO<E, PK> {
+public abstract class AbstractVO<E, PK> implements CrudVO<E> {
 
+    /**
+     * 主键id
+     */
+    private PK id;
 
     /**
      * 状态码，0无效，1有效

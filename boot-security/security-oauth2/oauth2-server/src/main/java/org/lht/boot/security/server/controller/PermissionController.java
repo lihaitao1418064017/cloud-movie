@@ -6,14 +6,11 @@ import org.lht.boot.security.resource.entity.Permission;
 import org.lht.boot.security.resource.service.PermissionService;
 import org.lht.boot.security.resource.vo.PermissionVO;
 import org.lht.boot.web.common.annotation.AccessLogger;
-import org.lht.boot.web.controller.AbstractController;
 import org.lht.boot.web.controller.AbstractTreeController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Description:
@@ -29,14 +26,14 @@ public class PermissionController extends AbstractTreeController<Permission, Int
 
     /**
      * 树结构
-     * @param roleId
-     * @return
+     *
+     * @param roleId 角色id
+     * @return 权限列表
      */
     @GetMapping("getByRole/{roleId}")
-    public R getPermissionByRoleId(@PathVariable Integer roleId){
+    public R getPermissionByRoleId(@PathVariable Integer roleId) {
         return R.ok(service.selectTreeByRoleId(roleId));
     }
-
 
 
 }

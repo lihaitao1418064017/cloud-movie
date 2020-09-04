@@ -10,6 +10,8 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import static org.lht.boot.security.server.common.constant.OAuth2CommonConstant.LOGIN_SUCCESS;
+
 /**
  * @description: 认证成功事件
  * @author: LiHaitao
@@ -29,7 +31,7 @@ public class AuthenticationSuccessEventHandler implements ApplicationListener<Au
         String username = authentication.getName();
         SystemLoginInfo info = new SystemLoginInfo();
         info.setUsername(username);
-        info.setMsg("登录成功");
+        info.setMsg(LOGIN_SUCCESS);
         try {
             systemLoginInfoService.add(info);
         } catch (JestException e) {

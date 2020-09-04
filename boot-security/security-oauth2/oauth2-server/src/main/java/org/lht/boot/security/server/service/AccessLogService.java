@@ -5,7 +5,7 @@ import org.lht.boot.security.server.domain.entity.AccessLog;
 import org.lht.boot.web.service.AbstractEsCrudService;
 
 /**
- * @description:
+ * @description: 访问日志
  * @author: LiHaitao
  * @date: 2020/7/13 14:17
  */

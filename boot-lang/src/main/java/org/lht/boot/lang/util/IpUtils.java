@@ -3,7 +3,6 @@ package org.lht.boot.lang.util;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -55,18 +54,17 @@ public class IpUtils {
             logger.error("IpUtils ERROR ", e);
         }
 
-        //        //使用代理，则获取第一个IP地址
-        //        if(StringUtils.isEmpty(ip) && ip.length() > 15) {
-        //			if(ip.indexOf(",") > 0) {
-        //				ip = ip.substring(0, ip.indexOf(","));
-        //			}
-        //		}
+        //使用代理，则获取第一个IP地址
+        if (StringUtils.isEmpty(ip) && ip.length() > 15) {
+            if (ip.indexOf(",") > 0) {
+                ip = ip.substring(0, ip.indexOf(","));
+            }
+        }
 
         return ip;
     }
 
     public static void main(String[] args) {
-
 
 
         String v4IP = getV4IP();

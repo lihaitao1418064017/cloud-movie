@@ -15,7 +15,7 @@ import static org.lht.boot.lang.util.R.ok;
 
 /**
  * @author LiHaitao
- * @description InsertController:
+ * @description InsertController:插入
  * @date 2020/1/15 13:47
  **/
 public interface InsertController<E, PK, VO> {

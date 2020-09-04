@@ -9,6 +9,6 @@ import java.io.Serializable;
  * @description VO:
  * @date 2020/1/15 14:40
  **/
-public interface VO<E, PK> extends Serializable, CovertToVO<E> {
+public interface VO<E> extends Serializable, CovertToVO<E> {
 
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * @author LiHaitao
- * @description DeleteController:
+ * @description DeleteController: 删除
  * @date 2020/1/14 19:52
  **/
 public interface DeleteController<PK> {

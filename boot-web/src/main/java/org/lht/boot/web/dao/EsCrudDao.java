@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author LiHaitao
- * @description CrudDao:
+ * @description CrudDao: crud 总接口
  * @date 2020/1/2 15:32
  **/
 public interface EsCrudDao<E extends BaseCrudEntity<PK>, PK extends Serializable> extends

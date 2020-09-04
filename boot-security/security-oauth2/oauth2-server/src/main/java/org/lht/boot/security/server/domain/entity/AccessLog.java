@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 访问日志
  * @date 2020/7/13 14:23
  **/
 @Data

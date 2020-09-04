@@ -6,7 +6,7 @@ import org.lht.boot.web.domain.vo.AbstractVO;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 系统广播
  * @date 2020/7/14 17:31
  **/
 @Data

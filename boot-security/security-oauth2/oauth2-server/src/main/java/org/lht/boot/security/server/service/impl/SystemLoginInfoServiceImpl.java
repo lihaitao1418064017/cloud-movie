@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 /**
- * @description:
+ * @description: 系统登录
  * @author: LiHaitao
  * @date: 2020/7/14 20:26
  */

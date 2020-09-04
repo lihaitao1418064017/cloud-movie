@@ -4,16 +4,15 @@ import cn.hutool.core.bean.BeanUtil;
 import org.lht.boot.lang.util.ClassUtil;
 import org.lht.boot.lang.util.ReflectionUtil;
 import org.lht.boot.web.api.param.Param;
-import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.domain.vo.CrudVO;
 import org.lht.boot.web.service.CrudService;
 
 /**
  * @author LiHaitao
- * @description
+ * @description 抽象crud controller
  * @date 2020/1/15 14:11
  **/
-public abstract class AbstractCrudController<E , PK, VO extends CrudVO<E, PK>, Q extends Param> implements CrudController<E, PK, VO, Q> {
+public abstract class AbstractCrudController<E, PK, VO extends CrudVO<E>, Q extends Param> implements CrudController<E, PK, VO, Q> {
 
     protected final Class<VO> voClass;
     protected final Class<E> eClass;
