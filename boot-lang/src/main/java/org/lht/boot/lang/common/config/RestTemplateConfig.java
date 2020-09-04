@@ -18,7 +18,14 @@ public class RestTemplateConfig {
         SkipSslVerificationHttpRequestFactory factory = new SkipSslVerificationHttpRequestFactory();
         factory.setReadTimeout(10000);
         factory.setConnectTimeout(15000);
-        return new RestTemplate(factory);
+        RestTemplate restTemplate = new RestTemplate(factory);
+        //设置字符编码
+       /* StringHttpMessageConverter t = new StringHttpMessageConverter();
+        //设置为false就可以修改header中的accept-charset属性
+        t.setWriteAcceptCharset(false);
+        t.setDefaultCharset(StandardCharsets.UTF_8);
+        restTemplate.getMessageConverters().add(0, t);*/
+        return restTemplate;
     }
 
 
