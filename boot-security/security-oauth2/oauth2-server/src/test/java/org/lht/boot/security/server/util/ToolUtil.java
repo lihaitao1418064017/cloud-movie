@@ -22,7 +22,7 @@ public class ToolUtil {
 
     @Test
     public void test02() {
-        String ipInfo = LoginAddressUtil.getIpInfo("223.104.145.125");
+        String ipInfo = LoginAddressUtil.getCity("223.104.145.125");
         System.out.println(ipInfo);
     }
 }

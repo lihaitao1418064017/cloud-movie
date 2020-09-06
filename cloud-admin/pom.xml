@@ -23,6 +23,14 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>2.1.0</version>
         </dependency>
 
         <!-- SpringCloud Ailibaba Nacos -->
@@ -39,6 +47,12 @@
             <version>2.2.1.RELEASE</version>
         </dependency>
 
+
+        <!--健康检查-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
         <!-- SpringBoot Web -->
         <dependency>

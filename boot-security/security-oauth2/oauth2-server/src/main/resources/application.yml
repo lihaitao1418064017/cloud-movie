@@ -60,7 +60,7 @@ security:
       - "/user/checkUnique/**"
       - "/password/forget/**"
       - "/actuator/**"
-      - "/**"      # 开启admin需要放开
+      - "/**"
        #    记住我超时时间
       rememberMeTimeout: 30000
             #    登出 URL

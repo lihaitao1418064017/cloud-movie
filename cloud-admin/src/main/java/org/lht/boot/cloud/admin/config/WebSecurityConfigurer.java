@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 /**
- * @description:
+ * @description: spring security配置
  * @author: LiHaitao
  * @date: 2020/7/15 16:03
  */
@@ -35,6 +35,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                         , adminContextPath + "/login"
                         , adminContextPath + "/actuator/**"
                         , adminContextPath + "/instances/**"
+                        , adminContextPath + "/**"
+
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()

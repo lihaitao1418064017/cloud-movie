@@ -19,7 +19,7 @@ spring:
       admin:
         client:
           enabled: true
-          url: http://localhost:9100
+          url: http://localhost:8888
 
 #           打开健康检查全部端点 不配置admin只能监控一部分信息
 management:
