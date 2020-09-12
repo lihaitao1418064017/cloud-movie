@@ -1,6 +1,6 @@
 package com.xxl.job.admin.controller;
 
-import com.xxl.job.admin.service.LoginService;
+import org.hhy.xxl.job.admin.service.LoginService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;

@@ -1,6 +1,7 @@
 package com.xxl.job.admin.dao;
 
-import com.xxl.job.admin.core.model.XxlJobLogGlue;
+import org.hhy.xxl.job.admin.core.model.XxlJobLogGlue;
+import org.hhy.xxl.job.admin.dao.XxlJobLogGlueDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

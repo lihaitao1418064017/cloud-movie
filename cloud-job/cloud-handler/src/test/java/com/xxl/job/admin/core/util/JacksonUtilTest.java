@@ -1,12 +1,13 @@
 package com.xxl.job.admin.core.util;
 
+import org.hhy.xxl.job.admin.core.util.JacksonUtil;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.xxl.job.admin.core.util.JacksonUtil.writeValueAsString;
+import static org.hhy.xxl.job.admin.core.util.JacksonUtil.writeValueAsString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
