@@ -12,7 +12,7 @@ import lombok.Data;
  **/
 @Data
 @TableName("user")
-public class User extends TreeEntity<String, User> {
+public class User extends BaseCrudEntity<String> {
 
     @TableId(type = IdType.UUID)
     private String id;
