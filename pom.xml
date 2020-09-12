@@ -30,6 +30,8 @@
         <module>boot-security</module>
         <module>cloud-commons</module>
         <module>boot-commons</module>
+        <module>cloud-job</module>
+        <module>cloud-movie</module>
     </modules>
 
 

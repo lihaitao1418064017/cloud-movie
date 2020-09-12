@@ -4,10 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.lht.boot</groupId>
-        <artifactId>commons</artifactId>
+        <artifactId>boot-commons</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>org.lht.boot</groupId>
     <artifactId>boot-cache</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>boot-cache</name>
@@ -44,7 +43,7 @@
             <artifactId>redisson</artifactId>
             <version>3.11.6</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -54,7 +53,7 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
