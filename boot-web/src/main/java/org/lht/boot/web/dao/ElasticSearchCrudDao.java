@@ -48,7 +48,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 @Slf4j
 public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Serializable> implements EsCrudDao<E, PK> {
 
-    @Autowired
+    @Autowired(required = false)
     private JestClient jestClient;
     protected EsEntity esEntity;
     protected Integer searchMaxSize;
