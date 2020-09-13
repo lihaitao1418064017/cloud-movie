@@ -27,11 +27,12 @@
     </properties>
 
     <modules>
-        <module>boot-security</module>
         <module>cloud-commons</module>
         <module>boot-commons</module>
         <module>cloud-job</module>
+        <module>boot-security</module>
         <module>cloud-movie</module>
+        <module>cloud-crawl</module>
     </modules>
 
 
