@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cloud-job</artifactId>
     <description>cloud-movie's job framework</description>
+    <packaging>pom</packaging>
 
     <modules>
         <module>cloud-executor</module>
