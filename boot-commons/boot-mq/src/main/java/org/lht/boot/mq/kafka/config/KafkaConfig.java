@@ -21,7 +21,7 @@ public class KafkaConfig {
     private ProducerFactory producerFactory;
 
     @Bean
-    @ConditionalOnProperty(prefix = "spring.kafka", name = "enable", havingValue = "true", matchIfMissing = false)
+//    @ConditionalOnProperty(prefix = "spring.kafka", name = "enable", havingValue = "true", matchIfMissing = false)
     public <K, V> KafkaSender<K, V> kafkaSender() {
         return new KafkaSender<K, V>(producerFactory, new KafkaProducerListener<>());
     }

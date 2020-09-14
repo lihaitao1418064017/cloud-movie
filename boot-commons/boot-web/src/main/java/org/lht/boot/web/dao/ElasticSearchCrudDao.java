@@ -28,6 +28,7 @@ import org.lht.boot.web.common.util.JestUtil;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
 import org.lht.boot.web.domain.entity.EsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -46,6 +47,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  * @date 2020/1/2 18:23
  **/
 @Slf4j
+@NoRepositoryBean
 public class ElasticSearchCrudDao<E extends BaseCrudEntity<PK>, PK extends Serializable> implements EsCrudDao<E, PK> {
 
     @Autowired(required = false)
