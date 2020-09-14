@@ -1,4 +1,4 @@
-package org.hhy.cloud.crawl.config;
+package org.hhy.cloud.crawl.utils;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;

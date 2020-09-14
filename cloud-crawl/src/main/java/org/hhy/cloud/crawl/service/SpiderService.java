@@ -7,4 +7,7 @@ package org.hhy.cloud.crawl.service;
  * @Created by yupeng
  */
 public interface SpiderService {
+
+
+
 }

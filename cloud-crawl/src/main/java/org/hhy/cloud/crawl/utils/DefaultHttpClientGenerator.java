@@ -1,4 +1,4 @@
-package org.hhy.cloud.crawl.config;
+package org.hhy.cloud.crawl.utils;
 
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
@@ -51,7 +51,11 @@ public class DefaultHttpClientGenerator {
     private SSLConnectionSocketFactory buildSSLConnectionSocketFactory() {
         try {
             // 优先绕过安全证书
-            return new SSLConnectionSocketFactory(createIgnoreVerifySSL(), new String[]{"SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"},
+            SSLContext sslContext = createIgnoreVerifySSL();
+            String[] supportedProtocols;
+            supportedProtocols = new String[] { "SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2" };
+            logger.info("supportedProtocols: {}", String.join(", ", supportedProtocols));
+            return new SSLConnectionSocketFactory(sslContext, supportedProtocols,
                     null,
                     new DefaultHostnameVerifier());
         } catch (KeyManagementException | NoSuchAlgorithmException e) {

@@ -1,8 +1,11 @@
 package org.hhy.cloud.crawl;
 
+import org.hhy.cloud.crawl.utils.DefaultHttpClientDownloader;
+import org.hhy.cloud.crawl.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.example.GithubRepo;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 /**
@@ -17,14 +20,15 @@ public class GithubRepoPageProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        page.addTargetRequests(page.getHtml().links().regex("(http://github\\.com/\\w+/\\w+)").all());
-        page.putField("author", page.getUrl().regex("http://github\\.com/(\\w+)/.*").toString());
-        page.putField("name", page.getHtml().xpath("//h1[@class='entry-title public']/strong/a/text()").toString());
-        if (page.getResultItems().get("name")==null){
+        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/\\w+/\\w+)").all());
+        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/\\w+)").all());
+        GithubRepo githubRepo = new GithubRepo();
+        if (githubRepo.getName() == null) {
             //skip this page
             page.setSkip(true);
+        } else {
+            page.putField("repo", githubRepo);
         }
-        page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
     }
 
     @Override
@@ -33,7 +37,12 @@ public class GithubRepoPageProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) {
-        Spider.create(new GithubRepoPageProcessor()).addUrl("https://github.com/code4craft").thread(5).run();
+        Spider.create(new GithubRepoPageProcessor())
+                .addUrl("https://github.com/code4craft")
+                .addPipeline(new ConsolePipeline())
+                .setDownloader(new DefaultHttpClientDownloader())
+                .thread(1)
+                .run();
     }
 
 }
