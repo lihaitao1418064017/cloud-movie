@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class CloudCrawlKafkaConsumer {
 
 
-    @KafkaListener
+    @KafkaListener(topics = {"cloud_movie_data"})
     public void listener(ConsumerRecord record, Consumer consumer) {
 
         Map<TopicPartition, OffsetAndMetadata> currentOffset = new HashMap<>();

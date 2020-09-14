@@ -54,10 +54,11 @@ public class KafkaConfig {
      * enable.auto.commit=false
      * enable.idempotence=true kafka幂等性
      */
+
     /**
      * 配置 cloud-crawl 消费工厂
      *
-     * @return
+     * @return 监听工厂
      */
     @Bean("cloudMovieSingleFactory")
     public KafkaListenerContainerFactory<?> singleFactory() {
