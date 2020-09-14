@@ -10,7 +10,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
 
 /**
  * @author LiHaitao
- * @description AbstractMapper:
+ * @description BaseMybatisPlusDao:mybatis的基础dao
  * @date 2019/12/13 16:42
  **/
 public interface BaseMybatisPlusDao<E extends BaseCrudEntity> extends BaseMapper<E> {

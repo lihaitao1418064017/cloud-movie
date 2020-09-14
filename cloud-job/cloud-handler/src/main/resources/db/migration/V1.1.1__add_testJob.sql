@@ -1,0 +1,9 @@
+-- ----------------------------
+-- 添加任务脚本
+-- ----------------------------
+INSERT INTO `xxl_job_info` (`id`, `job_group`, `job_cron`, `job_desc`, `add_time`, `update_time`, `author`, `alarm_email`, `executor_route_strategy`, `executor_handler`, `executor_param`, `executor_block_strategy`, `executor_timeout`, `executor_fail_retry_count`, `glue_type`, `glue_source`, `glue_remark`, `glue_updatetime`, `child_jobid`, `trigger_status`, `trigger_last_time`, `trigger_next_time`)
+VALUES
+  (1, 1, '0/20 0 0 * * ? *', '测试任务1', '2018-11-03 22:21:31', '2020-09-12 16:17:51', 'XXL', '', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 0, 0, 1600099200000)
+  , (2, 1, '0/1 * * * * ? *', '测试任务2', '2020-09-12 11:21:44', '2020-09-12 16:06:52', 'liuhao', '1477083138@qq.com', 'FIRST', 'shardingJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2020-09-12 11:21:44', '', 0, 0, 0)
+  , (3, 1, '0/30 * * * * ? *', '测试任务3', '2020-09-12 11:23:04', '2020-09-12 16:16:10', 'liuhao', '1477083138@qq.com', 'FIRST', '', '', 'SERIAL_EXECUTION', 0, 0, 'GLUE_GROOVY', 'package com.xxl.job.service.handler;\n\nimport com.xxl.job.core.log.XxlJobLogger;\nimport com.xxl.job.core.biz.model.ReturnT;\nimport com.xxl.job.core.handler.IJobHandler;\n\npublic class DemoGlueJobHandler extends IJobHandler {\n\n	@Override\n	public ReturnT<String> execute(String param) throws Exception {\n		XxlJobLogger.log(\"XXL-JOB, Hello World.\");\n		return ReturnT.SUCCESS;\n	}\n\n}\n', '第一次测试', '2020-09-12 11:23:30', '', 0, 0, 0)
+  , (4, 1, '0/1 * * * * ? *', '删除日志', '2020-09-12 15:40:11', '2020-09-12 16:03:40', 'dfs', '', 'FIRST', '', '', 'SERIAL_EXECUTION', 0, 0, 'GLUE_SHELL', '#!/bin/bash\necho \"xxl-job: hello shell\"\n\necho \"脚本位置：$0\"\necho \"任务参数：$1\"\necho \"分片序号 = $2\"\necho \"分片总数 = $3\"\n\necho \"Good bye!\"\nexit 0\n', 'GLUE代码初始化', '2020-09-12 15:40:11', '', 0, 0, 0);

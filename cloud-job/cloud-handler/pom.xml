@@ -89,6 +89,13 @@
 			<version>${mysql-connector-java.version}</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>6.0.8</version>
+		</dependency>
+
 		<!-- xxl-job-core -->
 		<dependency>
 			<groupId>com.xuxueli</groupId>

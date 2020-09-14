@@ -36,7 +36,21 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.lht.boot</groupId>
+            <artifactId>boot-mq</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.lht.boot</groupId>
+            <artifactId>boot-lang</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- xxl-job-core -->
         <dependency>
             <groupId>com.xuxueli</groupId>
