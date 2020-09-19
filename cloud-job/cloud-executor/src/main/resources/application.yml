@@ -20,3 +20,20 @@ spring:
     enabled: false
     locations: classpath:db/migration
     baseline-version: 1.1.0
+##数据源配置
+  datasource:
+    rbac:
+      url: jdbc:mysql://47.99.216.57:3306/cloud-movie?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+    cloud-movie:
+      url: jdbc:mysql://106.12.74.222:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      username: liuhao
+      password: mypassword!
+cloud:
+  crawl:
+    kafka:
+      bootstrap-servers: 192.168.56.103:9092,192.168.56.106:9092,192.168.56.107:9092
+      session-timeout-ms: 15000
+      group-id: cloud-crawl
+

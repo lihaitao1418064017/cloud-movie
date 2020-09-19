@@ -58,6 +58,17 @@
             <version>2.2.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.lht.boot</groupId>
+            <artifactId>boot-web</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
 

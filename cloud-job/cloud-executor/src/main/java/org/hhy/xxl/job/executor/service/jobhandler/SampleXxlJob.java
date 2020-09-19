@@ -1,20 +1,31 @@
 package org.hhy.xxl.job.executor.service.jobhandler;
 
+import com.google.common.collect.Lists;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
+import org.hhy.xxl.crud.dao.MysqlCurdDao;
+import org.hhy.xxl.job.executor.bean.Actor;
+import org.lht.boot.lang.util.IpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,6 +43,16 @@ public class SampleXxlJob {
     private static Logger logger = LoggerFactory.getLogger(SampleXxlJob.class);
 
 
+    @Resource(name = "rbacJdbcTemplate")
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+    private MysqlCurdDao<Actor,String> mysqlCurdDao ;
+
+    @PostConstruct
+    private void initDao(){
+        mysqlCurdDao = new MysqlCurdDao<>(jdbcTemplate);
+    }
+
     /**
      * 1、简单任务示例（Bean模式）
      */
@@ -39,10 +60,34 @@ public class SampleXxlJob {
     public ReturnT<String> demoJobHandler(String param) throws Exception {
         XxlJobLogger.log("XXL-JOB, Hello World.");
 
-        for (int i = 0; i < 5; i++) {
-            XxlJobLogger.log("beat at:" + i);
-            TimeUnit.SECONDS.sleep(2);
-        }
+        List<Actor> actores = mysqlCurdDao.selectList("select * from actor",new HashMap<>(16));
+        XxlJobLogger.log("select :"+actores);
+
+        Actor actor = new Actor();
+        actor.setId("7");
+        actor.setArea("fs");
+        actor.setBirthday("234");
+        actor.setName("fsdf");
+        actor.setVocational("12");
+        actor.setCreatorUser("crss");
+        actor.setCreateTime(1111L);
+        actor.setStatus(1);
+        actor.setUpdateTime(111L);
+        actor.setUpdateUser("sfsf");
+        //mysqlCurdDao.add(actor);
+        Actor actor1 = new Actor();
+        actor1.setId("8");
+        actor1.setArea("fs");
+        actor1.setBirthday("234");
+        actor1.setName("fsdf");
+        actor1.setVocational("12");
+        actor1.setCreatorUser("crss");
+        actor1.setCreateTime(1111L);
+        actor1.setStatus(1);
+        actor1.setUpdateTime(111L);
+        actor1.setUpdateUser("sfsf");
+        List<String> k = mysqlCurdDao.add(Lists.newArrayList(actor,actor1));
+        XxlJobLogger.log("batch add :"+k);
         return ReturnT.SUCCESS;
     }
 
