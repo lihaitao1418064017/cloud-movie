@@ -21,4 +21,7 @@ public class SpiderContentTest {
     @ApiModelProperty(notes = "字段xpath")
     private String xpath;
 
+    @ApiModelProperty(notes = "类型")
+    private String type;
+
 }

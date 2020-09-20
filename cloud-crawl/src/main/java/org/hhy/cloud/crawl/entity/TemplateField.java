@@ -30,6 +30,7 @@ public class TemplateField {
 
     /**
      * 类型
+     * eg: 文本；文件
      */
     private String type;
 

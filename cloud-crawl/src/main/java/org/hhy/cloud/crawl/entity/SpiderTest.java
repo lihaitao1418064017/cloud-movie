@@ -12,12 +12,19 @@ import lombok.Data;
 public class SpiderTest {
 
 
+    /**
+     * 测试页面URL
+     */
     private String testUrl;
 
-
+    /**
+     * 页面中正则表达式
+     */
     private String regex;
 
-
+    /**
+     * 提取内容
+     */
     private String xpath;
 
 }

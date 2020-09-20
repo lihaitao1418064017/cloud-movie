@@ -2,22 +2,23 @@ package org.hhy.cloud.crawl.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * @Classname SpiderTemplate
- * @Description 爬虫模板类
+ * @Classname MySpider
+ * @Description 爬虫类
  * @Date 2020/9/14 11:26 PM
  * @Created by yupeng
  */
 @Data
-public class SpiderTemplate {
+public class MySpider {
 
 
-    @ApiModelProperty(notes = "爬虫模板ID")
+    @ApiModelProperty(notes = "爬虫ID")
     private String id;
-
 
     @ApiModelProperty(notes = "爬虫名")
     private String name;
@@ -28,12 +29,8 @@ public class SpiderTemplate {
     @ApiModelProperty(notes = "入口页urL")
     private String url;
 
-    @ApiModelProperty(notes = "url正则")
-    private String urlRegular;
-
     @ApiModelProperty(notes = "动态字段")
-    private List<TemplateField> fields;
-
+    private List<TemplatePage> pages;
 
     // 爬虫设置
     @ApiModelProperty(notes = "线程数")
@@ -53,5 +50,9 @@ public class SpiderTemplate {
 
     @ApiModelProperty(notes = "下载页面超时时间 单位秒")
     private Integer timeOut;
+
+
+    @Transient
+    private Map<String/*字段名*/, String/*xpath*/> fields;
 
 }

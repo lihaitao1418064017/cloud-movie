@@ -1,12 +1,14 @@
 package org.hhy.cloud.crawl;
 
 import org.hhy.cloud.crawl.utils.DefaultHttpClientDownloader;
-import org.hhy.cloud.crawl.pipeline.ConsolePipeline;
+import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.example.GithubRepo;
+import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
+
+import java.util.List;
 
 /**
  * @Classname GithubRepoPageProcessor
@@ -20,15 +22,17 @@ public class GithubRepoPageProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/\\w+/\\w+)").all());
-        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/\\w+)").all());
-        GithubRepo githubRepo = new GithubRepo();
-        if (githubRepo.getName() == null) {
-            //skip this page
+        List<String> targetUrl = page.getHtml().xpath("//*div[@class='recommendations-bd").links().regex("https://movie\\.douban\\.com/subject.*").all();
+        page.addTargetRequests(targetUrl);
+        String content = page.getHtml().xpath("//div[@id='content']/h1/span[1]/text()").get();
+
+        // 非法数据，跳过
+        if (StringUtils.isEmpty(content)) {
             page.setSkip(true);
-        } else {
-            page.putField("repo", githubRepo);
+        }else {
+            page.putField("title", content);
         }
+
     }
 
     @Override
@@ -38,7 +42,7 @@ public class GithubRepoPageProcessor implements PageProcessor {
 
     public static void main(String[] args) {
         Spider.create(new GithubRepoPageProcessor())
-                .addUrl("https://github.com/code4craft")
+                .addUrl("https://movie.douban.com/subject/26662193/?from=showing")
                 .addPipeline(new ConsolePipeline())
                 .setDownloader(new DefaultHttpClientDownloader())
                 .thread(1)
