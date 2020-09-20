@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 public class SampleXxlJob {
     private static Logger logger = LoggerFactory.getLogger(SampleXxlJob.class);
 
-
+/*
     @Resource(name = "rbacJdbcTemplate")
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -51,7 +51,12 @@ public class SampleXxlJob {
     @PostConstruct
     private void initDao(){
         mysqlCurdDao = new MysqlCurdDao<>(jdbcTemplate);
-    }
+    }*/
+
+
+
+    @Resource(name = "cloudMovieDao")
+    public MysqlCurdDao<Actor,String> cloudMovieDao;
 
     /**
      * 1、简单任务示例（Bean模式）
@@ -60,7 +65,7 @@ public class SampleXxlJob {
     public ReturnT<String> demoJobHandler(String param) throws Exception {
         XxlJobLogger.log("XXL-JOB, Hello World.");
 
-        List<Actor> actores = mysqlCurdDao.selectList("select * from actor",new HashMap<>(16));
+        List<Actor> actores = cloudMovieDao.selectList("select * from actor",new HashMap<>(16));
         XxlJobLogger.log("select :"+actores);
 
         Actor actor = new Actor();
@@ -86,7 +91,7 @@ public class SampleXxlJob {
         actor1.setStatus(1);
         actor1.setUpdateTime(111L);
         actor1.setUpdateUser("sfsf");
-        List<String> k = mysqlCurdDao.add(Lists.newArrayList(actor,actor1));
+        List<String> k = cloudMovieDao.add(Lists.newArrayList(actor,actor1));
         XxlJobLogger.log("batch add :"+k);
         return ReturnT.SUCCESS;
     }

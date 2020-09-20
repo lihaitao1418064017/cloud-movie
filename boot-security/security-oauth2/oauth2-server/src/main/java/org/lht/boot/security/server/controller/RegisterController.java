@@ -46,6 +46,7 @@ public class RegisterController {
         if (!PasswordUtil.match(userRegisterVO.getPassword(), PasswordUtil.SIMPLE_ROLE)) {
             return R.error("密码规则不正确!");
         }
+
         return R.ok(userInfoService.register(userRegisterVO));
     }
 

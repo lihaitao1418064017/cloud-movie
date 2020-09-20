@@ -1,5 +1,6 @@
 package org.hhy.xxl.crud.config;
 
+import org.hhy.xxl.crud.dao.MysqlCurdDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -39,4 +40,15 @@ public class JDBCTemplateConfig {
     public NamedParameterJdbcTemplate movieNamedParameterJdbcTemplate(){
         return new NamedParameterJdbcTemplate(cloudMovieDatasource);
     }
+
+    @Bean("rbacDao")
+    public MysqlCurdDao rbacDao(){
+        return new MysqlCurdDao(rbacNamedParameterJdbcTemplate());
+    }
+
+    @Bean("cloudMovieDao")
+    public MysqlCurdDao cloudMovieDao(){
+        return new MysqlCurdDao(movieNamedParameterJdbcTemplate());
+    }
+
 }

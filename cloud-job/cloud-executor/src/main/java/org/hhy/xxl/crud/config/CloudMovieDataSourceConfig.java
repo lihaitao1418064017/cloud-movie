@@ -16,21 +16,13 @@ import javax.sql.DataSource;
  * @description cloud-movie相关数据库配置
 */
 @Configuration
-@ConfigurationProperties(prefix = "spring.datasource.cloud-movie")
 @Data
 public class CloudMovieDataSourceConfig {
 
-    private String url;
-    private String username;
-    private String password;
-
     @Bean(name = "cloudMovieDataSource")
     @Qualifier("cloudMovieDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.cloud-movie")
     public DataSource dataSource(){
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        return dataSource;
+        return new DruidDataSource();
     }
 }

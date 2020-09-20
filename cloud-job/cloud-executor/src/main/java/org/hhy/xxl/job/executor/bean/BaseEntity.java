@@ -4,7 +4,7 @@ import lombok.Data;
 import org.hhy.xxl.crud.annotation.TableField;
 
 @Data
-public abstract class BaseEntity<PK>{
+public abstract class BaseEntity<PK> implements Entity<PK>{
 
     /**
      * 状态码，0无效，1有效

@@ -41,4 +41,5 @@ public class Actor extends BaseEntity<String> {
     private String vocational;
 
 
+
 }

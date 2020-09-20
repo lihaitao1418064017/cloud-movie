@@ -9,6 +9,7 @@ import org.hhy.xxl.crud.annotation.Table;
 import org.hhy.xxl.crud.annotation.TableField;
 import org.hhy.xxl.job.executor.bean.Actor;
 import org.hhy.xxl.job.executor.bean.BaseEntity;
+import org.hhy.xxl.job.executor.bean.Entity;
 import org.lht.boot.lang.util.ClassUtil;
 import org.lht.boot.lang.util.ReflectionUtil;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -378,7 +379,8 @@ public class MysqlCurdDao<E extends BaseEntity<PK> , PK extends Serializable> im
             //将主键字段信息维护在primaryKeyFieldName中,此处为实体类字段名
             primaryKeyFieldName = primaryKeyField.get(0).getName();
         }else {
-            throw new RuntimeException("未设置主键异常");
+            primaryKeyFieldName= BaseEntity.ID;
+//            throw new RuntimeException("未设置主键异常");
         }
     }
 

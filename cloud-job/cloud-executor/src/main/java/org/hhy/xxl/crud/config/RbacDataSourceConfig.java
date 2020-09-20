@@ -18,7 +18,6 @@ import javax.sql.DataSource;
  * @description rbac相关数据源配置类
 */
 @Configuration
-@ConfigurationProperties(prefix = "spring.datasource.rbac")
 @Data
 public class RbacDataSourceConfig {
 
@@ -28,12 +27,9 @@ public class RbacDataSourceConfig {
 
     @Bean(name = "rbacDataSource")
     @Qualifier("rbacDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.rbac")
     public DataSource dataSource(){
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        return dataSource;
+        return new DruidDataSource();
     }
 
 }
