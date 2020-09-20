@@ -22,7 +22,7 @@ import java.util.Map;
 public class CloudCrawlKafkaConsumer {
 
 
-    @KafkaListener(topics = {"cloud_movie_data"})
+    @KafkaListener(topics = {"cloud_movie_data"},containerFactory = "cloudMovieSingleFactory")
     public void listener(ConsumerRecord record, Consumer consumer) {
 
         Map<TopicPartition, OffsetAndMetadata> currentOffset = new HashMap<>();
