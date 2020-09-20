@@ -7,31 +7,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.hhy.xxl.crud.annotation.ID;
 import org.hhy.xxl.crud.annotation.Table;
 import org.hhy.xxl.crud.annotation.TableField;
-import org.hhy.xxl.job.executor.bean.Actor;
 import org.hhy.xxl.job.executor.bean.BaseEntity;
-import org.hhy.xxl.job.executor.bean.Entity;
 import org.lht.boot.lang.util.ClassUtil;
 import org.lht.boot.lang.util.ReflectionUtil;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.sql.Ref;
-import java.sql.ResultSet;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 /**
  * @author LiuHao
