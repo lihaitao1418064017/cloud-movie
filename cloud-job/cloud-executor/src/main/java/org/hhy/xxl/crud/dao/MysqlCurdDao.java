@@ -17,9 +17,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -50,7 +52,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
             WILDCARD_CONSTANT = "*",
             EMPTY_CONSTANT = "";
 
-    private   NamedParameterJdbcTemplate jdbcTemplate;
+    private  NamedParameterJdbcTemplate jdbcTemplate;
     /**
      * class类型
      */
@@ -72,14 +74,16 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
     private String primaryKeyFieldName;
 
     @SuppressWarnings("unchecked")
-    public MysqlCurdDao(NamedParameterJdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-
+    public MysqlCurdDao(/*NamedParameterJdbcTemplate jdbcTemplate*/) {
+        //this.jdbcTemplate = jdbcTemplate;
         this.entityType = (Class<E>) ClassUtil.getGenericType(this.getClass(), 0);
-//        this.entityType = (Class<Actor>)new Actor().getClass();
         //获取实体E上的注解
         this.table = ClassUtil.getAnnotation(this.entityType, Table.class);
         initTableField();
+    }
+
+    protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     /**
@@ -117,7 +121,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
         String sql = DELETE_SQL.replace(TABLE_NAME_PLACEHOLDER, getTableName())
                 .replace(WHERE_PLACEHOLDER, WHERE_CONSTANT)
                 .replace(WHERE_CONDITION_PLACEHOLDER,
-                        primaryKeyName + "= exist ( :" + primaryKeyName + " )");
+                        primaryKeyName + " in ( :" + primaryKeyName + " )");
         log.debug(sql);
         Map<String, Object> param = Maps.newHashMap();
         param.put(primaryKeyName, ids);
@@ -139,24 +143,29 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
     /**
      * ============ SQL_TEMPLATE : INSERT INTO {tableName} ({name,age}) VALUES ({:name,:age}) ================
      **/
-    @SuppressWarnings("unchecked")
+
+    /**
+     * 插入成功则返回主键，否则返回null
+     * @param e
+     * @return
+     */
     @Override
     public PK add(E e) {
         String sql = INSERT_SQL.replace(TABLE_NAME_PLACEHOLDER, getTableName())
                 .replace(COLUMN_NAMES_PLACEHOLDER, generateColumnNames())
                 .replace(COLUMN_VALUES_PLACEHOLDER, generateColumnValues());
         log.debug(sql);
-        return (PK) Integer.valueOf(insert(sql, generateParams(e)));
+        return insert(sql, generateParams(e)) < 1 ? null : getPrimaryKeyValue(e) ;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <S extends E> List<PK> add(Collection<S> entities) {
         String sql = INSERT_SQL.replace(TABLE_NAME_PLACEHOLDER, getTableName())
                 .replace(COLUMN_NAMES_PLACEHOLDER, generateColumnNames())
                 .replace(COLUMN_VALUES_PLACEHOLDER, generateColumnValues());
-        log.debug(sql);
-        return (List<PK>) Lists.newArrayList(batchInsert(sql, generateParams(entities)));
+        log.info(sql);
+        batchInsert(sql,generateParams(entities));
+        return entities.stream().map(this::getPrimaryKeyValue).collect(Collectors.toList());
     }
 
     /** =========== add function end ======*/
@@ -186,7 +195,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
         String sql = SELECT_SQL.replace(COLUMN_NAMES_PLACEHOLDER, generateColumnNames())
                 .replace(TABLE_NAME_PLACEHOLDER, getTableName())
                 .replace(WHERE_PLACEHOLDER, WHERE_CONSTANT)
-                .replace(WHERE_CONDITION_PLACEHOLDER, primaryKeyName + "= exist (:" + primaryKeyName + ")")
+                .replace(WHERE_CONDITION_PLACEHOLDER, primaryKeyName + " in (:" + primaryKeyName + ")")
                 .replace(EXT_CONDITION_PLACEHOLDER, EMPTY_CONSTANT)
                 .trim();
 
@@ -211,31 +220,35 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
 
     /** ==========  update function start =======**/
     /*** ============ SQL_TEMPLATE : UPDATE {tableName} SET {updateClause} {where} {whereCondition} ============**/
+    /**
+     * 更新数据成功则返回主键，否则返回null
+     * @param e
+     * @return
+     */
     @Override
     public PK update(E e) {
         String primaryKeyName = getPrimaryKeyFieldName();
+        PK primaryKeyValue = getPrimaryKeyValue(e);
         String sql = UPDATE_SQL.replace(TABLE_NAME_PLACEHOLDER, getTableName())
-                .replace(UPDATE_CLAUSE_PLACEHOLDER, "")
+                .replace(UPDATE_CLAUSE_PLACEHOLDER, generateUpdateClause())
                 .replace(WHERE_PLACEHOLDER, WHERE_CONSTANT)
                 .replace(WHERE_CONDITION_PLACEHOLDER, primaryKeyName + "=:" + primaryKeyName)
                 .trim();
-        Map<String, Object> param = Maps.newHashMap();
-        param.put(primaryKeyName, getPrimaryKeyValue(e));
-        update(sql, param);
-        /*待商榷*/
-        return null;
+        Map<String, Object> param = generateParams(e);
+        //param.put(primaryKeyName, primaryKeyValue);
+        return update(sql, param) < 1 ? null : primaryKeyValue;
     }
-
     @Override
     public List<PK> update(Collection<E> entities) {
         String primaryKeyName = getPrimaryKeyFieldName();
         String sql = UPDATE_SQL.replace(TABLE_NAME_PLACEHOLDER, getTableName())
-                .replace(UPDATE_CLAUSE_PLACEHOLDER, "")
+                .replace(UPDATE_CLAUSE_PLACEHOLDER, generateUpdateClause())
                 .replace(WHERE_PLACEHOLDER, WHERE_CONSTANT)
                 .replace(WHERE_CONDITION_PLACEHOLDER, primaryKeyName + "=:" + primaryKeyName)
                 .trim();
-        /*待完成*/
-        return null;
+        Map<String, Object> [] params = generateParams(entities);
+        batchUpdate(sql,params);
+        return entities.stream().map(this::getPrimaryKeyValue).collect(Collectors.toList());
     }
 
     @Override
@@ -286,7 +299,6 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
     public List<E> selectList(String sql, Map<String, Object> paramMap) {
         List<E> result;
         try {
-            /*result = jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(eClass));*/
             result = jdbcTemplate.queryForList(sql, paramMap).stream().map(this::map2Bean).collect(toList());
         } catch (EmptyResultDataAccessException e) {
             //query 查询如果没有数据，jdbcTemplate会空结果异常，需要让使用者主动处理
@@ -469,6 +481,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
      */
     @SuppressWarnings("unchecked")
     private <S extends E> Map<String, Object>[] generateParams(Collection<S> entities) {
+        log.info("values:{}",entities.stream().map(this::generateParams).collect(toList()));
         return entities.stream().map(this::generateParams).collect(toList()).toArray(new HashMap[entities.size()]);
     }
 
@@ -478,7 +491,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
      * @param map 数据map
      * @return {E}
      */
-    private E map2Bean(Map<String, Object> map) {
+    protected E map2Bean(Map<String, Object> map) {
         E entity = ReflectionUtil.newInstance(entityType);
         List<Field> fields = ReflectionUtil.getAccessibleFields(this.entityType);
         fields.forEach(field -> {
@@ -515,5 +528,14 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
             throw new RuntimeException("主键值为空");
         }
         return pk;
+    }
+
+    /**
+     * 生成更新set语句
+     * @return
+     */
+    private String generateUpdateClause(){
+        return entityTableFieldMap.values().stream().map(tableFieldName -> tableFieldName+"=:"+tableFieldName)
+                .collect(Collectors.joining(","));
     }
 }

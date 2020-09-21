@@ -5,6 +5,7 @@ import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
+import org.hhy.xxl.crud.dao.ActorDao;
 import org.hhy.xxl.crud.dao.MysqlCurdDao;
 import org.hhy.xxl.job.executor.bean.Actor;
 import org.lht.boot.lang.util.IpUtils;
@@ -55,8 +56,10 @@ public class SampleXxlJob {
 
 
 
-    @Resource(name = "cloudMovieDao")
-    public MysqlCurdDao<Actor,String> cloudMovieDao;
+
+
+    @Autowired
+    public ActorDao actorDao;
 
     /**
      * 1、简单任务示例（Bean模式）
@@ -65,7 +68,7 @@ public class SampleXxlJob {
     public ReturnT<String> demoJobHandler(String param) throws Exception {
         XxlJobLogger.log("XXL-JOB, Hello World.");
 
-        List<Actor> actores = cloudMovieDao.selectList("select * from actor",new HashMap<>(16));
+        List<Actor> actores = actorDao.selectList("select * from actor",new HashMap<>(16));
         XxlJobLogger.log("select :"+actores);
 
         Actor actor = new Actor();
@@ -91,7 +94,7 @@ public class SampleXxlJob {
         actor1.setStatus(1);
         actor1.setUpdateTime(111L);
         actor1.setUpdateUser("sfsf");
-        List<String> k = cloudMovieDao.add(Lists.newArrayList(actor,actor1));
+        List<String> k = actorDao.add(Lists.newArrayList(actor,actor1));
         XxlJobLogger.log("batch add :"+k);
         return ReturnT.SUCCESS;
     }

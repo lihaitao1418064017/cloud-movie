@@ -27,9 +27,9 @@ spring:
       username: root
       password: root
     cloud-movie:
-      url: jdbc:mysql://106.12.74.222:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
-      username: liuhao
-      password: mypassword!
+      url: jdbc:mysql://47.99.216.57:3306/cloud-movie?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
 cloud:
   crawl:
     kafka:
