@@ -37,4 +37,11 @@ public class JDBCTemplateConfig {
         return new NamedParameterJdbcTemplate(cloudMovieDatasource);
     }
 
+    @Bean
+    public ActorDao actorDao(){
+        ActorDao actorDao =  new ActorDao();
+        //注入相应的数据源NamedParameterJdbcTemplate
+        actorDao.setJdbcTemplate(movieNamedParameterJdbcTemplate());
+        return actorDao;
+    }
 }

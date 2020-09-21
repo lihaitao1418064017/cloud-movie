@@ -1,7 +1,6 @@
 package org.hhy.xxl.crud.dao;
 
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.hhy.xxl.crud.annotation.ID;
@@ -16,8 +15,6 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.util.StringUtils;
-
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -52,7 +49,11 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
             WILDCARD_CONSTANT = "*",
             EMPTY_CONSTANT = "";
 
-    private  NamedParameterJdbcTemplate jdbcTemplate;
+
+    /**
+     * jdbcTemplate模板类
+     */
+    protected   NamedParameterJdbcTemplate jdbcTemplate;
     /**
      * class类型
      */
