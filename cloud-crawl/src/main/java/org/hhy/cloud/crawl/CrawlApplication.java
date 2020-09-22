@@ -11,7 +11,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @Date 2020/9/13 6:52 PM
  * @Created by yupeng
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"org.lht.boot.web", "org.lht.boot.mq"})
 public class CrawlApplication extends SpringBootServletInitializer {
 
 

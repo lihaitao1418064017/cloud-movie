@@ -1,10 +1,8 @@
-package org.hhy.cloud.crawl.entity;
+package org.hhy.cloud.crawl.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.lht.boot.web.domain.entity.BaseCrudEntity;
+import org.hhy.cloud.crawl.entity.TemplateField;
+import org.lht.boot.web.domain.vo.AbstractVO;
 
 /**
  * @Classname TemplateFieldVO
@@ -13,12 +11,8 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
  * @Created by yupeng
  */
 @Data
-@TableName("template_field")
-public class TemplateField extends BaseCrudEntity<String> {
+public class TemplateFieldVO extends AbstractVO<TemplateField, String> {
 
-
-    @TableId(type = IdType.AUTO)
-    private String id;
 
     /**
      * 页面id

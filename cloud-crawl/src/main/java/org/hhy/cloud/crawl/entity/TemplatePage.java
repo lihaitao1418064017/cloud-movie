@@ -1,24 +1,27 @@
 package org.hhy.cloud.crawl.entity;
 
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import org.lht.boot.web.domain.entity.BaseCrudEntity;
+
 /**
  * @Classname TemplatePage
  * @Description 页面解析规则
  * @Date 2020/9/17 11:13 PM
  * @Created by yupeng
  */
-
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
-import java.util.List;
-
-/**
- * 页面信息
- */
 @Data
-public class TemplatePage {
+@TableName("template_page")
+public class TemplatePage extends BaseCrudEntity<String> {
 
 
+    private String id;
+
+    /**
+     * 任务id
+     */
+    private String jobId;
     /**
      * 页面名称
      * eg: 列表页，详情页
@@ -30,6 +33,4 @@ public class TemplatePage {
      */
     private String urlRegex;
 
-    @ApiModelProperty(notes = "动态字段")
-    private List<TemplateField> fields;
 }

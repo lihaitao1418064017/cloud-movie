@@ -1,12 +1,10 @@
-package org.hhy.cloud.crawl.entity;
+package org.hhy.cloud.crawl.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
-import org.hhy.cloud.crawl.entity.enums.JobStatusEnums;
-import org.lht.boot.web.domain.entity.BaseCrudEntity;
+import org.hhy.cloud.crawl.entity.Job;
+import org.lht.boot.web.domain.vo.AbstractVO;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @Classname Job
@@ -15,7 +13,7 @@ import java.util.List;
  * @Created by yupeng
  */
 @Data
-public class Job extends BaseCrudEntity<String> {
+public class JobVO extends AbstractVO<Job, String> {
 
 
     private String id;
@@ -43,8 +41,7 @@ public class Job extends BaseCrudEntity<String> {
     /**
      * 动态字段
      */
-    @TableField(exist = false)
-    private List<TemplatePage> pages;
+    private TemplatePageVO pages;
 
     /**
      * 线程数
@@ -83,18 +80,6 @@ public class Job extends BaseCrudEntity<String> {
     /**
      * 爬取数量
      */
-    @TableField(exist = false)
     private Long successNum;
-
-
-    Job convertBySpider(CustomSpider spider) {
-        Job job = new Job();
-        job.setSpiderId(spider.getId());
-        job.setSpiderName(spider.getName());
-        job.setCreateTime(System.currentTimeMillis());
-        job.setStatus(JobStatusEnums.WAIT.getCode());
-        return job;
-
-    }
 
 }

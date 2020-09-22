@@ -1,4 +1,4 @@
-package org.hhy.cloud.crawl.service.Impl;
+package org.hhy.cloud.crawl.service.impl;
 
 import org.hhy.cloud.crawl.service.SpiderService;
 import org.springframework.stereotype.Service;
