@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.util.StringUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -29,7 +30,7 @@ import static java.util.stream.Collectors.toList;
  */
 @Slf4j
 @NoRepositoryBean
-public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> implements BaseCrudDao<E, PK> {
+public abstract class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> implements BaseCrudDao<E, PK> {
 
     /**
      * SQL_TEMPLATE 常量
@@ -53,7 +54,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
     /**
      * jdbcTemplate模板类
      */
-    protected   NamedParameterJdbcTemplate jdbcTemplate;
+    protected NamedParameterJdbcTemplate jdbcTemplate;
     /**
      * class类型
      */
@@ -83,16 +84,19 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
         initTableField();
     }
 
-    protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-    }
+
+    //    protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate){
+    //        this.jdbcTemplate = jdbcTemplate;
+    //    }
+
+    abstract protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate);
 
     /**
      * 使用原生方法时调用
      *
      * @return NamedParameterJdbcTemplate
      */
-    protected NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+    protected NamedParameterJdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
 
@@ -147,6 +151,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
 
     /**
      * 插入成功则返回主键，否则返回null
+     *
      * @param e
      * @return
      */
@@ -156,7 +161,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
                 .replace(COLUMN_NAMES_PLACEHOLDER, generateColumnNames())
                 .replace(COLUMN_VALUES_PLACEHOLDER, generateColumnValues());
         log.debug(sql);
-        return insert(sql, generateParams(e)) < 1 ? null : getPrimaryKeyValue(e) ;
+        return insert(sql, generateParams(e)) < 1 ? null : getPrimaryKeyValue(e);
     }
 
     @Override
@@ -165,7 +170,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
                 .replace(COLUMN_NAMES_PLACEHOLDER, generateColumnNames())
                 .replace(COLUMN_VALUES_PLACEHOLDER, generateColumnValues());
         log.info(sql);
-        batchInsert(sql,generateParams(entities));
+        batchInsert(sql, generateParams(entities));
         return entities.stream().map(this::getPrimaryKeyValue).collect(Collectors.toList());
     }
 
@@ -223,6 +228,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
     /*** ============ SQL_TEMPLATE : UPDATE {tableName} SET {updateClause} {where} {whereCondition} ============**/
     /**
      * 更新数据成功则返回主键，否则返回null
+     *
      * @param e
      * @return
      */
@@ -239,6 +245,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
         //param.put(primaryKeyName, primaryKeyValue);
         return update(sql, param) < 1 ? null : primaryKeyValue;
     }
+
     @Override
     public List<PK> update(Collection<E> entities) {
         String primaryKeyName = getPrimaryKeyFieldName();
@@ -247,8 +254,8 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
                 .replace(WHERE_PLACEHOLDER, WHERE_CONSTANT)
                 .replace(WHERE_CONDITION_PLACEHOLDER, primaryKeyName + "=:" + primaryKeyName)
                 .trim();
-        Map<String, Object> [] params = generateParams(entities);
-        batchUpdate(sql,params);
+        Map<String, Object>[] params = generateParams(entities);
+        batchUpdate(sql, params);
         return entities.stream().map(this::getPrimaryKeyValue).collect(Collectors.toList());
     }
 
@@ -435,7 +442,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
             primaryKeyFieldName = primaryKeyField.get(0).getName();
         } else {
             primaryKeyFieldName = BaseEntity.ID;
-//            throw new RuntimeException("未设置主键异常");
+            //            throw new RuntimeException("未设置主键异常");
         }
     }
 
@@ -482,7 +489,7 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
      */
     @SuppressWarnings("unchecked")
     private <S extends E> Map<String, Object>[] generateParams(Collection<S> entities) {
-        log.info("values:{}",entities.stream().map(this::generateParams).collect(toList()));
+        log.info("values:{}", entities.stream().map(this::generateParams).collect(toList()));
         return entities.stream().map(this::generateParams).collect(toList()).toArray(new HashMap[entities.size()]);
     }
 
@@ -533,10 +540,11 @@ public class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializable> imp
 
     /**
      * 生成更新set语句
+     *
      * @return
      */
-    private String generateUpdateClause(){
-        return entityTableFieldMap.values().stream().map(tableFieldName -> tableFieldName+"=:"+tableFieldName)
+    private String generateUpdateClause() {
+        return entityTableFieldMap.values().stream().map(tableFieldName -> tableFieldName + "=:" + tableFieldName)
                 .collect(Collectors.joining(","));
     }
 }
