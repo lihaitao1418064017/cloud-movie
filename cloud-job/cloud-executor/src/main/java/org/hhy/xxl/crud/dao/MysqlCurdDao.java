@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -88,8 +89,8 @@ public abstract class MysqlCurdDao<E extends BaseEntity<PK>, PK extends Serializ
     //    protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate){
     //        this.jdbcTemplate = jdbcTemplate;
     //    }
-
-    abstract protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate);
+    @PostConstruct
+    abstract protected void setJdbcTemplate();
 
     /**
      * 使用原生方法时调用
