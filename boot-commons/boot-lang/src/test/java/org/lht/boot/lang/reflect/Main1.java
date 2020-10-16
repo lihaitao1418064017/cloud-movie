@@ -1,7 +1,6 @@
 package org.lht.boot.lang.reflect;
 
 import org.junit.jupiter.api.Test;
-import org.lht.boot.lang.TestObject;
 
 /**
  * @author LiHaitao
@@ -11,9 +10,10 @@ import org.lht.boot.lang.TestObject;
 public class Main1 {
 
     @Test
-    public void test01() {
-        Class aClass = TestObject.class;
-        aClass.getSuperclass();
+    public void test01() throws ClassNotFoundException {
+        Class<?> name = Class.forName("org.lht.boot.lang.suanfa.Solution");
 
+
+        System.err.println(name.getSimpleName());
     }
 }
