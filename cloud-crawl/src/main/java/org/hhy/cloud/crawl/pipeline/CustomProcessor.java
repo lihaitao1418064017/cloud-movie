@@ -3,6 +3,7 @@ package org.hhy.cloud.crawl.pipeline;
 import cn.hutool.core.collection.CollectionUtil;
 import org.hhy.cloud.crawl.entity.CustomSpider;
 import org.hhy.cloud.crawl.entity.TemplatePage;
+import org.hhy.cloud.crawl.vo.TemplateFieldVO;
 import org.hhy.cloud.crawl.vo.TemplatePageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import us.codecraft.webmagic.Page;
@@ -10,8 +11,12 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.hhy.cloud.crawl.SinaBlogProcessor.URL_LIST;
+import static org.hhy.cloud.crawl.SinaBlogProcessor.URL_POST;
 
 /**
  * @description: 自定义Processor
@@ -25,53 +30,55 @@ public class CustomProcessor implements PageProcessor {
     @Autowired
     private Site site;
 
-    Map<String, Map<String, Object>> map = new HashMap<>();
 
     @Override
     public void process(Page page) {
 
         TemplatePageVO templatePageVO = customSpider.getPages();
-        //如果是列表页
-        if (page.getUrl().regex(templatePageVO.getUrlRegex()).match()) {
-            //            map.put(page.get)
+
+        //判断页面规则
+        String urlRegex = templatePageVO.getUrlRegex();
+
+
+        //列表页
+        if (page.getUrl().regex(urlRegex).match()) {
+
+            //获取列表页的各个字段的解析规则等信息
+            List<TemplateFieldVO> listFields = templatePageVO.getListFields();
+
+            //列表页列表长度
+            int size = page.getHtml().xpath(templatePageVO.getKeyXpath()).links().all().size();
+
+            for (int i = 0; i < size; i++) {
+
+                Map<String, Object> valueMap = new LinkedHashMap<>();
+
+                //获取列表和详情页的关联属性，即为map的key
+                String key = page.getHtml().xpath(templatePageVO.getKeyXpath()).links().regex(templatePageVO.getKeyRegex()).nodes().get(i).get();
+
+                //将列表页需要的各个字段信息记录
+                for (TemplateFieldVO listField : listFields) {
+                    String value = page.getHtml().xpath(listField.getXpathRule()).links().regex(listField.getRegex()).nodes().get(i).get();
+                    valueMap.put(listField.getName(), value);
+                }
+                //将列表页数据放入page，key为列表页和详情页的关联值，value为获取到的所有信息字段
+                page.putField(key, valueMap);
+            }
+
+            //文章页
+        } else {
+            List<TemplateFieldVO> detailFields = templatePageVO.getDetailFields();
+            String key = page.getRequest().getUrl();
+            Map<String, Object> valueMap =new LinkedHashMap<>();
+            detailFields.forEach(detailField -> {
+                //将详情页属性put进去
+                valueMap.put(detailField.getName(), page.getHtml().xpath(detailField.getXpathRule()).regex(detailField.getRegex()));
+            });
+            //根据 列表页的key放入page
+            page.putField(key, valueMap);
         }
 
 
-        String url = page.getRequest().getUrl();
-
-        List<TemplatePage> pages = null;
-        pages.forEach(each -> {
-
-            List<String> listUrl = page
-                    .getHtml()
-                    .links()
-                    .regex(each.getUrlRegex())
-                    .all();
-            //添加新链接
-            page.addTargetRequests(listUrl);
-            if (CollectionUtil.isEmpty(map)) {
-                listUrl.forEach(u -> {
-                    Map<String, Object> values = map.get(url);
-                    if (CollectionUtil.isEmpty(values)) {
-                        values.put(url, url);
-                    }
-                });
-            } else {
-
-                // TODO: 2020/9/22  
-                Map<String, Object> map = this.map.get(url);
-
-                //                List<TemplateField> fields = each.get();
-                //                fields.forEach(field -> {
-                //                    //put<key：字段名 value：爬取值>
-                //                    map.put(field.getName(), page
-                //                            .getHtml()
-                //                            .xpath(field.getXpathRule()));
-                //                });
-
-                page.putField(url, map);
-            }
-        });
     }
 
 
