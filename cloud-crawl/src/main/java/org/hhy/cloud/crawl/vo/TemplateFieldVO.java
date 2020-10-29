@@ -34,6 +34,10 @@ public class TemplateFieldVO extends AbstractVO<TemplateField, String> {
      * 解析规则
      */
     private String xpathRule;
+    /**
+     * 正则
+     */
+    private String regex;
 
     /**
      * 排序

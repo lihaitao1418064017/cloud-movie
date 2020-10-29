@@ -37,6 +37,11 @@ public class TemplateField extends BaseCrudEntity<String> {
     private String name;
 
     /**
+     * 正则
+     */
+    private String regex;
+
+    /**
      * 解析规则
      */
     private String xpathRule;

@@ -33,11 +33,23 @@ public class TemplatePageVO extends AbstractVO<TemplatePage, String> {
     private String urlRegex;
 
     /**
+     * xpath,用来获取列表页的列表长度和获取列表页的key
+     * 详情页的key为page.getRequest().getUrl();
+     */
+    private String keyXpath;
+
+    /**
+     * ,用来获取列表页的列表长度和获取列表页的key
+     * 详情页的key为page.getRequest().getUrl();
+     */
+    private String keyRegex;
+
+    /**
      * 列表页动态字段
      */
-    private List<TemplateField> listFields;
+    private List<TemplateFieldVO> listFields;
     /**
      * 详情页动态字段
      */
-    private List<TemplateField> detailFields;
+    private List<TemplateFieldVO> detailFields;
 }

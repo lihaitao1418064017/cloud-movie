@@ -4,15 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import org.hhy.cloud.crawl.constant.CrawlConstant;
 import org.lht.boot.mq.kafka.producer.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -29,26 +27,28 @@ public class CustomPipeline implements Pipeline {
 
     Map<String, LinkedHashMap<String, String>> itemHolder = new ConcurrentHashMap<>();
 
+    //todo redis实现
+
     @Override
     public void process(ResultItems resultItems, Task task) {
 
+        Map<String, Object> valueMap = resultItems.getAll();
+        valueMap.forEach((k, v) -> {
+            //如果不等于null则正常情况下是详情页，找到列表页的数据，将详情页数据加上
+            if (itemHolder.get(k) != null) {
+                //获取列表页数据
+                LinkedHashMap<String, String> map = itemHolder.get(k);
+                //加上详情页数据
+                map.putAll((LinkedHashMap)v);
+                String data = JSONObject.toJSONString(map);
+                kafkaSender.send(CrawlConstant.CRAWL_TOPIC, data);
+                itemHolder.remove(k);
+            } else {
+                //列表页直接put进去
+                itemHolder.put(k, (LinkedHashMap<String, String>) v);
+            }
+        });
 
-        String requestUrl = resultItems.getRequest().getUrl();
-        Map<String, Object> resultMap = resultItems.getAll();
-        //合并数据
-        LinkedHashMap<String, String> item = itemHolder.get(requestUrl);
-        //把暂存的数据删了 防止内存溢出
-        itemHolder.remove(requestUrl);
 
-        resultMap.forEach((k, v) -> item.put(k, ((List) v).get(0).toString()));
-        //保存
-        final List<LinkedHashMap<String, String>> resultList = new ArrayList<>();
-        resultList.add(item);
-
-        // 保存数据
-
-
-        String content = JSONObject.toJSONString(resultItems.getAll());
-        kafkaSender.send(CrawlConstant.CRAWL_TOPIC, content);
     }
 }
