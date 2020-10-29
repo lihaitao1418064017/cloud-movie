@@ -14,16 +14,34 @@ public interface JobService extends BaseCrudService<Job, String> {
     /**
      * 根据id更新job状态
      *
-     * @param id
-     * @param status
+     * @param id     jobId
+     * @param status 要更新的状态
      * @return
      */
     String updateJobStatus(String id, Integer status);
 
+    /**
+     * 更新成功状态
+     *
+     * @param id jobId
+     * @return
+     */
     String updateSuccess(String id);
 
+    /**
+     * 更新失败状态
+     *
+     * @param id jobId
+     * @return
+     */
     String updateFail(String id);
 
+    /**
+     * 更新running状态
+     *
+     * @param id jobId
+     * @return
+     */
     String updateRunning(String id);
 
 

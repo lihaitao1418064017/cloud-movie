@@ -48,18 +48,23 @@ public class SpiderControlServiceImpl implements SpiderControlService {
      * 运行爬虫任务线程池
      * 通过这种方式创建线程池：ThreadFactoryBuilder
      * 定义线程的名称
+     * <p>
+     * **当队列满后创建新的线程达到maximumPoolSize；达到maximumPoolSize的线程被丢弃**
      */
     private ExecutorService spiderExecutor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() * 2
-            , Runtime.getRuntime().availableProcessors() * 4
+            , Runtime.getRuntime().availableProcessors() * 10
+            //当线程数大于核心时，多于的空闲线程最多存活时间
             , 0
             , TimeUnit.SECONDS
-            , new LinkedBlockingQueue<>()
+            //无界阻塞队列，当添加速度大于移除速度会内存溢出
+            , new LinkedBlockingQueue<>(1024)
             , new ThreadFactoryBuilder().setNameFormat("spider-pool-%d").build()
             , new ThreadPoolExecutor.AbortPolicy());
 
 
     @Override
     public void startSpider(JobVO job) {
+
         // 更新任务状态-运行中
         jobService.updateRunning(job.getId());
         // 根据Job.getSpiderId获取爬虫配置

@@ -4,13 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import org.hhy.cloud.crawl.constant.CrawlConstant;
 import org.lht.boot.mq.kafka.producer.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -39,9 +39,11 @@ public class CustomPipeline implements Pipeline {
                 //获取列表页数据
                 LinkedHashMap<String, String> map = itemHolder.get(k);
                 //加上详情页数据
-                map.putAll((LinkedHashMap)v);
+                map.putAll((LinkedHashMap) v);
                 String data = JSONObject.toJSONString(map);
+
                 kafkaSender.send(CrawlConstant.CRAWL_TOPIC, data);
+
                 itemHolder.remove(k);
             } else {
                 //列表页直接put进去
