@@ -1,7 +1,6 @@
 package org.lht.boot.mq.kafka.consumer;
 
 import lombok.extern.slf4j.Slf4j;
-import org.lht.boot.mq.kafka.entity.KafkaMessage;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -15,23 +14,23 @@ import org.springframework.stereotype.Component;
 public class KafkaConsumer {
 
 
-    @KafkaListener(topics = {"order"}, containerFactory = "basicKafkaListenerContainerFactory")
-    public void listener(KafkaMessage<String> message) {
+    @KafkaListener(topics = {"test_order"})
+    public void listener(String message) {
         log.info("message:{}", message);
         System.err.println("333333333333333333333333");
 
     }
 
-    @KafkaListener(topics = "order")
-    public void listener1(String message) {
-        log.info("message1:{}", message);
-        System.err.println("222222222222222222222");
-
-    }
-
-    @KafkaListener(topics = {"order"})
-    public void listener2(String message) {
-        log.info("message2:{}", message);
-        System.err.println("111111111111111111111111111");
-    }
+    //    @KafkaListener(topics = "order")
+    //    public void listener1(String message) {
+    //        log.info("message1:{}", message);
+    //        System.err.println("222222222222222222222");
+    //
+    //    }
+    //
+    //    @KafkaListener(topics = {"order"})
+    //    public void listener2(String message) {
+    //        log.info("message2:{}", message);
+    //        System.err.println("111111111111111111111111111");
+    //    }
 }

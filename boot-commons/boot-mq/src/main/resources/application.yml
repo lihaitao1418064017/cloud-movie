@@ -1,8 +1,8 @@
 spring:
   kafka:
-    bootstrap-servers: 47.99.216.57:9092
+    bootstrap-servers: 10.68.7.133:19092
     consumer:
-      group-id: test1
+      group-id: cvf
       auto-offset-reset: earliest
       auto-commit-interval: 3000s
 # 相关详细配置     http://kafka.apachecn.org/documentation.html#producerconfigs

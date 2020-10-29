@@ -13,9 +13,16 @@ spring:
   redis:
     host: 47.99.216.57
     port: 6379
+  kafka:
+    bootstrap-servers: 47.99.216.57:9092
+    producer:
+      acks: -1
+      compression-type: lz4
+      batch-size: 32k
+      retries: 1
 
 
-mybatis
+#mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔

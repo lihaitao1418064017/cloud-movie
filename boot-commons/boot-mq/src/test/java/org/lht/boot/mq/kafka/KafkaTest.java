@@ -64,8 +64,8 @@ public class KafkaTest {
 
     @Test
     public void test01() {
-        String topic = "order";
+        String topic = "test_order";
 
-        kafkaSender.send(topic, "nihao");
+        kafkaSender.send(topic, "nihao1");
     }
 }

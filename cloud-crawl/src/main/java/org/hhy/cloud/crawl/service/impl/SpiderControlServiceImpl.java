@@ -49,8 +49,13 @@ public class SpiderControlServiceImpl implements SpiderControlService {
      * 通过这种方式创建线程池：ThreadFactoryBuilder
      * 定义线程的名称
      */
-    private ExecutorService spiderExecutor = new ThreadPoolExecutor(8, 8, 0, TimeUnit.SECONDS, new LinkedBlockingQueue<>(),
-            new ThreadFactoryBuilder().setNameFormat("spider-pool-%d").build(), new ThreadPoolExecutor.AbortPolicy());
+    private ExecutorService spiderExecutor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() * 2
+            , Runtime.getRuntime().availableProcessors() * 4
+            , 0
+            , TimeUnit.SECONDS
+            , new LinkedBlockingQueue<>()
+            , new ThreadFactoryBuilder().setNameFormat("spider-pool-%d").build()
+            , new ThreadPoolExecutor.AbortPolicy());
 
 
     @Override

@@ -41,7 +41,7 @@ public class DeviceSummaryVO {
      */
     private String deptParentId;
 
-    private String deptId;
+    private String deptId = "123";
 
     private List<DeviceSummaryVO> children = Lists.newArrayList();
 

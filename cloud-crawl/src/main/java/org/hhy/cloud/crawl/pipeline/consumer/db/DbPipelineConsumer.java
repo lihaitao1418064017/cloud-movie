@@ -19,7 +19,6 @@ public class DbPipelineConsumer {
     @KafkaListener(topics = {CRAWL_TOPIC})
     public void listener(String message) {
 
-
     }
 
 }

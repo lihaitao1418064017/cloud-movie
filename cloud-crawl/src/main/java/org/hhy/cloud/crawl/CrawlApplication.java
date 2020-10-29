@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.kafka.annotation.EnableKafka;
 
 /**
  * @Classname org.hhy.cloud.crawl.CrawlApplication
@@ -11,6 +12,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @Date 2020/9/13 6:52 PM
  * @Created by yupeng
  */
+@EnableKafka
 @SpringBootApplication(scanBasePackages = {"org.lht.boot.web", "org.lht.boot.mq"})
 public class CrawlApplication extends SpringBootServletInitializer {
 
