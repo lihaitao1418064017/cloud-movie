@@ -76,13 +76,23 @@ public class SpiderControlServiceImpl implements SpiderControlService {
 
         // 启动爬虫
         try {
+
             spider.run();
+            for (; ; ) {
+                Spider.Status status = spider.getStatus();
+
+                if (status.equals(Spider.Status.Stopped)) {
+                    jobService.updateSuccess(job.getId());
+                }
+                if (status.equals(Spider.Status.Running)) {
+                    jobService.updateRunning(job.getId());
+                }
+
+            }
         } catch (Exception e) {
             log.info("爬虫执行异常，任务id：{}, error:{}", job.getId(), e.getMessage());
             jobService.updateFail(job.getId());
-            return;
         }
-        jobService.updateSuccess(job.getId());
     }
 
     @Override

@@ -1,15 +1,15 @@
 package org.hhy.cloud.crawl;
 
+import org.hhy.cloud.crawl.monitor.CustomSpiderMonitor;
+import org.hhy.cloud.crawl.monitor.CustomSpiderStatusMXBean;
 import org.hhy.cloud.crawl.pipeline.CustomPipeline;
-import org.hhy.cloud.crawl.pipeline.CustomProcessor;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.selector.Selectable;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.management.JMException;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Classname SinaBlogProcessor
@@ -37,25 +37,18 @@ public class SinaBlogProcessor implements PageProcessor {
 
         //列表页
         if (page.getUrl().regex(URL_LIST).match()) {
-            Selectable selectable = page.getHtml().xpath("//div[@class=\"articleList\"]").links().regex(URL_POST).nodes().get(0);
-            Selectable selectable1 = page.getHtml().xpath("//div[@class=\"articleList\"]").links().regex(URL_POST).nodes().get(1);
 
 
             page.addTargetRequests(page.getHtml().xpath("//div[@class=\"articleList\"]").links().regex(URL_POST).all());
             page.addTargetRequests(page.getHtml().links().regex(URL_LIST).all());
-
-            Map<String,Object> map=new HashMap<>();
-            map.put("key",2);
-            page.putField("url",map);
-
             //文章页
         } else {
 
             String s = page.getUrl().get();
             page.putField("title", page.getHtml().xpath("//div[@class='articalTitle']/h2"));
             page.putField("content", page.getHtml().xpath("//div[@id='articlebody']//div[@class='articalContent']"));
-//            page.putField("date",
-//                    page.getHtml().xpath("//div[@id='articlebody']//span[@class='time SG_txtc']").regex("\\((.*)\\)"));
+            //            page.putField("date",
+            //                    page.getHtml().xpath("//div[@id='articlebody']//span[@class='time SG_txtc']").regex("\\((.*)\\)"));
         }
     }
 
@@ -64,10 +57,17 @@ public class SinaBlogProcessor implements PageProcessor {
         return site;
     }
 
-    public static void main(String[] args) {
-        Spider.create(new SinaBlogProcessor())
-                .addUrl("http://blog.sina.com.cn/s/articlelist_1487828712_0_1.html")
+    public static void main(String[] args) throws JMException {
+        Spider spider = Spider.create(new SinaBlogProcessor());
+        spider.setUUID("123");
+        CustomSpiderMonitor register = CustomSpiderMonitor.instance().register(spider);
+        spider.addUrl("http://blog.sina.com.cn/s/articlelist_1487828712_0_1.html")
                 .addPipeline(new CustomPipeline())
                 .run();
+
+        ConcurrentHashMap<String, CustomSpiderStatusMXBean> spiderStatusMXBeanMap = register.getSpiderStatusMXBeanMap();
+        CustomSpiderStatusMXBean customSpiderStatusMXBean = spiderStatusMXBeanMap.get("123");
+        customSpiderStatusMXBean.getErrorPageCount();
+
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author by yupeng
- * @Classname SpiderContrService
+ * @Classname SpiderControlService
  * @Description 爬虫控制类
  * @Date 2020/9/19 11:50 PM
  */
