@@ -1,6 +1,8 @@
 package org.hhy.cloud.crawl.entity;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
@@ -16,6 +18,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
 public class TemplatePage extends BaseCrudEntity<String> {
 
 
+    @TableId(type = IdType.UUID)
     private String id;
 
     /**
@@ -32,5 +35,14 @@ public class TemplatePage extends BaseCrudEntity<String> {
      * url 正则
      */
     private String urlRegex;
+
+    private String keyXpath;
+
+    private String keyRegex;
+
+    /**
+     * 网站url
+     */
+    private String url;
 
 }

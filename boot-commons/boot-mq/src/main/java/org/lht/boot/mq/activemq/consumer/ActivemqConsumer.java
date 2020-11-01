@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @description ActivemqConsumer:
  * @date 2020/2/28 15:11
  **/
-@Component
+//@Component
 @Slf4j
 public class ActivemqConsumer {
 

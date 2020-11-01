@@ -17,7 +17,7 @@ import org.lht.boot.web.domain.entity.BaseCrudEntity;
 public class TemplateField extends BaseCrudEntity<String> {
 
 
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.UUID)
     private String id;
 
     /**
@@ -53,7 +53,7 @@ public class TemplateField extends BaseCrudEntity<String> {
 
     /**
      * 类型
-     * eg: 文本；文件
+     * eg: 0: 文本；1: 文件
      */
     private String type;
 

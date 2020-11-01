@@ -14,7 +14,7 @@ import static org.hhy.cloud.crawl.constant.CrawlConstant.CRAWL_TOPIC;
 public class ElasticSearchPipelineConsumer {
 
 
-    @KafkaListener(topics = {CRAWL_TOPIC})
+//    @KafkaListener(topics = {CRAWL_TOPIC})
     public void listener(String message) {
 
 

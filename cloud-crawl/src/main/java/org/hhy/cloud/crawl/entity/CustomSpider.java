@@ -44,7 +44,7 @@ public class CustomSpider {
     private Integer threadNum;
 
     /**
-     * 每个页面处理完后的睡眠时间 单位秒
+     * 每个页面处理完后的睡眠时间 单位
      */
     private Integer sleepTime;
 

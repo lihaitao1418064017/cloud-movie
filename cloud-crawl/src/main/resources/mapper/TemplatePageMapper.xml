@@ -8,46 +8,32 @@
         <result column="job_id" property="jobId"/>
         <result column="template_page_name" property="name"/>
         <result column="url_regex" property="urlRegex"/>
-        <collection property="listFields" ofType="org.hhy.cloud.crawl.vo.TemplateFieldVO">
-            <discriminator javaType="int" column="detail_or_list">
-                <case value="1">
-                    <id column="id" property="id"/>
-                    <result column="page_id" property="pageId"/>
-                    <result column="name" property="name"/>
-                    <result column="xpath_rule" property="xpathRule"/>
-                    <result column="sort_index" property="sortIndex"/>
-                    <result column="type" property="type"/>
-                    <result column="detail_or_list" property="detailOrList"/>
-                </case>
-            </discriminator>
-
-        </collection>
-        <collection property="detailFields" ofType="org.hhy.cloud.crawl.vo.TemplateFieldVO">
-            <discriminator javaType="int" column="detail_or_list">
-                <case value="0">
-                    <id column="id" property="id"/>
-                    <result column="page_id" property="pageId"/>
-                    <result column="name" property="name"/>
-                    <result column="xpath_rule" property="xpathRule"/>
-                    <result column="sort_index" property="sortIndex"/>
-                    <result column="type" property="type"/>
-                    <result column="detail_or_list" property="detailOrList"/>
-                </case>
-            </discriminator>
+        <result column="key_xpath" property="keyXpath"/>
+        <result column="key_regex" property="keyRegex"/>
+        <collection property="fields" ofType="org.hhy.cloud.crawl.vo.TemplateFieldVO">
+            <id column="id" property="id"/>
+            <result column="page_id" property="pageId"/>
+            <result column="name" property="name"/>
+            <result column="regex" property="regex"/>
+            <result column="xpath_rule" property="xpathRule"/>
+            <result column="sort_index" property="sortIndex"/>
+            <result column="type" property="type"/>
+            <result column="detail_or_list" property="detailOrList"/>
         </collection>
     </resultMap>
 
 
-    <select id="selectTemplatePageVO" resultType="org.hhy.cloud.crawl.vo.TemplatePageVO">
+    <select id="selectTemplatePageVO" resultType="org.hhy.cloud.crawl.vo.TemplatePageVO" resultMap="TemplatePageVO">
         SELECT
             p.id        AS template_page_id,
             p.job_id    AS job_id,
             p.`name`    AS template_page_name,
             p.url_regex AS url_regex,
+            p.key_xpath AS key_xpath,
+            p.key_regex AS key_regex,
             f.*
         FROM
-            template_page p
-            LEFT JOIN template_field f ON p.id = f.page_id
+            template_page p , template_field f where p.id = f.page_id
                                           AND p.job_id = #{jobId};
     </select>
 

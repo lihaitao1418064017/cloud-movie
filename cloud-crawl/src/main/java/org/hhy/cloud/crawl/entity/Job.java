@@ -1,12 +1,11 @@
 package org.hhy.cloud.crawl.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.hhy.cloud.crawl.entity.enums.JobStatusEnums;
 import org.lht.boot.web.domain.entity.BaseCrudEntity;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @Classname Job
@@ -15,15 +14,13 @@ import java.util.List;
  * @Created by yupeng
  */
 @Data
+@TableName("job")
 public class Job extends BaseCrudEntity<String> {
 
 
+    @TableId(type = IdType.UUID)
     private String id;
 
-    /**
-     * 爬虫id
-     */
-    private String spiderId;
 
     /**
      * 爬虫名称
@@ -40,11 +37,6 @@ public class Job extends BaseCrudEntity<String> {
      */
     private String url;
 
-    /**
-     * 动态字段
-     */
-    @TableField(exist = false)
-    private List<TemplatePage> pages;
 
     /**
      * 线程数
@@ -78,7 +70,7 @@ public class Job extends BaseCrudEntity<String> {
     /**
      * 完成时间
      */
-    private LocalDateTime endTime;
+    private Long endTime;
 
     /**
      * 爬取数量
@@ -86,15 +78,5 @@ public class Job extends BaseCrudEntity<String> {
     @TableField(exist = false)
     private Long successNum;
 
-
-    Job convertBySpider(CustomSpider spider) {
-        Job job = new Job();
-        job.setSpiderId(spider.getId());
-        job.setSpiderName(spider.getName());
-        job.setCreateTime(System.currentTimeMillis());
-        job.setStatus(JobStatusEnums.WAIT.getCode());
-        return job;
-
-    }
 
 }

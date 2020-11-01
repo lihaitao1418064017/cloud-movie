@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @description KafkaConsumer:
  * @date 2020/1/16 14:51
  **/
-@Component
+//@Component
 @Slf4j
 public class KafkaConsumer {
 

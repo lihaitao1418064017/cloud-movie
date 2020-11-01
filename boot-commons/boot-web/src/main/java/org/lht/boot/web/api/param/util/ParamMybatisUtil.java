@@ -29,10 +29,6 @@ public class ParamMybatisUtil {
      * @return
      */
     public static <E> QueryWrapper<E> toQueryWrapper(Param queryParam) {
-        queryParam.addTerm(Term.build("",""))
-                .addTerm(Term.build("",""))
-                .or("","");
-
         List<Term> terms = queryParam.getTerms();
         QueryWrapper<E> queryWrapper = new QueryWrapper<E>();
         buildFieldsWrapper(queryParam, queryWrapper);

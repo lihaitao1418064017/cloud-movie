@@ -1,6 +1,7 @@
 package org.hhy.cloud.crawl.pipeline;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.hhy.cloud.crawl.constant.CrawlConstant;
 import org.lht.boot.mq.kafka.producer.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2020/9/22 9:53
  **/
 @Component
+@Slf4j
 public class CustomPipeline implements Pipeline {
 
 
-    @Autowired
+    /**
+     * 去掉
+     */
+//    @Autowired(required = false)
     private KafkaSender<String, String> kafkaSender;
 
     Map<String, LinkedHashMap<String, String>> itemHolder = new ConcurrentHashMap<>();
@@ -41,8 +46,8 @@ public class CustomPipeline implements Pipeline {
                 //加上详情页数据
                 map.putAll((LinkedHashMap) v);
                 String data = JSONObject.toJSONString(map);
-
-                kafkaSender.send(CrawlConstant.CRAWL_TOPIC, data);
+                log.info("视频结构化数据为：{}", data);
+//                kafkaSender.send(CrawlConstant.CRAWL_TOPIC, data);
 
                 itemHolder.remove(k);
             } else {
@@ -51,6 +56,7 @@ public class CustomPipeline implements Pipeline {
             }
         });
 
+        log.info("*****************爬虫结束******************");
 
     }
 }

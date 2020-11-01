@@ -1,14 +1,18 @@
 package org.hhy.cloud.crawl.pipeline;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.hhy.cloud.crawl.entity.CustomSpider;
 import org.hhy.cloud.crawl.entity.TemplatePage;
 import org.hhy.cloud.crawl.vo.TemplateFieldVO;
 import org.hhy.cloud.crawl.vo.TemplatePageVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.selector.Selectable;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -23,6 +27,8 @@ import static org.hhy.cloud.crawl.SinaBlogProcessor.URL_POST;
  * @author: LiHaitao
  * @date: 2020/9/22 11:13
  */
+@Component
+@Slf4j
 public class CustomProcessor implements PageProcessor {
 
     private CustomSpider customSpider;
@@ -42,6 +48,8 @@ public class CustomProcessor implements PageProcessor {
 
         //列表页
         if (page.getUrl().regex(urlRegex).match()) {
+
+            page.addTargetRequests(page.getHtml().xpath(templatePageVO.getKeyXpath()).links().regex(templatePageVO.getKeyRegex()).all());
 
             //获取列表页的各个字段的解析规则等信息
             List<TemplateFieldVO> listFields = templatePageVO.getListFields();
@@ -65,17 +73,27 @@ public class CustomProcessor implements PageProcessor {
                 page.putField(key, valueMap);
             }
 
+            log.info("*****************爬虫列表结束******************");
+
+
             //文章页
         } else {
             List<TemplateFieldVO> detailFields = templatePageVO.getDetailFields();
             String key = page.getRequest().getUrl();
-            Map<String, Object> valueMap =new LinkedHashMap<>();
+            Map<String, Object> valueMap = new LinkedHashMap<>();
             detailFields.forEach(detailField -> {
+                Selectable selectable = page.getHtml().xpath(detailField.getXpathRule());
+                if (StrUtil.isNotBlank(detailField.getRegex())) {
+                    selectable=selectable.regex(detailField.getRegex());
+                }
                 //将详情页属性put进去
-                valueMap.put(detailField.getName(), page.getHtml().xpath(detailField.getXpathRule()).regex(detailField.getRegex()));
+                valueMap.put(detailField.getName(), selectable.get());
             });
             //根据 列表页的key放入page
             page.putField(key, valueMap);
+
+            log.info("*****************爬虫详情结束******************");
+
         }
 
 

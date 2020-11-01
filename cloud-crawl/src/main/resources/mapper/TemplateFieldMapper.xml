@@ -2,4 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.hhy.cloud.crawl.dao.TemplateFieldDao">
 
+    <resultMap id="TemplateFieldVO"
+               type="org.hhy.cloud.crawl.vo.TemplateFieldVO">
+        <id column="id" property="id"/>
+        <result column="page_id" property="pageId"/>
+        <result column="name" property="name"/>
+        <result column="regex" property="regex"/>
+        <result column="xpath_rule" property="xpathRule"/>
+        <result column="sort_index" property="sortIndex"/>
+        <result column="type" property="type"/>
+        <result column="detail_or_list" property="detailOrList"/>
+    </resultMap>
+
+
+    <select id="selectFieldsByPageId" resultType="org.hhy.cloud.crawl.vo.TemplateFieldVO" resultMap="TemplateFieldVO">
+        SELECT
+            f.*
+        FROM
+            template_field f where page_id = #{pageId};
+    </select>
+
 </mapper>

@@ -2,6 +2,8 @@ package org.lht.boot.mq.activemq.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.JmsListenerContainerFactory;
@@ -15,6 +17,7 @@ import javax.jms.ConnectionFactory;
  * @date 2020/3/2 14:05
  **/
 @Configuration
+@ConditionalOnProperty(prefix = "activemq", name = "enable", matchIfMissing = false, havingValue = "false")
 public class ActivemqConsumerConfig {
 
 

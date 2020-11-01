@@ -16,7 +16,7 @@ import static org.hhy.cloud.crawl.constant.CrawlConstant.CRAWL_TOPIC;
 public class DbPipelineConsumer {
 
 
-    @KafkaListener(topics = {CRAWL_TOPIC})
+//    @KafkaListener(topics = {CRAWL_TOPIC})
     public void listener(String message) {
 
     }

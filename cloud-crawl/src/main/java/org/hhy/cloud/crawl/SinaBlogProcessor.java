@@ -3,6 +3,7 @@ package org.hhy.cloud.crawl;
 import org.hhy.cloud.crawl.monitor.CustomSpiderMonitor;
 import org.hhy.cloud.crawl.monitor.CustomSpiderStatusMXBean;
 import org.hhy.cloud.crawl.pipeline.CustomPipeline;
+import org.hhy.cloud.crawl.pipeline.CustomProcessor;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -40,7 +41,7 @@ public class SinaBlogProcessor implements PageProcessor {
 
 
             page.addTargetRequests(page.getHtml().xpath("//div[@class=\"articleList\"]").links().regex(URL_POST).all());
-            page.addTargetRequests(page.getHtml().links().regex(URL_LIST).all());
+//            page.addTargetRequests(page.getHtml().links().regex(URL_LIST).all());
             //文章页
         } else {
 
@@ -62,7 +63,7 @@ public class SinaBlogProcessor implements PageProcessor {
         spider.setUUID("123");
         CustomSpiderMonitor register = CustomSpiderMonitor.instance().register(spider);
         spider.addUrl("http://blog.sina.com.cn/s/articlelist_1487828712_0_1.html")
-                .addPipeline(new CustomPipeline())
+//                .addPipeline(new CustomPipeline())
                 .run();
 
         ConcurrentHashMap<String, CustomSpiderStatusMXBean> spiderStatusMXBeanMap = register.getSpiderStatusMXBeanMap();

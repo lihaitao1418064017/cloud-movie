@@ -16,13 +16,6 @@ import java.time.LocalDateTime;
 public class JobVO extends AbstractVO<Job, String> {
 
 
-    private String id;
-
-    /**
-     * 爬虫id
-     */
-    private String spiderId;
-
     /**
      * 爬虫名称
      */
@@ -75,7 +68,7 @@ public class JobVO extends AbstractVO<Job, String> {
     /**
      * 完成时间
      */
-    private LocalDateTime endTime;
+    private Long endTime;
 
     /**
      * 爬取数量

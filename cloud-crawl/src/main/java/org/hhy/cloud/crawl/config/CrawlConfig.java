@@ -26,7 +26,6 @@ public class CrawlConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean(CustomProcessor.class)
     public Site site() {
         return Site
                 .me()
